@@ -3,170 +3,19 @@
 <head>
     <title>關於我｜陳品叡</title>
     <meta charset="UTF-8">
-    <meta name="keywords" content="陳品叡,自我介紹,輔仁大學,圖書資訊學系,北車文城,導師">
-    <meta name="description" content="陳品叡的個人自我介紹、求學經歷與工作經歷">
+    <meta name="keywords" content="陳品叡,自我介紹,輔仁大學,圖書資訊學系">
+    <meta name="description" content="陳品叡的個人自我介紹與求學經歷">
     <meta name="author" content="陳品叡">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-/* 整個網頁 */
-body {
-    font-family: "Microsoft JhengHei", sans-serif;
-    font-size: 18px;
-    line-height: 1.8;
-    background-color: #f4f6f9;
-    color: #333333;
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 20px;
-}
-
-/* 最大標題 */
-h1 {
-    font-size: 40px;
-    color: #234e70;
-    text-align: center;
-    border-bottom: 3px solid #234e70;
-    padding-bottom: 15px;
-}
-
-/* 區塊標題 */
-h2 {
-    font-size: 28px;
-    color: #287271;
-    margin-top: 30px;
-    border-left: 5px solid #287271;
-    padding-left: 12px;
-}
-
-/* 內文 */
-p {
-    font-size: 18px;
-    line-height: 1.8;
-}
-
-/* 清單 */
-ul, ol {
-    font-size: 18px;
-    padding: 20px 20px 20px 45px;
-    background-color: white;
-    border-radius: 8px;
-}
-
-/* 表格 */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: white;
-    font-size: 17px;
-}
-
-th, td {
-    border: 1px solid #cccccc;
-    padding: 12px;
-    text-align: left;
-}
-
-th {
-    background-color: #234e70;
-    color: white;
-}
-
-/* 超連結 */
-a {
-    color: #167d9a;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-/* 個人照片 */
-.my-photo {
-    display: block;
-    width: 250px;
-    max-width: 100%;
-    height: auto;
-    margin: 20px auto;
-    border-radius: 12px;
-}
-
-/* 頁尾分隔線 */
-hr {
-    margin-top: 35px;
-    border: 0;
-    border-top: 1px solid #cccccc;
-}
-
-/* 工作經歷 */
-.work-list {
-    list-style: none;
-    padding: 10px 25px;
-}
-
-.work-list li {
-    padding: 15px 0;
-    border-bottom: 1px solid #e3e7ec;
-}
-
-.work-list li:last-child {
-    border-bottom: none;
-}
-
-.work-title {
-    font-weight: bold;
-    color: #234e70;
-}
-
-.work-date {
-    font-size: 15px;
-    color: #777777;
-}
-
-/* 工作內容（內層清單） */
-.work-list ul {
-    list-style: disc;
-    background-color: transparent;
-    padding: 0 0 0 22px;
-    margin: 8px 0 0 0;
-    font-size: 16px;
-}
-
-.work-list ul li {
-    padding: 3px 0;
-    border-bottom: none;
-}
-
-/* 社群按鈕 */
-.social-btn {
-    display: inline-block;
-    padding: 10px 22px;
-    background-color: #234e70;
-    color: white;
-    border-radius: 8px;
-}
-
-.social-btn:hover {
-    background-color: #287271;
-    text-decoration: none;
-}
-
-/* 工作心得小標題 */
-.work-reflection-title {
-    font-size: 22px;
-    color: #234e70;
-    margin-top: 25px;
-    margin-bottom: 5px;
-}
-
-    </style>
+    <link rel="stylesheet" href="個人簡介.css">
 </head>
 
 <body>
 
     <h1>關於我</h1>
 
-    <img src="file/myphoto.jpg" alt="我個人照片" class="my-photo">
+    <img src="/file/myphoto.jpg" alt="我個人照片" class="my-photo">
+
 
     <h2>自我介紹</h2>
 
@@ -182,47 +31,68 @@ hr {
         我也願意持續學習新知識，期望透過不同的學習與實作經驗，
         不斷提升自己的能力。
     </p>
+	
+   <h2>學習經歷整理</h2>
 
-    <h2>求學經歷</h2>
+    <table border="1">
+        <tr>
+            <th>階段</th>
+            <th>學校名稱</th>
+        </tr>
 
-    <ol>
-        <li>永樂國小</li>
-        <li>民權國中</li>
-        <li>秀峰高中</li>
-        <li>輔仁大學圖書資訊學系</li>
-    </ol>
+        <tr>
+            <td>國小</td>
+            <td>永樂國小</td>
+        </tr>
 
-    <h2>工作經歷</h2>
+        <tr>
+            <td>國中</td>
+            <td>民權國中</td>
+        </tr>
+
+        <tr>
+            <td>高中</td>
+            <td>秀峰高中</td>
+        </tr>
+
+        <tr>
+            <td>大學</td>
+            <td>輔仁大學圖書資訊學系</td>
+        </tr>
+    </table>
+
+	
+	    <h2>工作經歷</h2>
 
     <ul class="work-list">
         <li>
             <div class="work-title">北車文城｜助理導師</div>
             <div class="work-date">2024.09.01 – 2025.08.30</div>
-            <ul>
+			<ul>
                 <li>課堂秩序管理：協助學生簽到、收發聯絡本與安排座位，並於自習與小考時維持教室秩序。</li>
                 <li>批改與成績登錄：於課後批改小考、週考與評量，並將成績登錄至系統。</li>
                 <li>教學行政支援：影印講義、裝訂教材、準備上課器材，並協助課前課後的教室整理。</li>
-                <li>招生與留班協助：配合補習班活動，協助電話招生、發放宣傳單與推廣新課程，協助維持班級續班率。</li>
+				<li>招生與留班協助：配合補習班活動，協助電話招生、發放宣傳單與推廣新課程，協助維持班級續班率。</li>
             </ul>
         </li>
         <li>
             <div class="work-title">北車文城｜帶班導師</div>
             <div class="work-date">2025.09.01 – 2026.06.30</div>
-            <ul>
+			 <ul>
                 <li>學生管理與出勤：負責課前點名、安排座位、維持上課與自習秩序，並追蹤缺席學生狀況，電話向家長確認。</li>
                 <li>課業與考試輔導：發放教材與考卷、批改作業與小考、協助學生訂正，並安排課後或假日補課。</li>
                 <li>家長溝通聯繫：定期向家長回報出勤、考試成績與學習表現，並處理家長的疑問與意見。</li>
                 <li>行政與環境維護：協助櫃檯行政、建立學生資料、為授課老師準備器材與講義，並維護教室環境。</li>
-            </ul>
+			</ul>	
         </li>
         <li>
             <div class="work-title">北車文城｜帶班助理導師</div>
             <div class="work-date">2026.07.01 – 至今</div>
-            <ul>
+		<ul>
                 <li>課堂秩序管理：協助學生簽到、收發聯絡本與安排座位，並於自習與小考時維持教室秩序。</li>
                 <li>批改與成績登錄：於課後批改小考、週考與評量，並將成績登錄至系統。</li>
                 <li>教學行政支援：影印講義、裝訂教材、準備上課器材，並協助課前課後的教室整理。</li>
-                <li>升學規劃與考試諮詢：關心學生升學需求，提供升學資訊、考試相關資訊及選校方向建議，協助學生了解升學管道與規劃未來方向。</li>
+				<li>升學規劃與考試諮詢：關心學生升學需求，提供升學資訊、考試相關資訊及選校方向建議，協助學生了解升學管道與規劃未來方向。</li>
                 <li>學生關懷與狀況追蹤：主動關心學生的課業表現、生活狀況及情緒變化，適時提供協助，並針對學生遇到的問題進行溝通與輔導。</li>
                 <li>家長溝通與聯繫：定期向家長回報學生的出勤、考試成績及學習表現，了解家長需求，並協助處理相關問題與意見。</li>
                 <li>行政事務與環境維護：協助櫃檯行政、建立及整理學生資料，為授課老師準備教學器材與講義，並維護教室環境與日常運作。</li>
@@ -230,8 +100,8 @@ hr {
             </ul>
         </li>
     </ul>
-
-    <h3 class="work-reflection-title">工作心得</h3>
+	
+	<h3 class="work-reflection-title">工作心得</h3>
 
     <p>
         在擔任補習班帶班導師的一年期間，我學會與同事及學生建立良好的互動，
@@ -278,32 +148,7 @@ hr {
         同時，我也期望透過不同的實作經驗，
         培養解決問題的能力，為未來的職涯發展做好準備。
     </p>
-
-    <h2>學習經歷整理</h2>
-
-    <table>
-        <tr>
-            <th>階段</th>
-            <th>學校名稱</th>
-        </tr>
-        <tr>
-            <td>國小</td>
-            <td>永樂國小</td>
-        </tr>
-        <tr>
-            <td>國中</td>
-            <td>民權國中</td>
-        </tr>
-        <tr>
-            <td>高中</td>
-            <td>秀峰高中</td>
-        </tr>
-        <tr>
-            <td>大學</td>
-            <td>輔仁大學圖書資訊學系</td>
-        </tr>
-    </table>
-
+	
     <h2>相關網站</h2>
 
     <p>
@@ -323,7 +168,7 @@ hr {
     <h2>聯絡方式與社群媒體</h2>
 
     <p>
-        Email：
+	    Email：
         <a href="mailto:casperchen390@gmail.com">casperchen390@gmail.com</a>
     </p>
 
