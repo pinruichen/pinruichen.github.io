@@ -2,32 +2,50 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>問阿品任何事</title>
-<style>
-  body { font-family: sans-serif; max-width: 500px; margin: 20px auto; }
-  #chat { border: 1px solid #ccc; height: 350px; overflow-y: auto; padding: 10px; }
-  .me  { text-align: right; color: blue; }
-  .bot { text-align: left;  color: #d33; }
-</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="123.css">
 </head>
 <body>
 
-<h1>問阿品任何事</h1>
-<div id="chat"></div>
-<input id="box" placeholder="想問什麼？">
-<button onclick="send()">送出</button>
+<div class="wrap">
+  <div class="card">
+
+    <div class="top">
+      <div class="avatar">品</div>
+      <div>
+        <div class="name">阿品 · AI 分身</div>
+        <div class="status"><span class="dot"></span>線上　嘴很臭，玻璃心勿入</div>
+      </div>
+    </div>
+
+    <div id="chat"></div>
+
+    <div class="chips" id="chips"></div>
+
+    <div class="bar">
+      <input id="box" placeholder="想問什麼？" onkeydown="if(event.key==='Enter')send()">
+      <button class="send" onclick="send()">送出</button>
+    </div>
+
+    <p class="foot">IG <b>pin.c3r_</b> ・ 陳品叡的個人網站</p>
+
+  </div>
+</div>
 
 <script>
 // 問答資料庫：keys 是關鍵字，reply 是阿品的回答
 const answers = [
   // ===== 禁區（放最前面，一定先攔下來）=====
-  { keys: ["女朋友", "男朋友", "感情", "交往", "單身", "有對象", "喜歡的人", "告白", "曖昧", "脫單", "結婚"], reply: "乾你屁事,你比我家三姑就婆還八卦" },
-  { keys: ["薪水", "收入", "月薪", "時薪", "賺多少", "存款", "有錢", "多少錢"], reply: "在好奇啥 你要給我錢嗎" },
+  { keys: ["女朋友", "男朋友", "感情", "交往", "單身", "有對象", "喜歡的人", "告白", "曖昧", "脫單", "結婚"], reply: "乾你屁事,你比我家三姑六婆還八卦" },
+  { keys: ["薪水", "收入", "月薪", "時薪", "賺多少", "存款", "有錢"], reply: "在好奇啥 你要給我錢嗎" },
 
   // ===== 打招呼 =====
   { keys: ["哈囉", "你好", "嗨", "hello", "hi", "安安", "在嗎"], reply: "笑死，還真的有人會點進來，要問什麼快問。" },
   { keys: ["謝謝", "感謝", "thanks"], reply: "知道就好，不客氣。" },
-  { keys: ["掰", "再見", "bye"], reply: "喔是喔是喔是喔是喔，" },
+  { keys: ["掰", "再見", "bye"], reply: "喔是喔是喔是喔是喔，慢走不送。" },
 
   // ===== 基本資料 =====
   { keys: ["你是誰", "名字", "叫什麼", "怎麼稱呼", "自我介紹", "介紹一下"], reply: "品叡，叫我阿品就好。講話比較直接，玻璃心勿入。" },
@@ -47,7 +65,7 @@ const answers = [
 
   // ===== 遊戲 =====
   { keys: ["遊戲", "打什麼", "玩什麼", "電動", "steam", "手遊", "lol", "英雄聯盟"], reply: "來打特戰阿，最近剛上白金，爽死" },
-  { keys: ["一起玩", "揪", "上線", "有空嗎", "約"], reply: "想約就去 IG 找我：pin.c3r_，不要在這裡問。" },
+  { keys: ["一起玩", "揪", "上線", "有空嗎", "約你", "約出來"], reply: "想約就去 IG 找我：pin.c3r_，不要在這裡問。" },
 
   // ===== 棒球 =====
   { keys: ["棒球", "球隊", "支持哪隊", "愛哪隊", "中華職棒", "mlb", "大谷", "看球", "球賽"], reply: "我支持統一，我說的是統一獅" },
@@ -89,20 +107,24 @@ const answers = [
 
   // ===== 嗆人的 =====
   { keys: ["笨", "白癡", "智障", "爛", "廢物", "垃圾"], reply: "你在屌什麼，確定要跟我比嘴賤嗎？" },
-  { keys: ["哈哈", "笑死", "好笑", "XD", "xd", "w"], reply: "笑點在哪" },
-  { keys: ["好", "ok", "喔", "嗯", "好喔"], reply: "喔是喔是喔是喔是喔。" }
+  { keys: ["哈哈", "笑死", "好笑", "xd"], reply: "笑點在哪" }
 ];
 
 // 找不到關鍵字時的回答
 const fallback = "喔是喔是喔是喔是喔，你問這個我哪知道。";
 
-function send() {
+function send(preset) {
   const box = document.getElementById("box");
-  const text = box.value.trim();
+  const text = (preset || box.value).trim();
   if (text === "") return;
   addMsg(text, "me");
-  addMsg(getReply(text), "bot");
   box.value = "";
+
+  const typing = showTyping();
+  setTimeout(function () {
+    typing.remove();
+    addMsg(getReply(text), "bot");
+  }, 600 + Math.random() * 500);
 }
 
 function getReply(text) {
@@ -129,6 +151,211 @@ function addMsg(text, who) {
   chat.appendChild(div);
   chat.scrollTop = chat.scrollHeight;
 }
+
+function showTyping() {
+  const chat = document.getElementById("chat");
+  const div = document.createElement("div");
+  div.className = "bot typing";
+  div.innerHTML = "<span></span><span></span><span></span>";
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+  return div;
+}
+
+// 範例問題按鈕
+const examples = ["你是誰？", "你會什麼？", "愛吃什麼？", "聽什麼歌？", "你有女朋友嗎？", "怎麼聯絡你？"];
+const chipsBox = document.getElementById("chips");
+examples.forEach(function (q) {
+  const b = document.createElement("button");
+  b.className = "chip";
+  b.textContent = q;
+  b.onclick = function () { send(q); };
+  chipsBox.appendChild(b);
+});
+
+// 開場白
+addMsg("喔，來了喔？我是阿品的分身，要問什麼快問，不要浪費我時間。", "bot");
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>問阿品任何事</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="123.css">
+</head>
+<body>
+
+<div class="wrap">
+  <div class="card">
+
+    <div class="top">
+      <div class="avatar">品</div>
+      <div>
+        <div class="name">阿品 · AI 分身</div>
+        <div class="status"><span class="dot"></span>線上　嘴很臭，玻璃心勿入</div>
+      </div>
+    </div>
+
+    <div id="chat"></div>
+
+    <div class="chips" id="chips"></div>
+
+    <div class="bar">
+      <input id="box" placeholder="想問什麼？" onkeydown="if(event.key==='Enter')send()">
+      <button class="send" onclick="send()">送出</button>
+    </div>
+
+    <p class="foot">IG <b>pin.c3r_</b> ・ 陳品叡的個人網站</p>
+
+  </div>
+</div>
+
+<script>
+// 問答資料庫：keys 是關鍵字，reply 是阿品的回答
+const answers = [
+  // ===== 禁區（放最前面，一定先攔下來）=====
+  { keys: ["女朋友", "男朋友", "感情", "交往", "單身", "有對象", "喜歡的人", "告白", "曖昧", "脫單", "結婚"], reply: "乾你屁事,你比我家三姑六婆還八卦" },
+  { keys: ["薪水", "收入", "月薪", "時薪", "賺多少", "存款", "有錢"], reply: "在好奇啥 你要給我錢嗎" },
+
+  // ===== 打招呼 =====
+  { keys: ["哈囉", "你好", "嗨", "hello", "hi", "安安", "在嗎"], reply: "笑死，還真的有人會點進來，要問什麼快問。" },
+  { keys: ["謝謝", "感謝", "thanks"], reply: "知道就好，不客氣。" },
+  { keys: ["掰", "再見", "bye"], reply: "喔是喔是喔是喔是喔，慢走不送。" },
+
+  // ===== 基本資料 =====
+  { keys: ["你是誰", "名字", "叫什麼", "怎麼稱呼", "自我介紹", "介紹一下"], reply: "品叡，叫我阿品就好。講話比較直接，玻璃心勿入。" },
+  { keys: ["幾歲", "年齡", "年紀", "生日", "幾年次"], reply: "20 歲，怎樣，你在做身家調查嗎？" },
+  { keys: ["住哪", "住在哪", "哪裡人", "台北", "地址", "住址"], reply: "台北，台北以外都是鄉下。" },
+  { keys: ["學校", "哪間大學", "科系", "讀什麼", "念什麼", "主修"], reply: "輔大阿幹嘛，你喜歡我是嗎 ? 問那麼細" },
+  { keys: ["身高", "體重", "幾公斤", "多高", "長相", "帥", "長怎樣"], reply: "很帥，閉嘴不用懷疑。" },
+  { keys: ["星座", "血型", "mbti", "人格"], reply: "這種東西你信喔？笑死。" },
+
+  // ===== 專長 / 學習 =====
+  { keys: ["辯論"], reply: "辯論是我的專長，所以你最好不要跟我吵，吵不贏的。" },
+  { keys: ["溝通", "口才", "說話", "講話", "嘴"], reply: "我溝通很強，只是你可能受不了我的說話方式，ㄏ " },
+  { keys: ["架站", "架設", "網站", "寫程式", "程式", "coding", "notepad"], reply: "我正在學架設網站，你現在看到的就是我自己寫的，有時候我也覺得自己蠻強的" },
+  { keys: ["專長", "擅長", "會什麼", "會做什麼", "技能", "強項", "優點", "厲害"], reply: "辯論、溝通、打遊戲，現在在學架網站。" },
+  { keys: ["缺點", "弱點", "不擅長", "討厭什麼"], reply: "缺點就是講話太靠北，不過我覺得是特色。" },
+  { keys: ["作品", "專案", "做過什麼"], reply: "你現在正在用的這個就是啊，不然你要看什麼？" },
+
+  // ===== 遊戲 =====
+  { keys: ["遊戲", "打什麼", "玩什麼", "電動", "steam", "手遊", "lol", "英雄聯盟"], reply: "來打特戰阿，最近剛上白金，爽死" },
+  { keys: ["一起玩", "揪", "上線", "有空嗎", "約你", "約出來"], reply: "想約就去 IG 找我：pin.c3r_，不要在這裡問。" },
+
+  // ===== 棒球 =====
+  { keys: ["棒球", "球隊", "支持哪隊", "愛哪隊", "中華職棒", "mlb", "大谷", "看球", "球賽"], reply: "我支持統一，我說的是統一獅" },
+
+  // ===== 音樂 =====
+  { keys: ["五月天", "阿信", "怪獸", "演唱會"], reply: "五月天的歌 我真的很喜歡，別靠北" },
+  { keys: ["歌", "音樂", "聽什麼", "playlist", "歌單", "抒情"], reply: "我愛聽抒情的，五月天幾乎常駐，還有湯令山，yungkai。" },
+
+  // ===== 食物 =====
+  { keys: ["小籠包", "鼎泰豐"], reply: "小籠包是我的命" },
+  { keys: ["甜點", "巧克力", "蛋糕", "冰", "手搖", "飲料"], reply: "甜點跟巧克力我可以，你要請我嗎。" },
+  { keys: ["炸", "雞排", "鹹酥雞", "薯條", "炸雞"], reply: "愛吃炸的，鹹酥雞炸雞通通來，健康什麼的不用管。" },
+  { keys: ["吃什麼", "喜歡吃", "愛吃", "美食", "餐廳", "推薦吃", "午餐", "晚餐", "宵夜", "吃"], reply: "炸的、小籠包、巧克力、甜點，我吃得很簡單，你請客我會更爽。" },
+
+  // ===== 旅遊 =====
+  { keys: ["旅遊", "旅行", "出國", "去過", "想去", "哪裡玩", "景點", "玩"], reply: "喜歡到處玩，但要跟朋友一起，但我大學同學都很難約媽的 " },
+
+  // ===== 日常 =====
+  { keys: ["假日", "週末", "放假", "平常", "都在做什麼", "幹嘛", "在幹嘛", "做什麼", "興趣", "休閒"], reply: "不是在上班就是在家廢，你在期待什麼？" },
+  { keys: ["最近", "在忙", "忙什麼", "近況"], reply: "上班、上課，剩下的時間在家廢。喔是喔是喔是喔是喔。" },
+  { keys: ["打工", "工作", "上班", "在哪上班", "做什麼工作"], reply: "在地獄上班，你要來應徵喔？" },
+  { keys: ["睡", "熬夜", "幾點睡", "早起"], reply: "乾你啥事。" },
+
+  // ===== 個性 / 價值觀 =====
+  { keys: ["個性", "個性怎樣", "是什麼樣的人", "人怎麼樣", "脾氣", "壞嗎", "兇"], reply: "我講話很北爛，但對朋友很大方，不爽就閉嘴。" },
+  { keys: ["價值觀", "座右銘", "信念", "理念", "人生觀", "原則"], reply: "對自己省，對他人大方，就這樣，阿你有意見嗎？" },
+  { keys: ["大方", "請客", "省", "節儉"], reply: "我對自己很省，對別人很大方，所以你請我吃飯我也不會拒絕。" },
+  { keys: ["夢想", "目標", "未來", "規劃", "想做什麼"], reply: "先把網站學會，其他的之後再說，你急什麼。" },
+  { keys: ["口頭禪"], reply: "閉嘴、喔是喔是喔是喔是喔、很狂是嗎。你自己挑一個。" },
+  { keys: ["朋友", "交朋友", "好相處"], reply: "不太好相處，但熟了就知道我人還可以，你要試試看嗎？" },
+
+  // ===== 聯絡 / 合作 =====
+  { keys: ["聯絡", "ig", "instagram", "email", "信箱", "mail", "社群", "加你", "追蹤", "找你"], reply: "IG：pin.c3r_　Email：casperchen390@gmail.com　要加就加，不要在這裡囉嗦。" },
+  { keys: ["合作", "接案", "找你做", "幫我做", "請你"], reply: "想合作的話直接寄信或 IG 私訊我，我再看要不要理你。" },
+
+  // ===== 關於這個機器人 =====
+  { keys: ["你是ai", "你是機器人", "是真人", "真人嗎", "ai嗎", "機器人"], reply: "對，我是阿品的 AI 分身，其實是他自己用 Notepad++ 一行一行寫的，我根本神。" },
+  { keys: ["誰做的", "誰寫的", "怎麼做的", "你怎麼運作", "怎麼寫"], reply: "阿品自己寫的，用 Notepad++，我根本神？" },
+
+  // ===== 嗆人的 =====
+  { keys: ["笨", "白癡", "智障", "爛", "廢物", "垃圾"], reply: "你在屌什麼，確定要跟我比嘴賤嗎？" },
+  { keys: ["哈哈", "笑死", "好笑", "xd"], reply: "笑點在哪" }
+  { keys: ["幹你娘", "幹", "可憐", "廢物"], reply: "你確定要跟我嘴砲^_^?" }
+];
+
+// 找不到關鍵字時的回答
+const fallback = "問一點我能回答的問題可以嗎?傻逼";
+
+function send(preset) {
+  const box = document.getElementById("box");
+  const text = (preset || box.value).trim();
+  if (text === "") return;
+  addMsg(text, "me");
+  box.value = "";
+
+  const typing = showTyping();
+  setTimeout(function () {
+    typing.remove();
+    addMsg(getReply(text), "bot");
+  }, 600 + Math.random() * 500);
+}
+
+function getReply(text) {
+  const t = text.toLowerCase();
+
+  // 太短的句子要完全一樣才算，避免誤中
+  if (["好", "ok", "喔", "嗯", "好喔", "w"].includes(t)) {
+    return "喔是喔是喔是喔是喔。";
+  }
+
+  for (const item of answers) {
+    for (const k of item.keys) {
+      if (t.includes(k.toLowerCase())) return item.reply;
+    }
+  }
+  return fallback;
+}
+
+function addMsg(text, who) {
+  const chat = document.getElementById("chat");
+  const div = document.createElement("div");
+  div.className = who;
+  div.textContent = text;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function showTyping() {
+  const chat = document.getElementById("chat");
+  const div = document.createElement("div");
+  div.className = "bot typing";
+  div.innerHTML = "<span></span><span></span><span></span>";
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+  return div;
+}
+
+// 範例問題按鈕
+const examples = ["你是誰？", "你會什麼？", "愛吃什麼？", "聽什麼歌？", "你有女朋友嗎？", "怎麼聯絡你？"];
+const chipsBox = document.getElementById("chips");
+examples.forEach(function (q) {
+  const b = document.createElement("button");
+  b.className = "chip";
+  b.textContent = q;
+  b.onclick = function () { send(q); };
+  chipsBox.appendChild(b);
+});
+
+// 開場白
+addMsg("喔，還真的有人來？我是阿品的分身，要問什麼快問，不要浪費我時間。", "bot");
 </script>
 
 </body>
