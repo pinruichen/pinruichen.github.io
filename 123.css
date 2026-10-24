@@ -1,0 +1,99 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>問阿品任何事</title>
+<style>
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, "PingFang TC", "Microsoft JhengHei", sans-serif;
+    background: #faf7f2;
+    color: #222;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 16px;
+  }
+
+  h1 {
+    font-size: 22px;
+    margin: 0 0 4px;
+  }
+
+  .sub {
+    font-size: 13px;
+    color: #888;
+    margin: 0 0 12px;
+  }
+
+  /* 聊天區 */
+  #chat {
+    background: #fff;
+    border: 1px solid #e8e1d6;
+    border-radius: 14px;
+    height: 400px;
+    overflow-y: auto;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* 泡泡共用 */
+  .me, .bot {
+    max-width: 80%;
+    padding: 9px 13px;
+    border-radius: 16px;
+    line-height: 1.5;
+    font-size: 15px;
+    word-break: break-word;
+  }
+
+  /* 你問的：右邊、橘色 */
+  .me {
+    align-self: flex-end;
+    background: #e4572e;
+    color: #fff;
+    border-bottom-right-radius: 4px;
+  }
+
+  /* 阿品回的：左邊、灰白色 */
+  .bot {
+    align-self: flex-start;
+    background: #f1ece4;
+    color: #222;
+    border-bottom-left-radius: 4px;
+  }
+
+  /* 輸入列 */
+  .bar {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  #box {
+    flex: 1;
+    font-size: 16px;
+    padding: 10px 14px;
+    border: 1px solid #e8e1d6;
+    border-radius: 999px;
+    outline: none;
+  }
+
+  #box:focus {
+    border-color: #e4572e;
+  }
+
+  button {
+    background: #e4572e;
+    color: #fff;
+    border: 0;
+    border-radius: 999px;
+    padding: 0 20px;
+    font-size: 15px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #c9451f;
+  }
+</style>
