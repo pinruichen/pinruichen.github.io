@@ -1,99 +1,222 @@
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>問阿品任何事</title>
-<style>
-  * { box-sizing: border-box; }
+* { box-sizing: border-box; margin: 0; }
 
-  body {
-    font-family: -apple-system, "PingFang TC", "Microsoft JhengHei", sans-serif;
-    background: #faf7f2;
-    color: #222;
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 16px;
-  }
+:root {
+  --bg: #0b0b0d;
+  --card: #141417;
+  --line: rgba(201, 169, 110, 0.22);
+  --gold: #c9a96e;
+  --gold-light: #e8d3a2;
+  --text: #ece7dd;
+  --mute: #8d877b;
+}
 
-  h1 {
-    font-size: 22px;
-    margin: 0 0 4px;
-  }
+body {
+  font-family: "Noto Sans TC", -apple-system, "PingFang TC", "Microsoft JhengHei", sans-serif;
+  color: var(--text);
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(201, 169, 110, 0.13), transparent 45%),
+    radial-gradient(circle at 90% 100%, rgba(201, 169, 110, 0.08), transparent 40%),
+    var(--bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 18px;
+}
 
-  .sub {
-    font-size: 13px;
-    color: #888;
-    margin: 0 0 12px;
-  }
+.wrap { width: 100%; max-width: 480px; }
 
-  /* 聊天區 */
-  #chat {
-    background: #fff;
-    border: 1px solid #e8e1d6;
-    border-radius: 14px;
-    height: 400px;
-    overflow-y: auto;
-    padding: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55);
+}
 
-  /* 泡泡共用 */
-  .me, .bot {
-    max-width: 80%;
-    padding: 9px 13px;
-    border-radius: 16px;
-    line-height: 1.5;
-    font-size: 15px;
-    word-break: break-word;
-  }
+/* 頂部 */
+.top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(201, 169, 110, 0.08), transparent);
+}
 
-  /* 你問的：右邊、橘色 */
-  .me {
-    align-self: flex-end;
-    background: #e4572e;
-    color: #fff;
-    border-bottom-right-radius: 4px;
-  }
+.avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Noto Serif TC", serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: #1a1408;
+  background: linear-gradient(135deg, var(--gold-light), var(--gold));
+  box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.2);
+}
 
-  /* 阿品回的：左邊、灰白色 */
-  .bot {
-    align-self: flex-start;
-    background: #f1ece4;
-    color: #222;
-    border-bottom-left-radius: 4px;
-  }
+.name {
+  font-family: "Noto Serif TC", serif;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 1px;
+  color: var(--gold-light);
+}
 
-  /* 輸入列 */
-  .bar {
-    display: flex;
-    gap: 8px;
-    margin-top: 10px;
-  }
+.status {
+  font-size: 12px;
+  color: var(--mute);
+  margin-top: 3px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
 
-  #box {
-    flex: 1;
-    font-size: 16px;
-    padding: 10px 14px;
-    border: 1px solid #e8e1d6;
-    border-radius: 999px;
-    outline: none;
-  }
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #5ad17a;
+  box-shadow: 0 0 8px #5ad17a;
+}
 
-  #box:focus {
-    border-color: #e4572e;
-  }
+/* 聊天區 */
+#chat {
+  height: 400px;
+  overflow-y: auto;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #3a352a transparent;
+}
 
-  button {
-    background: #e4572e;
-    color: #fff;
-    border: 0;
-    border-radius: 999px;
-    padding: 0 20px;
-    font-size: 15px;
-    cursor: pointer;
-  }
+.me, .bot {
+  max-width: 82%;
+  padding: 10px 15px;
+  font-size: 15px;
+  line-height: 1.6;
+  word-break: break-word;
+  animation: pop 0.25s ease;
+}
 
-  button:hover {
-    background: #c9451f;
-  }
-</style>
+@keyframes pop {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.me {
+  align-self: flex-end;
+  color: #1a1408;
+  font-weight: 500;
+  background: linear-gradient(135deg, var(--gold-light), var(--gold));
+  border-radius: 18px 18px 4px 18px;
+}
+
+.bot {
+  align-self: flex-start;
+  background: #1f1f24;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 18px 18px 18px 4px;
+}
+
+/* 打字中 */
+.typing {
+  display: flex;
+  gap: 5px;
+  padding: 14px 16px;
+}
+.typing span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+  animation: blink 1.2s infinite;
+}
+.typing span:nth-child(2) { animation-delay: 0.2s; }
+.typing span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes blink {
+  0%, 60%, 100% { opacity: 0.25; }
+  30% { opacity: 1; }
+}
+
+/* 範例問題 */
+.chips {
+  display: flex;
+  gap: 8px;
+  padding: 4px 16px 14px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.chips::-webkit-scrollbar { display: none; }
+
+.chip {
+  flex: none;
+  background: transparent;
+  color: var(--gold-light);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.chip:hover {
+  background: rgba(201, 169, 110, 0.14);
+  border-color: var(--gold);
+}
+
+/* 輸入列 */
+.bar {
+  display: flex;
+  gap: 10px;
+  padding: 14px 16px;
+  border-top: 1px solid var(--line);
+  background: #101013;
+}
+
+#box {
+  flex: 1;
+  min-width: 0;
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--text);
+  background: #1a1a1e;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  padding: 11px 18px;
+  outline: none;
+  transition: 0.2s;
+}
+#box::placeholder { color: var(--mute); }
+#box:focus { border-color: var(--gold); }
+
+.send {
+  border: 0;
+  border-radius: 999px;
+  padding: 0 22px;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: inherit;
+  color: #1a1408;
+  background: linear-gradient(135deg, var(--gold-light), var(--gold));
+  cursor: pointer;
+  transition: 0.2s;
+}
+.send:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+.foot {
+  text-align: center;
+  font-size: 12px;
+  color: var(--mute);
+  padding: 0 16px 16px;
+  letter-spacing: 0.5px;
+}
+.foot b { color: var(--gold); font-weight: 500; }
