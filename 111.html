@@ -518,102 +518,105 @@ window.addEventListener('keydown',function(e){if(e.target&&e.target.tagName==='I
 window.addEventListener('keyup',function(e){var k=MAP[e.code];if(k){KS[k]=0;sync()}if(e.code==='Space')hk.classList.remove('on')});
 window.addEventListener('blur',function(){if(mode==='play')setPause(true);KS.l=KS.r=KS.g=KS.b=0;TS.l=TS.r=TS.g=TS.b=0;sync()});
 requestAnimationFrame(loop);
+<script>
 // ==========================================
-// LootLocker 全球排行榜 (直接貼上覆寫版)
+// LootLocker 最終修正版 (補上 member_id)
 // ==========================================
-const LL_GAME_KEY = "dev_2a802c39b6684cabb126b3375d457584";
-const LL_LEADERBOARD_KEY = "37422";
-const LL_API_DOMAIN = "https://mjjumhp6.api.lootlocker.com";
-let llSessionToken = "";
+(function(){
+    const LL_GAME_KEY = "dev_2a802c39b6684cabb126b3375d457584";
+    const LL_LEADERBOARD_KEY = "37422";
+    const LL_API_DOMAIN = "https://mjjumhp6.api.lootlocker.com";
+    
+    // 攔截並覆寫存檔功能
+    window.lbSave = function(n, d, f) {
+        if (!window.llSessionToken) return Promise.resolve();
+        // 確保抓到的分數是純數字
+        let finalScore = typeof score === 'function' ? score() : d; 
+        
+        return fetch(`${LL_API_DOMAIN}/game/player/name`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json", "x-session-token": window.llSessionToken },
+            body: JSON.stringify({ name: n })
+        }).then(() => {
+            // 注意這裡！上傳時強制夾帶 member_id 才能通關
+            return fetch(`${LL_API_DOMAIN}/game/leaderboards/${LL_LEADERBOARD_KEY}/submit`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json", "x-session-token": window.llSessionToken },
+                body: JSON.stringify({ 
+                    score: parseInt(finalScore), 
+                    member_id: window.llPlayerId 
+                })
+            });
+        });
+    };
 
-// 1. 登入並取得授權
-async function llLoginGuest() {
+    // 攔截並覆寫畫面渲染功能
+    window.lbRender = function(el) {
+        if (!el) return;
+        if (!window.llSessionToken) {
+            el.innerHTML = '<div style="text-align:center; padding:10px; color:#fff;">連線雲端中...</div>';
+            return;
+        }
+        
+        fetch(`${LL_API_DOMAIN}/game/leaderboards/${LL_LEADERBOARD_KEY}/list?count=10`, {
+            method: "GET",
+            headers: { "x-session-token": window.llSessionToken }
+        }).then(res => res.json()).then(data => {
+            el.innerHTML = '';
+            let b = document.createElement('div');
+            b.className = 'lb';
+            b.style.flex = "none";
+            b.style.width = "100%";
+            b.style.background = "rgba(255,255,255,0.15)";
+            
+            let h = document.createElement('b');
+            h.innerHTML = '🌍 台灣三寶生存榜 (全球Top 10)';
+            h.style.color = "#f2c230";
+            h.style.fontSize = "16px";
+            b.appendChild(h);
+            
+            if (!data.items || data.items.length === 0) {
+                let z = document.createElement('div');
+                z.textContent = '目前還沒有紀錄，趕快當第一個！';
+                b.appendChild(z);
+            } else {
+                data.items.forEach((item) => {
+                    let d = document.createElement('div');
+                    d.style.display = "flex";
+                    d.style.justifyContent = "space-between";
+                    d.style.marginTop = "6px";
+                    d.style.borderBottom = "1px solid rgba(255,255,255,0.1)";
+                    d.style.paddingBottom = "4px";
+                    let name = item.player.name || "無名車神";
+                    let rankStr = item.rank <= 3 ? ['🥇','🥈','🥉'][item.rank-1] : item.rank + '.';
+                    d.innerHTML = `<span>${rankStr} ${name}</span> <span style="color:#ffb4a8; font-weight:bold;">${item.score} 分</span>`;
+                    b.appendChild(d);
+                });
+            }
+            el.appendChild(b);
+        }).catch(err => console.error(err));
+    };
+
+    // 執行登入並強制刷新畫面
     let playerId = localStorage.getItem("tw_driver_player_id");
     if (!playerId) {
         playerId = Math.random().toString(36).substring(2, 15);
         localStorage.setItem("tw_driver_player_id", playerId);
     }
-    try {
-        const res = await fetch(`${LL_API_DOMAIN}/game/v2/session/guest`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ game_key: LL_GAME_KEY, game_version: "1.0.0", player_identifier: playerId })
-        });
-        const data = await res.json();
-        llSessionToken = data.session_token;
-        console.log("LootLocker 雲端連線成功！");
-        // 連線成功後，主動呼叫原本的算圖函數來更新首頁畫面
-        lbRender(document.getElementById('lbs0')); 
-    } catch (err) {
-        console.error("雲端連線失敗", err);
-    }
-}
-llLoginGuest();
-
-// 2. 攔截並覆寫你原本的存檔函數 (轉為上傳 LootLocker)
-window.lbSave = function(n, d, f) {
-    if (!llSessionToken) return Promise.resolve();
-    return new Promise(async (resolve) => {
-        try {
-            let finalScore = score(); // 直接抓取你遊戲中算好的總分
-            await fetch(`${LL_API_DOMAIN}/game/player/name`, {
-                method: "PATCH",
-                headers: { "Content-Type": "application/json", "x-session-token": llSessionToken },
-                body: JSON.stringify({ name: n })
-            });
-            await fetch(`${LL_API_DOMAIN}/game/leaderboards/${LL_LEADERBOARD_KEY}/submit`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json", "x-session-token": llSessionToken },
-                body: JSON.stringify({ score: finalScore })
-            });
-            resolve();
-        } catch (err) { 
-            console.error(err); 
-            resolve();
-        }
-    });
-};
-
-// 3. 攔截並覆寫你原本的排行榜畫面渲染 (轉為向 LootLocker 抓資料)
-window.lbRender = function(el) {
-    if (!el || !llSessionToken) return;
-    el.innerHTML = '<div style="text-align:center; padding:10px;">讀取全球排行中...</div>';
-    
-    fetch(`${LL_API_DOMAIN}/game/leaderboards/${LL_LEADERBOARD_KEY}/list?count=10`, {
-        method: "GET",
-        headers: { "x-session-token": llSessionToken }
+    fetch(`${LL_API_DOMAIN}/game/v2/session/guest`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ game_key: LL_GAME_KEY, game_version: "1.0.0", player_identifier: playerId })
     }).then(res => res.json()).then(data => {
-        const items = data.items || [];
-        el.innerHTML = '';
-        let b = document.createElement('div');
-        b.className = 'lb';
-        b.style.flex = "none";
-        b.style.width = "100%"; // 讓單一排行榜佔滿寬度
+        window.llSessionToken = data.session_token;
+        // 把取得的 player_id 存起來，這是上傳分數的通行證
+        window.llPlayerId = data.player_id.toString(); 
         
-        let h = document.createElement('b');
-        h.textContent = '🌍 台灣三寶生存榜 (全球Top 10)';
-        b.appendChild(h);
-        
-        if (items.length === 0) {
-            let z = document.createElement('div');
-            z.textContent = '目前還沒有紀錄，趕快當第一個！';
-            b.appendChild(z);
-        } else {
-            items.forEach((item) => {
-                let d = document.createElement('div');
-                let name = item.player.name || "無名車神";
-                // 幫前三名加上獎牌 Emoji
-                let rankStr = item.rank <= 3 ? ['🥇','🥈','🥉'][item.rank-1] : item.rank + '.';
-                d.textContent = `${rankStr} ${name} : ${item.score} 分`;
-                b.appendChild(d);
-            });
-        }
-        el.appendChild(b);
-    }).catch(err => {
-        el.innerHTML = '<div style="text-align:center;">排行榜載入失敗</div>';
+        setTimeout(() => {
+            window.lbRender(document.getElementById('lbs0'));
+        }, 500);
     });
-};
-// ==========================================
+})();
 </script>
 </body>
 </html>
