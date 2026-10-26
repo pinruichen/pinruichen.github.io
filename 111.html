@@ -520,7 +520,7 @@ window.addEventListener('blur',function(){if(mode==='play')setPause(true);KS.l=K
 requestAnimationFrame(loop);
 <script>
 // ==========================================
-// LootLocker 最終修正版 (補上 member_id)
+// LootLocker 最終修正版 (加入嚴格防呆與錯誤處理)
 // ==========================================
 (function(){
     const LL_GAME_KEY = "dev_2a802c39b6684cabb126b3375d457584";
@@ -533,20 +533,21 @@ requestAnimationFrame(loop);
         // 確保抓到的分數是純數字
         let finalScore = typeof score === 'function' ? score() : d; 
         
-        return fetch(`${LL_API_DOMAIN}/game/player/name`, {
+        let updateNameReq = n ? fetch(`${LL_API_DOMAIN}/game/player/name`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json", "x-session-token": window.llSessionToken },
             body: JSON.stringify({ name: n })
-        }).then(() => {
-            // 注意這裡！上傳時強制夾帶 member_id 才能通關
+        }).catch(e => console.warn("名稱更新失敗", e)) : Promise.resolve();
+
+        return updateNameReq.then(() => {
             return fetch(`${LL_API_DOMAIN}/game/leaderboards/${LL_LEADERBOARD_KEY}/submit`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json", "x-session-token": window.llSessionToken },
                 body: JSON.stringify({ 
                     score: parseInt(finalScore), 
-                    member_id: window.llPlayerId 
+                    member_id: window.llPlayerId || "guest"
                 })
-            });
+            }).catch(e => console.warn("分數上傳失敗", e));
         });
     };
 
@@ -587,14 +588,20 @@ requestAnimationFrame(loop);
                     d.style.marginTop = "6px";
                     d.style.borderBottom = "1px solid rgba(255,255,255,0.1)";
                     d.style.paddingBottom = "4px";
-                    let name = item.player.name || "無名車神";
+                    
+                    // 【修正核心】嚴格檢查 item.player 是否存在，避免 TypeError 崩潰
+                    let name = (item.player && item.player.name) ? item.player.name : (item.member_id || "無名車神");
                     let rankStr = item.rank <= 3 ? ['🥇','🥈','🥉'][item.rank-1] : item.rank + '.';
+                    
                     d.innerHTML = `<span>${rankStr} ${name}</span> <span style="color:#ffb4a8; font-weight:bold;">${item.score} 分</span>`;
                     b.appendChild(d);
                 });
             }
             el.appendChild(b);
-        }).catch(err => console.error(err));
+        }).catch(err => {
+            console.error(err);
+            el.innerHTML = '<div style="text-align:center; padding:10px; color:#fff;">排行榜讀取失敗</div>';
+        });
     };
 
     // 執行登入並強制刷新畫面
@@ -609,14 +616,12 @@ requestAnimationFrame(loop);
         body: JSON.stringify({ game_key: LL_GAME_KEY, game_version: "1.0.0", player_identifier: playerId })
     }).then(res => res.json()).then(data => {
         window.llSessionToken = data.session_token;
-        // 把取得的 player_id 存起來，這是上傳分數的通行證
-        window.llPlayerId = data.player_id.toString(); 
+        // 相容寫法，確保無論 API 回傳哪種 ID 都能正確拿到字串
+        window.llPlayerId = data.player_id ? data.player_id.toString() : (data.player_uid || playerId); 
         
         setTimeout(() => {
             window.lbRender(document.getElementById('lbs0'));
         }, 500);
-    });
+    }).catch(e => console.warn("LootLocker 登入失敗", e));
 })();
 </script>
-</body>
-</html>
