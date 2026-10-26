@@ -518,52 +518,40 @@ window.addEventListener('keydown',function(e){if(e.target&&e.target.tagName==='I
 window.addEventListener('keyup',function(e){var k=MAP[e.code];if(k){KS[k]=0;sync()}if(e.code==='Space')hk.classList.remove('on')});
 window.addEventListener('blur',function(){if(mode==='play')setPause(true);KS.l=KS.r=KS.g=KS.b=0;TS.l=TS.r=TS.g=TS.b=0;sync()});
 requestAnimationFrame(loop);
-</script>
-
-<!-- ========================================== -->
-<!-- LootLocker 最終獨立版 -->
-<!-- ========================================== -->
 <script>
+// ==========================================
+// LootLocker 最終修正版 (加入嚴格防呆與錯誤處理)
+// ==========================================
 (function(){
     const LL_GAME_KEY = "dev_2a802c39b6684cabb126b3375d457584";
     const LL_LEADERBOARD_KEY = "37422";
     const LL_API_DOMAIN = "https://mjjumhp6.api.lootlocker.com";
     
-    let pId = localStorage.getItem("tw_driver_player_id");
-    if (!pId) {
-        pId = Math.random().toString(36).substring(2, 15);
-        localStorage.setItem("tw_driver_player_id", pId);
-    }
-
-    fetch(`${LL_API_DOMAIN}/game/v2/session/guest`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ game_key: LL_GAME_KEY, game_version: "1.0.0", player_identifier: pId })
-    }).then(res => res.json()).then(data => {
-        window.llSessionToken = data.session_token;
-        window.llMemberId = data.player_id ? data.player_id.toString() : pId;
-        setTimeout(() => {
-            if (window.lbRender) window.lbRender(document.getElementById('lbs0'));
-        }, 500);
-    }).catch(e => console.error("登入失敗:", e));
-
+    // 攔截並覆寫存檔功能
     window.lbSave = function(n, d, f) {
         if (!window.llSessionToken) return Promise.resolve();
-        let finalScore = parseInt(typeof score === 'function' ? score() : d) || 0; 
+        // 確保抓到的分數是純數字
+        let finalScore = typeof score === 'function' ? score() : d; 
         
-        fetch(`${LL_API_DOMAIN}/game/player/name`, {
+        let updateNameReq = n ? fetch(`${LL_API_DOMAIN}/game/player/name`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json", "x-session-token": window.llSessionToken },
             body: JSON.stringify({ name: n })
-        }).catch(e => console.error(e));
+        }).catch(e => console.warn("名稱更新失敗", e)) : Promise.resolve();
 
-        return fetch(`${LL_API_DOMAIN}/game/leaderboards/${LL_LEADERBOARD_KEY}/submit`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json", "x-session-token": window.llSessionToken },
-            body: JSON.stringify({ score: finalScore, member_id: window.llMemberId })
-        }).catch(e => console.error("上傳失敗:", e));
+        return updateNameReq.then(() => {
+            return fetch(`${LL_API_DOMAIN}/game/leaderboards/${LL_LEADERBOARD_KEY}/submit`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json", "x-session-token": window.llSessionToken },
+                body: JSON.stringify({ 
+                    score: parseInt(finalScore), 
+                    member_id: window.llPlayerId || "guest"
+                })
+            }).catch(e => console.warn("分數上傳失敗", e));
+        });
     };
 
+    // 攔截並覆寫畫面渲染功能
     window.lbRender = function(el) {
         if (!el) return;
         if (!window.llSessionToken) {
@@ -600,16 +588,150 @@ requestAnimationFrame(loop);
                     d.style.marginTop = "6px";
                     d.style.borderBottom = "1px solid rgba(255,255,255,0.1)";
                     d.style.paddingBottom = "4px";
-                    let name = item.player.name || "無名車神";
+                    
+                    // 【修正核心】嚴格檢查 item.player 是否存在，避免 TypeError 崩潰
+                    let name = (item.player && item.player.name) ? item.player.name : (item.member_id || "無名車神");
                     let rankStr = item.rank <= 3 ? ['🥇','🥈','🥉'][item.rank-1] : item.rank + '.';
+                    
                     d.innerHTML = `<span>${rankStr} ${name}</span> <span style="color:#ffb4a8; font-weight:bold;">${item.score} 分</span>`;
                     b.appendChild(d);
                 });
             }
             el.appendChild(b);
-        }).catch(err => console.error(err));
+        }).catch(err => {
+            console.error(err);
+            el.innerHTML = '<div style="text-align:center; padding:10px; color:#fff;">排行榜讀取失敗</div>';
+        });
     };
+
+    // 執行登入並強制刷新畫面
+    let playerId = localStorage.getItem("tw_driver_player_id");
+    if (!playerId) {
+        playerId = Math.random().toString(36).substring(2, 15);
+        localStorage.setItem("tw_driver_player_id", playerId);
+    }
+    fetch(`${LL_API_DOMAIN}/game/v2/session/guest`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ game_key: LL_GAME_KEY, game_version: "1.0.0", player_identifier: playerId })
+    }).then(res => res.json()).then(data => {
+        window.llSessionToken = data.session_token;
+        // 相容寫法，確保無論 API 回傳哪種 ID 都能正確拿到字串
+        window.llPlayerId = data.player_id ? data.player_id.toString() : (data.player_uid || playerId); 
+        
+        setTimeout(() => {
+            window.lbRender(document.getElementById('lbs0'));
+        }, 500);
+    }).catch(e => console.warn("LootLocker 登入失敗", e));
+})();
+</script><script>
+// ==========================================
+// LootLocker 最終修正版 (加入嚴格防呆與錯誤處理)
+// ==========================================
+(function(){
+    const LL_GAME_KEY = "dev_2a802c39b6684cabb126b3375d457584";
+    const LL_LEADERBOARD_KEY = "37422";
+    const LL_API_DOMAIN = "https://mjjumhp6.api.lootlocker.com";
+    
+    // 攔截並覆寫存檔功能
+    window.lbSave = function(n, d, f) {
+        if (!window.llSessionToken) return Promise.resolve();
+        // 確保抓到的分數是純數字
+        let finalScore = typeof score === 'function' ? score() : d; 
+        
+        let updateNameReq = n ? fetch(`${LL_API_DOMAIN}/game/player/name`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json", "x-session-token": window.llSessionToken },
+            body: JSON.stringify({ name: n })
+        }).catch(e => console.warn("名稱更新失敗", e)) : Promise.resolve();
+
+        return updateNameReq.then(() => {
+            return fetch(`${LL_API_DOMAIN}/game/leaderboards/${LL_LEADERBOARD_KEY}/submit`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json", "x-session-token": window.llSessionToken },
+                body: JSON.stringify({ 
+                    score: parseInt(finalScore), 
+                    member_id: window.llPlayerId || "guest"
+                })
+            }).catch(e => console.warn("分數上傳失敗", e));
+        });
+    };
+
+    // 攔截並覆寫畫面渲染功能
+    window.lbRender = function(el) {
+        if (!el) return;
+        if (!window.llSessionToken) {
+            el.innerHTML = '<div style="text-align:center; padding:10px; color:#fff;">連線雲端中...</div>';
+            return;
+        }
+        
+        fetch(`${LL_API_DOMAIN}/game/leaderboards/${LL_LEADERBOARD_KEY}/list?count=10`, {
+            method: "GET",
+            headers: { "x-session-token": window.llSessionToken }
+        }).then(res => res.json()).then(data => {
+            el.innerHTML = '';
+            let b = document.createElement('div');
+            b.className = 'lb';
+            b.style.flex = "none";
+            b.style.width = "100%";
+            b.style.background = "rgba(255,255,255,0.15)";
+            
+            let h = document.createElement('b');
+            h.innerHTML = '🌍 台灣三寶生存榜 (全球Top 10)';
+            h.style.color = "#f2c230";
+            h.style.fontSize = "16px";
+            b.appendChild(h);
+            
+            if (!data.items || data.items.length === 0) {
+                let z = document.createElement('div');
+                z.textContent = '目前還沒有紀錄，趕快當第一個！';
+                b.appendChild(z);
+            } else {
+                data.items.forEach((item) => {
+                    let d = document.createElement('div');
+                    d.style.display = "flex";
+                    d.style.justifyContent = "space-between";
+                    d.style.marginTop = "6px";
+                    d.style.borderBottom = "1px solid rgba(255,255,255,0.1)";
+                    d.style.paddingBottom = "4px";
+                    
+                    // 【修正核心】嚴格檢查 item.player 是否存在，避免 TypeError 崩潰
+                    let name = (item.player && item.player.name) ? item.player.name : (item.member_id || "無名車神");
+                    let rankStr = item.rank <= 3 ? ['🥇','🥈','🥉'][item.rank-1] : item.rank + '.';
+                    
+                    d.innerHTML = `<span>${rankStr} ${name}</span> <span style="color:#ffb4a8; font-weight:bold;">${item.score} 分</span>`;
+                    b.appendChild(d);
+                });
+            }
+            el.appendChild(b);
+        }).catch(err => {
+            console.error(err);
+            el.innerHTML = '<div style="text-align:center; padding:10px; color:#fff;">排行榜讀取失敗</div>';
+        });
+    };
+
+    // 執行登入並強制刷新畫面
+    let playerId = localStorage.getItem("tw_driver_player_id");
+    if (!playerId) {
+        playerId = Math.random().toString(36).substring(2, 15);
+        localStorage.setItem("tw_driver_player_id", playerId);
+    }
+    fetch(`${LL_API_DOMAIN}/game/v2/session/guest`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ game_key: LL_GAME_KEY, game_version: "1.0.0", player_identifier: playerId })
+    }).then(res => res.json()).then(data => {
+        window.llSessionToken = data.session_token;
+        // 相容寫法，確保無論 API 回傳哪種 ID 都能正確拿到字串
+        window.llPlayerId = data.player_id ? data.player_id.toString() : (data.player_uid || playerId); 
+        
+        setTimeout(() => {
+            window.lbRender(document.getElementById('lbs0'));
+        }, 500);
+    }).catch(e => console.warn("LootLocker 登入失敗", e));
 })();
 </script>
+
 </body>
-</html>
+
+</html> 
