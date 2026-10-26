@@ -633,10 +633,9 @@ requestAnimationFrame(loop);
     const LL_LEADERBOARD_KEY = "37422";
     const LL_API_DOMAIN = "https://mjjumhp6.api.lootlocker.com";
     
-    // 攔截並覆寫存檔功能
+   // 攔截並覆寫存檔功能
     window.lbSave = function(n, d, f) {
         if (!window.llSessionToken) return Promise.resolve();
-        // 確保抓到的分數是純數字
         let finalScore = typeof score === 'function' ? score() : d; 
         
         let updateNameReq = n ? fetch(`${LL_API_DOMAIN}/game/player/name`, {
@@ -646,12 +645,13 @@ requestAnimationFrame(loop);
         }).catch(e => console.warn("名稱更新失敗", e)) : Promise.resolve();
 
         return updateNameReq.then(() => {
+            // 💡 關鍵修正：把 member_id 拿掉！
             return fetch(`${LL_API_DOMAIN}/game/leaderboards/${LL_LEADERBOARD_KEY}/submit`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json", "x-session-token": window.llSessionToken },
                 body: JSON.stringify({ 
-                    score: parseInt(finalScore), 
-                    member_id: window.llPlayerId || "guest"
+                    score: parseInt(finalScore) 
+                    // 這裡不用傳 member_id，LootLocker 會自己從 token 抓人
                 })
             }).catch(e => console.warn("分數上傳失敗", e));
         });
