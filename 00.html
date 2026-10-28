@@ -58,7 +58,7 @@ body{background:var(--bg);font:16px/1.5 "Noto Sans TC","PingFang TC","Microsoft 
 .cv-t{margin:12px 0 6px;font-size:clamp(36px,11vw,58px);font-weight:900;line-height:1.12;letter-spacing:.04em;color:#ffe45e;-webkit-text-stroke:2px #8a1a14;paint-order:stroke fill;text-shadow:0 4px 0 #c0392b,0 12px 26px rgba(0,0,0,.55)}
 .cv-s{font-size:14px;opacity:.92;margin:0 0 6px}.cv-h{font-size:11px;opacity:.7;max-width:280px;line-height:1.5}
 .cover #st{background:linear-gradient(#ffd23a,#f08a1a);color:#3a1500;font-size:20px;padding:12px 44px;border-radius:999px;box-shadow:0 5px 0 #a85b0a,0 12px 22px rgba(0,0,0,.4)}
-.cv-f{position:absolute;left:0;right:0;bottom:8px;text-align:center;font-size:11px;letter-spacing:.15em;color:#fff;opacity:.85;z-index:2;text-shadow:0 1px 3px #000}
+.cv-f{position:static;margin:14px 0 4px;text-align:center;font-size:11px;letter-spacing:.15em;color:#fff;opacity:.85;z-index:2;text-shadow:0 1px 3px #000}
 #fl{position:absolute;inset:0;background:#fff;opacity:0;transition:opacity .35s;pointer-events:none}
 #pb{position:absolute;right:10px;bottom:10px;width:44px;height:44px;border:0;border-radius:12px;background:rgba(0,0,0,.45);color:#fff;font-size:20px;cursor:pointer}
 #snd{position:absolute;right:10px;bottom:60px;width:44px;height:44px;border:0;border-radius:12px;background:rgba(0,0,0,.45);color:#fff;font-size:20px;cursor:pointer}
@@ -121,13 +121,35 @@ button:focus-visible{outline:3px solid #f2c230;outline-offset:2px}
 .achr .acht{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.achr b{font-size:15px}.achr span{font-size:12px;opacity:.85}.achr small{font-size:11px;opacity:.75}
 .achp{height:6px;border-radius:3px;background:rgba(255,255,255,.15);overflow:hidden}.achp i{display:block;height:100%;background:linear-gradient(90deg,#66c0f4,#2f5bea)}
 @media (max-width:700px),(max-height:520px){#achq{top:38%;right:6px;width:min(230px,46%)}.achc{padding:5px 7px;gap:7px}.achc .achi{width:32px;height:32px;font-size:19px}.achc b{font-size:13px}.achc span{display:none}}
+#newsov{z-index:9;justify-content:flex-start;padding-top:18px;overflow-y:auto;background:#0b0f17}
+.nwl{display:flex;flex-direction:column;gap:8px;width:100%;max-width:520px;margin-top:4px;text-align:left}
+.nwc{padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.07)}
+.nwc.new{background:linear-gradient(135deg,rgba(42,71,94,.9),rgba(23,26,33,.9));border:1px solid rgba(102,192,244,.5)}
+.nwh{font-weight:800;font-size:15px;color:#ffe08a;margin-bottom:4px}.nwc.new .nwh{color:#66c0f4}
+.nwc ul{margin:0;padding-left:20px;font-size:13px;line-height:1.55}
+#guideov{z-index:9;justify-content:flex-start;padding-top:16px;overflow-y:auto;background:#0b0f17}
+.gtabs{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:560px}.gtabs button{margin-top:0;padding:6px 12px;font-size:13px;background:rgba(255,255,255,.12);box-shadow:none}.gtabs button.sel{background:#2f5bea}
+.gbody{width:100%;max-width:560px;text-align:left;margin-top:8px}
+.gsec{background:rgba(255,255,255,.06);border-radius:10px;padding:10px 12px;margin-bottom:8px}.gsec h3{margin:0 0 6px;font-size:16px;color:#ffe08a}
+.gsec ul{margin:0;padding-left:20px;font-size:13.5px;line-height:1.6}.gnote{font-size:12.5px;opacity:.85;margin:6px 0 0;line-height:1.5}
+.gtb{width:100%;border-collapse:collapse;font-size:13px}.gtb td,.gtb th{padding:5px 6px;border-bottom:1px solid rgba(255,255,255,.1);vertical-align:top}.gtb th{text-align:left;color:#9fc7ff;font-weight:700}
+.glanes{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:#2b2f38;border-radius:8px;padding:8px 6px;border-left:4px solid #f2c230}
+.glanes div{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border-right:2px dashed rgba(255,255,255,.5);text-align:center}.glanes div:last-child{border-right:0}
+.glanes b{font-size:12px}.glanes i{font-style:normal;font-size:26px;font-weight:800;color:#fff}.glanes span{font-size:12px;color:#ffe08a}
+.gev{border-bottom:1px solid rgba(255,255,255,.08);padding:4px 0}.gev summary{cursor:pointer;font-weight:700;font-size:14px}.gev p{margin:4px 0 2px;font-size:13px;line-height:1.55;opacity:.9}
+.grow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:5px 0;font-size:14px}.gbtn{margin-top:0!important;padding:6px 12px!important;font-size:13px!important;background:rgba(255,255,255,.14)!important;box-shadow:none!important}
+#setb{position:absolute;right:10px;bottom:110px;width:44px;height:44px;border:0;border-radius:12px;background:rgba(0,0,0,.45);color:#fff;font-size:20px;cursor:pointer}
+#guideov>*:first-child,#newsov>*:first-child,#achov>*:first-child{margin-top:0}
+.cv-row{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:12px;max-width:380px;position:relative;z-index:2}.cv-row .snd2{margin-top:0!important;padding:7px 11px;font-size:13px;background:rgba(18,22,32,.82)!important;border:1px solid rgba(255,255,255,.22)}
+.cv-in .cv-h{margin:10px 0 0;font-size:12px;opacity:1;padding:3px 12px;border-radius:999px;background:rgba(18,22,32,.7);position:relative;z-index:2}
+.cv-in .cv-f{padding:3px 12px;border-radius:999px;background:rgba(18,22,32,.7);opacity:1;position:relative;z-index:2}
 </style>
 </head>
 <body>
 <div id="stage">
 <div id="hud"><span id="sc">0 分</span><span id="mo">💰 NT$0</span><span id="sp">0 km/h</span><span id="nm">驚險 0</span></div><div id="lt"></div><div id="cw"></div><div id="ms"></div><div id="mc"></div>
-<div id="toast"></div><div id="mini"></div><div id="rear"></div><div id="fl"></div><div id="fade"></div><canvas id="mm" width="120" height="120"></canvas><div id="mmh">🔍 點小地圖看全圖（M）</div><div class="ov hide" id="mapov"><h1>🗺️ 前方路況地圖</h1><p style="margin:0 0 8px;font-size:13px;opacity:.85">點地圖上的圖案，看它是什麼</p><div class="mpw"><div class="mpc"><canvas id="bigmap"></canvas><div id="mapinfo"><button id="mi-x" type="button" aria-label="關閉說明">✕</button><b id="mi-t"></b><div id="mi-p"></div><div id="mi-d"></div></div></div><div id="maplist"></div></div><button id="mapx" type="button">繼續開車</button></div><button id="pb" type="button" aria-label="暫停">⏸</button><button id="snd" type="button" aria-label="切換音效與音樂">🔊</button><div class="ov hide" id="pz"><h1>暫停中</h1><p>按 P 或點下面繼續</p><button id="rs" type="button">繼續</button><button type="button" class="snd2" onclick="ACH.open()">🏆 成就</button></div>
-<div class="ov cover" id="ov"><div class="cv-road"></div><div class="cv-in"><div class="cv-tag">3D 台灣街頭生存遊戲</div><h1 class="cv-t">台灣三寶<br>駕駛模擬器</h1><p class="cv-s">紅燈要停・老人要讓・救護車要閃</p><p class="big" id="bs"></p><input id="nk" maxlength="10" placeholder="輸入你的暱稱" autocomplete="off"><div class="lbs" id="lbs0"></div><button id="st" type="button">🏁 上路</button><button id="snd2" type="button" class="snd2">🔊 音效＋音樂</button><button id="achb" type="button" class="snd2" onclick="ACH.open()">🏆 成就</button><p class="cv-h">W 油門・S 煞車（停住再按住＝倒車）・A D 轉向・空白 喇叭・E 彈射<br>小心 8+9、陣頭、違停、下雨天<br>任務：開進綠色取餐區，慢速通過就能取餐（猜單用 1/2/3 或點按鈕）<br>路口前按 ◀ ▶ 決定左轉、右轉（再按反方向取消）<br>M 或點小地圖：看全圖・N 切換音效／音樂<br>手機請用下方按鈕</p></div><div class="cv-f">陳品叡製作</div></div>
+<div id="toast"></div><div id="mini"></div><div id="rear"></div><div id="fl"></div><div id="fade"></div><canvas id="mm" width="120" height="120"></canvas><div id="mmh">🔍 點小地圖看全圖（M）</div><div class="ov hide" id="mapov"><h1>🗺️ 前方路況地圖</h1><p style="margin:0 0 8px;font-size:13px;opacity:.85">點地圖上的圖案，看它是什麼</p><div class="mpw"><div class="mpc"><canvas id="bigmap"></canvas><div id="mapinfo"><button id="mi-x" type="button" aria-label="關閉說明">✕</button><b id="mi-t"></b><div id="mi-p"></div><div id="mi-d"></div></div></div><div id="maplist"></div></div><button id="mapx" type="button">繼續開車</button></div><button id="pb" type="button" aria-label="暫停">⏸</button><button id="snd" type="button" aria-label="切換音效與音樂">🔊</button><button id="setb" type="button" aria-label="設定與說明" onclick="this.blur();guideFromGame()">⚙️</button><div class="ov hide" id="pz"><h1>暫停中</h1><p>按 P 或點下面繼續</p><button id="rs" type="button">繼續</button><button type="button" class="snd2" onclick="ACH.open()">🏆 成就</button><button type="button" class="snd2" onclick="newsOpen()">📢 更新公告</button><button type="button" class="snd2" onclick="guideOpen()">⚙️ 設定／玩法說明</button></div>
+<div class="ov cover" id="ov"><div class="cv-road"></div><div class="cv-in"><div class="cv-tag">3D 台灣街頭生存遊戲</div><h1 class="cv-t">台灣三寶<br>駕駛模擬器</h1><p class="cv-s">紅燈要停・老人要讓・救護車要閃</p><p class="big" id="bs"></p><input id="nk" maxlength="10" placeholder="輸入你的暱稱" autocomplete="off"><div class="lbs" id="lbs0"></div><button id="st" type="button">🏁 上路</button><div class="cv-row"><button id="guideb" type="button" class="snd2" onclick="guideOpen('turn')">📖 玩法說明</button><button id="achb" type="button" class="snd2" onclick="ACH.open()">🏆 成就</button><button id="newsb" type="button" class="snd2" onclick="newsOpen()">📢 公告</button><button id="snd2" type="button" class="snd2">🔊 音效</button></div><p class="cv-h">第一次玩？先看「📖 玩法說明」</p><div class="cv-f">陳品叡製作</div></div></div>
 </div>
 <div id="bar"><button id="bl" type="button" aria-label="向左"><b>◀</b><i>左轉</i></button><button id="br" type="button" aria-label="向右"><b>▶</b><i>右轉</i></button><button id="hk" type="button" aria-label="喇叭"><b>🔔</b><i>喇叭</i></button><button id="bk" type="button"><b>🛑</b><i>煞車/倒車</i></button><button id="gs" type="button"><b>⚡</b><i>油門</i></button><button id="bo" type="button"><b>🚀</b><i>彈射</i></button></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -435,7 +457,7 @@ function toastClear(){TQ=[];clearTimeout(tmo);tBusy=0;tCur='';toastEl.classList.
 function score(){return Math.max(0,Math.floor(dist)+near*30+bonus-fine)}
 function title(s){return s<400?'駕訓班學員':s<1000?'計程車新手':s<2000?'外送員等級':s<3500?'雙黃線大師':'台北市區老司機'}
 function clear(){GHOSTS.forEach(function(q){scene.remove(q)});GHOSTS=[];XENTS.forEach(function(e){scene.remove(e.g)});XENTS=[];xings.forEach(function(x){if(x.ix)scene.remove(x.ix.g)});ents.forEach(function(e){scene.remove(e.g);if(e.cone)scene.remove(e.cone);if(e.mar)scene.remove(e.mar);if(e.fire)scene.remove(e.fire)});xings.forEach(function(x){scene.remove(x.g)});cams.forEach(function(c){scene.remove(c.g)});cams=[];sides.forEach(function(q){scene.remove(q.g)});sides=[];ents=[];xings=[];amb=null}
-function start(){try{ACH.newRun();ACH.close()}catch(x){}achDm=achRv=achRn=0;XQ=[];revHold=0;latV=0;plPsi=PV.psi=0;PV.del=plDel=0;TURN.st='IDLE';TURN.x=null;plYaw=0;steerA=0;lastPH=0;sun.position.set(SUN0[0],SUN0[1],SUN0[2]);mv.forEach(function(m){m.hold=false});clear();toastClear();PT=null;PHX=0;PHZ=-1;VZ=7;ixAppr=null;lastDir=0;camSnap=true;ROADN=pick(ROADS);if(AUi()){auBuild();playTrack('drive')}mode='play';dist=0;t=0;v=7;px=3;boostCd=0;boostT=0;coastT=0;fireT=30;dir=0;gas=0;brk=0;near=0;fine=0;bonus=0;spawnT=.6;nextX=45;evT=22;ambT=0;blockT=0;ov.classList.add('hide');paused=false;pz.classList.add('hide');camT=80;vl={yl:0,red:0,ped:0,spd:0,spdAmt:0,lane:0};resetEvents();twReset();sync()}
+function start(){try{ACH.newRun();ACH.close();var no=document.getElementById('newsov');if(no)no.classList.add('hide');var gq=document.getElementById('guideov');if(gq)gq.classList.add('hide')}catch(x){}achDm=achRv=achRn=0;XQ=[];revHold=0;latV=0;plPsi=PV.psi=0;PV.del=plDel=0;TURN.st='IDLE';TURN.x=null;plYaw=0;steerA=0;lastPH=0;sun.position.set(SUN0[0],SUN0[1],SUN0[2]);mv.forEach(function(m){m.hold=false});clear();toastClear();PT=null;PHX=0;PHZ=-1;VZ=7;ixAppr=null;lastDir=0;camSnap=true;ROADN=pick(ROADS);if(AUi()){auBuild();playTrack('drive')}mode='play';dist=0;t=0;v=7;px=3;boostCd=0;boostT=0;coastT=0;fireT=30;dir=0;gas=0;brk=0;near=0;fine=0;bonus=0;spawnT=.6;nextX=45;evT=22;ambT=0;blockT=0;ov.classList.add('hide');paused=false;pz.classList.add('hide');camT=80;vl={yl:0,red:0,ped:0,spd:0,spdAmt:0,lane:0};resetEvents();twReset();sync()}
 function pickKind(){
   var w=[['scooter',28],['delivery',34],['afc',14],['uncle',8],['taxi',12],['bus',6],['garbage',6],['mini',8],['parked',10],['ped',1],['ferrari',6],['pzone',5],['szone',5]];
   if(t>8){var f=Math.min(2,.6+t/40);w.push(['sbfam',7*f],['sbsnake',5*f]);if(!crashAct())w.push(['sbwrong',4*f])}
@@ -1258,8 +1280,8 @@ function evDesc(e){var k=e.k;
   if(e.ped&&e.jay)return [e.k==='elder'?'👴':'🚶',e.k==='elder'?'三寶老人亂穿越':'三寶行人亂穿越','#ff5a3a'];if(k==='elder')return ['👴','老人過馬路','#ffd23a'];return null}
 function sideDesc(q){if(q.typ==='stall')return MS&&MS.sd===q?['🛍️','任務取餐點（早餐店）','#3ec97a']:[q.kind==='bf'?'🍳':'🏮',q.kind==='bf'?'早餐店':'夜市攤販','#ffd23a'];
   if(q.typ==='crowd')return q.spect?['👀','路邊圍觀人群','#ffd23a']:['🛵','8+9 路邊聚集','#ff4dd2'];if(q.typ==='zs')return ['🎊','路邊陣頭表演','#ffaa28'];if(q.typ==='drop')return ['📦','外送客人（交餐點）','#3ec97a'];return null}
-function openMap(){if(mode!=='play'||mapOpen)return;mapOpen=1;mapWasP=paused;paused=true;KS.l=KS.r=KS.g=KS.b=0;TS.l=TS.r=TS.g=TS.b=0;sync();document.getElementById('mapov').classList.remove('hide');['pb','snd'].forEach(function(id){document.getElementById(id).style.visibility='hidden'});MSEL=null;document.getElementById('mapinfo').style.display='none';drawBig()}
-function closeMap(){if(!mapOpen)return;mapOpen=0;['pb','snd'].forEach(function(id){document.getElementById(id).style.visibility=''});document.getElementById('mapov').classList.add('hide');paused=mapWasP}
+function openMap(){if(mode!=='play'||mapOpen)return;mapOpen=1;mapWasP=paused;paused=true;KS.l=KS.r=KS.g=KS.b=0;TS.l=TS.r=TS.g=TS.b=0;sync();document.getElementById('mapov').classList.remove('hide');['pb','snd','setb'].forEach(function(id){document.getElementById(id).style.visibility='hidden'});MSEL=null;document.getElementById('mapinfo').style.display='none';drawBig()}
+function closeMap(){if(!mapOpen)return;mapOpen=0;['pb','snd','setb'].forEach(function(id){document.getElementById(id).style.visibility=''});document.getElementById('mapov').classList.add('hide');paused=mapWasP}
 // 點地圖圖案顯示說明
 var MINFO={
  '車禍，有民眾指揮車流':'兩台車撞在一起。事故車道上，車禍前約 30 公尺擺了三角錐，前約 14 公尺有民眾站在車道邊指揮。車子、三角錐、指揮的人都不能撞，撞到遊戲就結束。請提早換到旁邊車道慢慢通過。約 14 秒後拖吊車會清除，救護車可能會從後方趕來。',
@@ -1298,7 +1320,7 @@ var MINFO={
  '測速照相':'限速 60 km/h。超過 70 km/h 被拍到會罰款，守法通過可以加分。',
  '便利商店':'超商門口有茶葉蛋和咖啡立牌，常常有人臨停進去買東西。',
  '你':'這是你的車。橘色三角形的尖端是車頭方向。',
- '路口':'有支線道路的路口。在路口前按 ◀ 或 ▶ 選擇左轉、右轉，再按反方向可以取消。右轉要在外側車道（靠右），左轉要在內側車道（靠雙黃線）。轉彎速度要慢：右轉 30 km/h、左轉 40 km/h 以下比較安全，太快會翻車。轉進新的道路後，會繼續在那條路上開。支線的車只在支線綠燈時通過，主幹道的車也會在這裡左轉、右轉。',
+ '路口':'有支線道路的路口。最左車道可左轉或直行、中間只能直行、最右只能右轉。在最左車道按住 ◀、或在最右車道按住 ▶ 約半秒就會準備轉彎並自動減速，再按反方向可以取消。右轉 32 km/h、左轉 40 km/h 以下最安全，太快乘客會嚇到扣分。轉進新的道路後，會繼續在那條路上開。支線的車只在支線綠燈時通過，主幹道的車也會在這裡左轉、右轉。',
  '取餐區':'綠色的得來速區域。開進去，車速降到 30 km/h 以下約 1 秒就能完成取餐或交餐。'
 };
 var KINFO={scooter:'一般機車，常常不打方向燈就切車道。',delivery:'外送員，趕時間常常亂切車道。按喇叭他會閃開。',afc:'AFC 炸雞外送員。撞到的話炸雞會飛滿天。',uncle:'阿北騎機車，按喇叭他也不為所動。',
@@ -1443,7 +1465,7 @@ function weatherVis(dt,sv){var tg=rainOn?1:0;wk+=(tg-wk)*Math.min(1,dt*.6);if(Ma
 var STB,TRB,cvsT=1,stallT=10,trafT=8,dlvT=40,honkT=0,earn=0,jobs=0;
 function twReset(){STB=mkBag(['bf','nm']);TRB=mkBag(['dbl','stop','rev','scoot','stop','dbl']);
   rainOn=Math.random()<TW.rainStartChance;wk=rainOn?1:0;wT=rainOn?rnd(TW.rainTime[0],TW.rainTime[1]):rnd(TW.sunTime[0],TW.sunTime[1]);
-  cvsT=1;stallT=rnd(TW.stallFirst[0],TW.stallFirst[1]);trafT=rnd(TW.trafFirst[0],TW.trafFirst[1]);earn=0;jobs=0;msT=rnd(6,10);FLY.forEach(function(f){scene.remove(f.m)});FLY=[];if(mapOpen){mapOpen=0;document.getElementById('mapov').classList.add('hide');['pb','snd'].forEach(function(id){document.getElementById(id).style.visibility=''})}honkT=0;MS=null;SHOPS.forEach(function(m){m.used=0})}
+  cvsT=1;stallT=rnd(TW.stallFirst[0],TW.stallFirst[1]);trafT=rnd(TW.trafFirst[0],TW.trafFirst[1]);earn=0;jobs=0;msT=rnd(6,10);FLY.forEach(function(f){scene.remove(f.m)});FLY=[];if(mapOpen){mapOpen=0;document.getElementById('mapov').classList.add('hide');['pb','snd','setb'].forEach(function(id){document.getElementById(id).style.visibility=''})}honkT=0;MS=null;SHOPS.forEach(function(m){m.used=0})}
 twReset();
 function twTick(dt){
   wT-=dt;if(wT<=0){rainOn=!rainOn;wT=rainOn?rnd(TW.rainTime[0],TW.rainTime[1]):rnd(TW.sunTime[0],TW.sunTime[1]);toast(rainOn?'🌧️ 下雨了！路面濕滑，煞車距離變長':'☀️ 雨停了，路面慢慢變乾')}
@@ -1491,7 +1513,7 @@ function AUi(){if(AU.ok)return true;try{ac=ac||new (window.AudioContext||window.
 function OUT(){return AUi()?AU.sfx:ac.destination}
 function auApply(){if(!AU.ok)return;var t0=ac.currentTime;AU.master.gain.setTargetAtTime(AU.mode===2?0:.9,t0,.05);musLevel();
   var b=document.getElementById('snd');if(b){b.textContent=['🔊','🎵','🔇'][AU.mode];b.title=['音效＋音樂','只有音效（音樂關閉）','全部靜音'][AU.mode]}
-  var c=document.getElementById('snd2');if(c)c.textContent=['🔊 音效＋音樂','🔈 只有音效','🔇 靜音'][AU.mode]}
+  var c=document.getElementById('snd2');if(c)c.textContent=['🔊 音效','🔈 僅音效','🔇 靜音'][AU.mode]}
 function auCycle(){AU.mode=(AU.mode+1)%3;try{localStorage.setItem('twdrive_snd',AU.mode)}catch(x){}AUi();if(ac&&ac.state==='suspended')ac.resume();auApply();sClick()}
 function musLevel(){if(!AU.ok)return;var base=AU.mode?0:(AU.track==='drive'?.24:.3);
   if(typeof paused!=='undefined'&&paused)base*=.35;if(typeof mapOpen!=='undefined'&&mapOpen)base*=.5;if(AU.duck)base*=.35;
@@ -1813,6 +1835,70 @@ window.addEventListener('orientationchange',function(){setTimeout(function(){fit
 if(window.visualViewport)visualViewport.addEventListener('resize',fit);
 window.addEventListener('blur',function(){if(mode==='play')setPause(true);KS.l=KS.r=KS.g=KS.b=0;TS.l=TS.r=TS.g=TS.b=0;sync()});
 requestAnimationFrame(loop);
+// ===== 更新公告 =====
+// 每次大更新：在 NEWS 最前面加一筆（v 要換新的版本號），玩家下次打開遊戲就會自動跳出一次公告。
+var NEWS=[
+ {v:'2.8',d:'2026/10/29',t:'設定與遊戲說明',l:['⚙️ 新增「設定與遊戲說明」：封面、暫停畫面、遊戲中右下角 ⚙️ 都能打開','↰ 轉彎規則圖解：哪條車道能轉、怎麼按、速度多少','📦 外送規則、🚨 交通違規與加分表、📖 所有事件與車輛圖鑑','🔊 音效、成就音量等設定集中在同一個地方','🚑 救護車在斑馬線前快停住時不會再原地打轉、橫著滑']},
+ {v:'2.7',d:'2026/10/29',t:'成就系統＋救護車大改',l:['🏆 新增 Steam 風格成就系統（25 個成就，含隱藏成就），右上角跳通知','🚑 救護車重新設計：只沿車道前進、塞車會找空車道、不會再鎖定你衝過來','🚑 禮讓判定更合理：旁邊真的有空間卻不讓才算違規；成功禮讓 +40','🚗 所有車輛換車道改成平順轉向','💥 逆向三寶撞到車會變成車禍現場，不會再穿過去','↰ 停在停止線前、或壓到斑馬線才按方向，也能轉彎','📢 新增更新公告']},
+ {v:'2.6',d:'',t:'車道規則與交通違規',l:['🛣️ 新車道規則：最左＝左轉／直行、中間＝直行、最右＝右轉','⏱ 在轉彎車道按住方向鍵約半秒才確認轉彎，避免誤轉','🚨 在右轉專用道直行，依道交條例 §48 開罰','🚶 車子會禮讓行人，不再穿過行人；亂穿越的行人會標示「三寶行人」','🚀 彈射改為 140 km/h']},
+ {v:'2.5',d:'',t:'路口與轉彎系統',l:['🚦 加入十字路口、T 字路口，可以左轉、右轉進入新道路','🚗 NPC 與對向車也會轉彎','⬆️ 地面加上車道指示箭頭','🔙 煞車停住後再按住可以倒車','🗺️ 地圖改版，可以看到更遠的路況']},
+ {v:'2.4',d:'',t:'音效與事件',l:['🔊 加入音效與背景音樂（可切換靜音）','🏍️ 8+9 從後方逼近時會提示','💥 車禍現場的三角錐與指揮民眾也要閃開','🚀 彈射後會慢慢降回 100 km/h']},
+ {v:'2.3',d:'',t:'外送與排行榜',l:['📦 外送／早餐任務、台灣早餐菜單與飲料客製化','⭐ 特殊訂單（全糖奶茶警察、客製化地獄…）','💰 新增賺錢榜，與分數榜分開','🗺️ 可點擊的路況地圖','📱 手機操作優化']},
+ {v:'2.2',d:'',t:'AFC 阿嬤炸雞外送機車',l:['🍗 新增 AFC 阿嬤炸雞外送機車（撞到有炸雞提示詞）','🗺️ 小地圖標示車禍、火災、救護車、警車、毒駕、逆向','📣 喇叭可連按、無冷卻','🚀 彈射冷卻改為 7 秒']},
+ {v:'2.1',d:'',t:'台灣街頭系統',l:['🏪 便利商店、早餐店、夜市','🚗 違規停車與交通事件、晴天／下雨','🏍️ 8+9 車隊與 🏮 陣頭遶境']}];
+var NEWS_KEY='twdrive_news_seen';
+function newsOpen(){var o=document.getElementById('newsov');if(!o){o=document.createElement('div');o.className='ov hide';o.id='newsov';(document.getElementById('stage')||document.body).appendChild(o)}
+  o.innerHTML='<h1>📢 更新公告</h1><p class="achs">目前版本 v'+NEWS[0].v+'</p><div class="nwl"></div><button type="button" class="nwx">知道了</button>';
+  var L=o.querySelector('.nwl');NEWS.forEach(function(n,i){var c=document.createElement('div');c.className='nwc'+(i===0?' new':'');
+    var h=document.createElement('div');h.className='nwh';h.textContent='v'+n.v+'　'+n.t+(n.d?'　'+n.d:'')+(i===0?'　NEW':'');c.appendChild(h);
+    var u=document.createElement('ul');n.l.forEach(function(t){var li=document.createElement('li');li.textContent=t;u.appendChild(li)});c.appendChild(u);L.appendChild(c)});
+  o.querySelector('.nwx').onclick=function(){o.classList.add('hide')};
+  o.classList.remove('hide');try{localStorage.setItem(NEWS_KEY,NEWS[0].v)}catch(x){}}
+function newsAuto(){var seen=null,g=null;try{seen=localStorage.getItem(NEWS_KEY);g=localStorage.getItem('twdrive_guide')}catch(x){}
+  if(!seen&&!g){setTimeout(function(){if(mode!=='play')guideOpen('turn')},600);try{localStorage.setItem(NEWS_KEY,NEWS[0].v)}catch(x){}return}
+  if(seen!==NEWS[0].v)setTimeout(function(){if(typeof mode==='undefined'||mode!=='play')newsOpen()},600)}
+
+// ===== 設定與遊戲說明 =====
+var GTABS=[['set','⚙️ 設定'],['ctl','🎮 操作'],['turn','↰ 轉彎'],['job','📦 外送'],['rule','🚨 交通規則'],['ev','📖 事件圖鑑']];
+function gEsc(t){return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function gSec(h,body){return '<div class="gsec"><h3>'+h+'</h3>'+body+'</div>'}
+function gList(a){return '<ul>'+a.map(function(t){return '<li>'+t+'</li>'}).join('')+'</ul>'}
+function gTable(rows,head){return '<table class="gtb">'+(head?'<tr>'+head.map(function(h){return '<th>'+h+'</th>'}).join('')+'</tr>':'')+rows.map(function(r){return '<tr>'+r.map(function(c){return '<td>'+c+'</td>'}).join('')+'</tr>'}).join('')+'</table>'}
+var GUIDE={
+ ctl:function(){return gSec('電腦鍵盤',gTable([['W / ↑','油門'],['S / ↓','煞車；停住後再按住＝倒車'],['A D / ← →','往左／往右；在路口前按住＝轉彎'],['空白鍵','喇叭（可以連按）'],['E / Shift','彈射加速到 140 km/h（冷卻 7 秒）'],['P / Esc','暫停'],['M','打開路況地圖'],['N','切換音效／音樂／靜音'],['1 2 3','外送猜單時選答案']]))+
+   gSec('手機',gList(['畫面下方的按鈕：◀ 左轉、▶ 右轉、🔔 喇叭、🛑 煞車／倒車、⚡ 油門、🚀 彈射','右下角：⏸ 暫停、🔊 音效、⚙️ 設定與說明','點左上角的小地圖可以看全圖，地圖上的圖案都可以點來看說明']))},
+ turn:function(){return gSec('每個方向有 3 條車道','<div class="glanes"><div><b>最左（內側）</b><i>↰ ↑</i><span>左轉或直行</span></div><div><b>中間</b><i>↑</i><span>只能直行</span></div><div><b>最右（外側）</b><i>↱</i><span>只能右轉</span></div></div><p class="gnote">路口前的地上也畫了這些箭頭。T 字路口沒有左邊的路時，最左車道就只能直行。</p>')+
+   gSec('怎麼轉彎',gList(['<b>先換到對的車道</b>：要左轉→最左車道；要右轉→最右車道。','<b>在路口前按住方向鍵</b>（◀ 左轉、▶ 右轉）約半秒，畫面會出現「準備左轉／右轉」。','停在停止線前等紅燈時就可以先按；壓到斑馬線、剛進路口才按也來得及。','確認後車子會<b>自動減速</b>，到路口就會自己轉進新的路，你只要放開按鍵。','<b>想取消</b>：按反方向鍵，就會改回直行。']))+
+   gSec('轉彎速度',gTable([['右轉','約 31 km/h','超過 32 km/h：乘客嚇到 -30 分'],['左轉','約 38 km/h','超過 40 km/h：乘客嚇到 -30 分']],['方向','自動減速到','太快'])+'<p class="gnote">快到真的轉不過去（右轉約 57、左轉約 69 km/h 以上）時，會提示「來不及轉彎，直行通過」，不會翻車。</p>')+
+   gSec('常見問題',gList(['<b>按了沒轉？</b>可能不在對的車道（中間車道不能轉），或已經開過路口太深。','<b>車子一直往旁邊滑？</b>那是在換車道。要轉彎請在最左／最右車道「按住」方向鍵。','<b>在最右車道直行</b>會被開罰（道交條例 §48），右轉專用道請右轉。','路口也有紅綠燈，紅燈一樣要停。']))},
+ job:function(){return gSec('任務怎麼來',gList(['開車時會隨機收到任務：🥪 早餐任務（只要取餐）、📦 外送訂單（取餐後還要送餐）、⭐ 特殊訂單。','右上的任務卡會寫菜單、價錢、取餐區還有幾公尺。']))+
+   gSec('取餐／交餐',gList(['取餐區、交餐區都在<b>前方右側</b>，路面是綠色的。','要開在<b>中間或最右車道</b>才進得了區域。','在區域裡車速要低於 <b>30 km/h</b>，取餐進度條跑滿就完成（約 1 秒）。','接近時會自動提示，煞車效果會加倍，方便你停下來。','錯過區域任務就失敗。']))+
+   gSec('外送限制',gList(['取餐後要在<b>限時內</b>送到（一般 45 秒；趕上班的客人 25 秒；公司團體訂餐 60 秒）。','越早送到，收入越多。','「蛋餅不要切」這類精準送達：交餐時要降到 15 km/h 以下，路上別急煞、別猛切車道，餐點完整度太低收入會變少。','「老闆隨便做」「全糖奶茶警察」要先選對答案（按 1 / 2 / 3 或點按鈕）才能取餐，選錯收入只剩 3 成。']))+
+   gSec('收入與排行榜',gList(['完成任務會拿到 NT$（計入<b>賺錢榜</b>），另外加 15～60 分（計入<b>分數榜</b>）。','特殊訂單收入有倍數加成（例如大胃王 ×1.6、終極套餐 ×2）。']))},
+ rule:function(){return gSec('分數怎麼算','<p class="gnote">分數 ＝ 行駛公尺數 ＋ 驚險閃過次數 × 30 ＋ 加分 − 扣分</p>')+
+   gSec('違規（扣分＋結算罰單）',gTable([['闖紅燈','-100','§53　NT$2,700'],['沒禮讓斑馬線上的行人','-100','§44　NT$3,600'],['開進對向車道（跨雙黃線）','—','§45　NT$900'],['測速照相超過 70 km/h','-100','§40　依超速多少'],['右轉專用道直行','-100','§48　NT$600'],['轉彎太快','-30','—'],['按喇叭嚇到老人','-50','—']],['行為','遊戲扣分','結算罰單（參考）'])+'<p class="gnote">罰單金額依道路交通管理處罰條例概算，僅供遊戲參考。</p>')+
+   gSec('加分',gTable([['驚險閃過車輛','+30'],['閃過三寶','+60'],['斑馬線前禮讓行人','+50'],['成功禮讓救護車','+40'],['測速照相守法通過','+20'],['經過路邊陣頭表演（鞭炮）','+20'],['完成外送任務','+15～60']],['行為','分數']))+
+   gSec('遊戲結束',gList(['撞到任何車、行人、陣頭、車禍現場的三角錐或指揮民眾。','救護車在你正後方、旁邊車道明明有空間，你卻擋住它超過 4 秒。']))},
+ ev:function(){var ks=Object.keys(MINFO).filter(function(k){return k!=='你'});
+   return gSec('路上會遇到的事件','<p class="gnote">地圖上的圖案也可以點來看說明。</p>'+ks.map(function(k){return '<details class="gev"><summary>'+gEsc(k)+'</summary><p>'+gEsc(MINFO[k])+'</p></details>'}).join(''))+
+   gSec('路上的車輛與行人',Object.keys(KINFO).filter(function(k){return NAMES[k]}).map(function(k){return '<details class="gev"><summary>'+gEsc(NAMES[k])+'</summary><p>'+gEsc(KINFO[k])+'</p></details>'}).join(''))},
+ set:function(){var am=(typeof ACH!=='undefined')?Math.round(ACH.S().vol*100):70;
+   return gSec('聲音','<div class="grow"><span>音效／音樂</span><button type="button" class="gbtn" id="g-snd">'+['🔊 音效＋音樂','🔈 只有音效','🔇 全部靜音'][AU.mode]+'</button></div><div class="grow"><span>成就音效音量</span><input type="range" min="0" max="100" value="'+am+'" id="g-av"></div>')+
+   gSec('其他','<div class="grow"><span>成就列表</span><button type="button" class="gbtn" id="g-ach">🏆 打開</button></div><div class="grow"><span>更新公告</span><button type="button" class="gbtn" id="g-news">📢 打開</button></div><div class="grow"><span>目前版本</span><b>v'+NEWS[0].v+'</b></div>')}
+};
+var gTab='set';
+function guideOpen(tab){if(tab)gTab=tab;var o=document.getElementById('guideov');if(!o){o=document.createElement('div');o.className='ov hide';o.id='guideov';(document.getElementById('stage')||document.body).appendChild(o)}
+  o.innerHTML='<h1>⚙️ 設定與遊戲說明</h1><div class="gtabs">'+GTABS.map(function(t){return '<button type="button" data-g="'+t[0]+'"'+(t[0]===gTab?' class="sel"':'')+'>'+t[1]+'</button>'}).join('')+'</div><div class="gbody">'+GUIDE[gTab]()+'</div><button type="button" class="gx">關閉</button>';
+  o.querySelectorAll('[data-g]').forEach(function(b){b.onclick=function(){guideOpen(b.getAttribute('data-g'));o.scrollTop=0}});
+  o.querySelector('.gx').onclick=function(){o.classList.add('hide')};
+  var s=o.querySelector('#g-snd');if(s)s.onclick=function(){auCycle();guideOpen('set')};
+  var av=o.querySelector('#g-av');if(av)av.oninput=function(){try{ACH.S().vol=av.value/100;ACH.flush()}catch(x){}};
+  var ga=o.querySelector('#g-ach');if(ga)ga.onclick=function(){o.classList.add('hide');ACH.open()};
+  var gn=o.querySelector('#g-news');if(gn)gn.onclick=function(){o.classList.add('hide');newsOpen()};
+  o.classList.remove('hide');try{localStorage.setItem('twdrive_guide','1')}catch(x){}}
+function guideFromGame(){if(mode==='play'&&!paused)setPause(true);guideOpen()}
+
+try{newsAuto()}catch(x){}
 </script>
 </body>
 </html>
