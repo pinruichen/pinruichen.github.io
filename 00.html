@@ -22,7 +22,11 @@ body{background:var(--bg);font:16px/1.5 "Noto Sans TC","PingFang TC","Microsoft 
 #ms{position:absolute;bottom:64px;left:50%;transform:translateX(-50%);width:max-content;max-width:min(92%,480px);text-align:center;font-size:15px;line-height:1.45;white-space:pre-line;text-align:left;font-weight:800;color:#d8ffe8;background:rgba(18,22,30,.85);border:2px solid #3ec97a;border-radius:14px;padding:6px 16px;pointer-events:none;display:none}
 #mc{position:absolute;top:196px;left:50%;transform:translateX(-50%);width:min(92%,440px);background:rgba(18,22,30,.92);border:2px solid #ffe08a;border-radius:14px;padding:8px;display:none;text-align:center;z-index:3}
 #mc .mcq{font-weight:800;font-size:14px;color:#ffe08a;margin-bottom:4px}#mc button{display:block;width:100%;margin:5px 0 0;border:0;border-radius:10px;background:#2f5bea;color:#fff;font:inherit;font-size:15px;font-weight:700;padding:9px 10px;cursor:pointer}
-#toast{position:absolute;top:22%;left:0;right:0;text-align:center;font-size:30px;font-weight:800;text-shadow:0 2px 6px #000;opacity:0;transition:opacity .25s;pointer-events:none}
+#toast{position:absolute;top:24%;left:50%;transform:translateX(-50%);width:max-content;max-width:min(90%,560px);text-align:center;font-size:22px;line-height:1.35;font-weight:800;text-shadow:0 2px 4px #000;background:rgba(12,15,22,.62);border-radius:16px;padding:8px 18px;opacity:0;transition:opacity .25s;pointer-events:none}
+#rear{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);width:max-content;max-width:92%;font-size:19px;font-weight:800;color:#fff;background:linear-gradient(90deg,rgba(255,43,214,.85),rgba(176,75,255,.85));border:2px solid #fff;border-radius:999px;padding:5px 16px;box-shadow:0 0 18px rgba(255,43,214,.7);pointer-events:none;display:none;z-index:2}
+#fade{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none;z-index:4}
+#mini{position:absolute;right:14px;top:84px;font-size:17px;font-weight:800;color:#ffe08a;text-shadow:0 2px 4px #000;opacity:0;pointer-events:none}
+#mini.on{animation:mup 1.1s ease-out forwards}@keyframes mup{0%{opacity:0;transform:translateY(8px)}15%{opacity:1;transform:none}75%{opacity:1}100%{opacity:0;transform:translateY(-14px)}}
 #toast.on{opacity:1}
 .ov{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;text-align:center;padding:24px;background:rgba(12,15,20,.8)}
 .ov>*:first-child{margin-top:auto}.ov>*:last-child{margin-bottom:auto}.ov.cover>*:first-child,#mapov>*:first-child{margin-top:0}
@@ -35,7 +39,7 @@ body{background:var(--bg);font:16px/1.5 "Noto Sans TC","PingFang TC","Microsoft 
 #mmh{position:absolute;left:6px;top:178px;width:140px;text-align:center;font-size:11px;font-weight:700;text-shadow:0 1px 3px #000;pointer-events:none;opacity:.9}
 #mapov{justify-content:flex-start;padding:12px;background:rgba(12,15,20,.94)}#mapov h1{font-size:20px;margin:0 0 8px}
 .mpw{display:flex;gap:10px;width:100%;max-width:900px;flex-wrap:wrap;justify-content:center}
-#stage #bigmap{width:min(94vw,420px)!important;height:min(64vh,640px)!important;max-width:none;border-radius:12px;border:2px solid rgba(255,255,255,.6);flex:none}
+#stage #bigmap{width:min(94vw,420px)!important;height:min(66vh,660px)!important;max-width:none;border-radius:14px;border:1px solid rgba(255,255,255,.25);box-shadow:0 10px 30px rgba(0,0,0,.55);flex:none}
 #maplist{flex:1 1 260px;max-width:440px;max-height:64vh;overflow-y:auto;text-align:left;font-size:13px;line-height:1.5;background:rgba(255,255,255,.08);border-radius:12px;padding:8px 10px}
 #mapinfo{position:absolute;display:none;width:min(260px,80vw);background:rgba(18,22,30,.96);border:2px solid #ffe08a;border-radius:12px;padding:8px 32px 8px 10px;text-align:left;font-size:13px;line-height:1.5;box-shadow:0 6px 18px rgba(0,0,0,.5);z-index:2;pointer-events:auto}
 .mpc{position:relative;flex:none}#mi-t{display:block;font-size:15px}#mi-p{color:#ffe08a;font-size:12px;margin:2px 0 4px}
@@ -57,6 +61,8 @@ body{background:var(--bg);font:16px/1.5 "Noto Sans TC","PingFang TC","Microsoft 
 .cv-f{position:absolute;left:0;right:0;bottom:8px;text-align:center;font-size:11px;letter-spacing:.15em;color:#fff;opacity:.85;z-index:2;text-shadow:0 1px 3px #000}
 #fl{position:absolute;inset:0;background:#fff;opacity:0;transition:opacity .35s;pointer-events:none}
 #pb{position:absolute;right:10px;bottom:10px;width:44px;height:44px;border:0;border-radius:12px;background:rgba(0,0,0,.45);color:#fff;font-size:20px;cursor:pointer}
+#snd{position:absolute;right:10px;bottom:60px;width:44px;height:44px;border:0;border-radius:12px;background:rgba(0,0,0,.45);color:#fff;font-size:20px;cursor:pointer}
+.ov .snd2{background:rgba(255,255,255,.15);font-size:14px;padding:6px 14px;margin-top:8px;box-shadow:none}
 #bar{display:flex;gap:8px;padding:10px 10px 12px;background:linear-gradient(#222b38,#161c25);justify-content:center;border-top:1px solid rgba(255,255,255,.12)}
 #bar button{flex:1;min-width:0;max-width:140px;height:62px;border:0;border-radius:18px;color:#fff;font:inherit;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;position:relative;overflow:hidden;box-shadow:0 5px 0 rgba(0,0,0,.4),0 8px 14px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.4);text-shadow:0 1px 2px rgba(0,0,0,.45);transition:transform .06s,box-shadow .06s,filter .06s}
 #bar button::after{content:'';position:absolute;left:0;right:0;top:0;height:48%;background:linear-gradient(rgba(255,255,255,.28),rgba(255,255,255,0));pointer-events:none}
@@ -72,7 +78,9 @@ button:focus-visible{outline:3px solid #f2c230;outline-offset:2px}
 #cw{top:70px;left:114px;right:8px;transform:none;width:auto;max-width:none;font-size:14px;padding:4px 10px;border-radius:12px;text-align:left}
 #mc{top:126px;left:114px;right:8px;transform:none;width:auto;padding:6px}
 #mc button{font-size:13px;padding:7px 8px}
-#toast{top:30%;font-size:21px;padding:0 14px}
+#toast{top:28%;font-size:17px;padding:6px 12px;max-width:94%}
+#mini{top:auto;bottom:70px;right:62px;font-size:15px}
+#rear{bottom:auto;top:178px;font-size:15px;padding:4px 12px}
 #ms{left:8px;bottom:8px;transform:none;max-width:calc(100% - 66px);font-size:12.5px;padding:5px 10px;line-height:1.4}
 #bar{gap:5px;padding:8px 6px 10px}
 #bar button{height:56px;border-radius:14px}#bar button b{font-size:20px}#bar button i{font-size:11px}
@@ -86,7 +94,9 @@ button:focus-visible{outline:3px solid #f2c230;outline-offset:2px}
 #cw{top:30px;left:auto;right:8px;transform:none;width:auto;max-width:44%;font-size:13px;padding:3px 10px;border-radius:12px}
 #mc{top:30px;left:100px;right:auto;transform:none;width:min(40%,360px);padding:5px}
 #mc button{font-size:12px;padding:5px 8px;margin-top:3px}
-#toast{top:16%;font-size:19px}
+#toast{top:18%;font-size:16px;padding:5px 12px}
+#mini{top:30px;right:auto;left:100px}
+#rear{bottom:auto;top:56px;font-size:14px;padding:3px 12px}
 #ms{left:auto;right:60px;bottom:6px;transform:none;max-width:44%;max-height:60%;overflow:hidden;font-size:12px;padding:4px 9px}
 #bar{padding:4px 6px 5px;gap:5px}
 #bar button{height:44px;max-width:120px;border-radius:12px;flex-direction:row;gap:5px}#bar button b{font-size:18px}#bar button i{font-size:11px}
@@ -94,15 +104,32 @@ button:focus-visible{outline:3px solid #f2c230;outline-offset:2px}
 #stage #bigmap{height:min(78vh,640px)!important}#maplist{max-height:78vh}
 }
 
+#achq{position:absolute;top:44px;right:10px;width:min(280px,46%);display:flex;flex-direction:column;gap:6px;pointer-events:none;z-index:6}
+.achc{display:flex;gap:10px;align-items:center;padding:8px 10px;border-radius:6px;background:linear-gradient(135deg,rgba(23,26,33,.96),rgba(42,71,94,.96));border:1px solid rgba(102,192,244,.55);box-shadow:0 6px 18px rgba(0,0,0,.45);color:#c7d5e0;transform:translateX(115%);opacity:0;transition:transform .42s cubic-bezier(.2,.9,.25,1.1),opacity .35s}
+.achc.in{transform:none;opacity:1}.achc.out{transform:translateX(30%);opacity:0;transition:transform .45s ease-in,opacity .4s}
+.achc .achi,.achr .achi{flex:none;width:44px;height:44px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:26px;background:linear-gradient(135deg,#3d6c8d,#1b2838);box-shadow:inset 0 0 0 1px rgba(255,255,255,.15)}
+.achc .acht{min-width:0;display:flex;flex-direction:column;line-height:1.25}
+.achc small{font-size:11px;color:#66c0f4;font-weight:700}.achc b{font-size:15px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.achc span{font-size:12px;opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#achov{z-index:8;justify-content:flex-start;padding-top:18px;overflow-y:auto;background:#0b0f17}
+#achov .achs{margin:2px 0 8px;opacity:.85}
+.acht2{display:flex;gap:6px}.acht2 button{margin-top:0;padding:6px 14px;font-size:14px;background:rgba(255,255,255,.12);box-shadow:none}.acht2 button.sel{background:#2f5bea}
+.achv{font-size:13px;margin:8px 0;display:flex;align-items:center;gap:8px}
+.achl{display:flex;flex-direction:column;gap:6px;width:100%;max-width:520px;margin-top:6px}
+.achr{display:flex;gap:10px;align-items:center;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,.07);text-align:left;opacity:.72}
+.achr.on{opacity:1;background:linear-gradient(135deg,rgba(42,71,94,.9),rgba(23,26,33,.9));border:1px solid rgba(102,192,244,.45)}
+.achr:not(.on) .achi{filter:grayscale(1)}
+.achr .acht{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.achr b{font-size:15px}.achr span{font-size:12px;opacity:.85}.achr small{font-size:11px;opacity:.75}
+.achp{height:6px;border-radius:3px;background:rgba(255,255,255,.15);overflow:hidden}.achp i{display:block;height:100%;background:linear-gradient(90deg,#66c0f4,#2f5bea)}
+@media (max-width:700px),(max-height:520px){#achq{top:38%;right:6px;width:min(230px,46%)}.achc{padding:5px 7px;gap:7px}.achc .achi{width:32px;height:32px;font-size:19px}.achc b{font-size:13px}.achc span{display:none}}
 </style>
 </head>
 <body>
 <div id="stage">
 <div id="hud"><span id="sc">0 分</span><span id="mo">💰 NT$0</span><span id="sp">0 km/h</span><span id="nm">驚險 0</span></div><div id="lt"></div><div id="cw"></div><div id="ms"></div><div id="mc"></div>
-<div id="toast"></div><div id="fl"></div><canvas id="mm" width="120" height="120"></canvas><div id="mmh">🔍 點小地圖看全圖（M）</div><div class="ov hide" id="mapov"><h1>🗺️ 前方 300 公尺路況</h1><p style="margin:0 0 8px;font-size:13px;opacity:.85">點地圖上的圖案，看它是什麼</p><div class="mpw"><div class="mpc"><canvas id="bigmap"></canvas><div id="mapinfo"><button id="mi-x" type="button" aria-label="關閉說明">✕</button><b id="mi-t"></b><div id="mi-p"></div><div id="mi-d"></div></div></div><div id="maplist"></div></div><button id="mapx" type="button">繼續開車</button></div><button id="pb" type="button" aria-label="暫停">⏸</button><div class="ov hide" id="pz"><h1>暫停中</h1><p>按 P 或點下面繼續</p><button id="rs" type="button">繼續</button></div>
-<div class="ov cover" id="ov"><div class="cv-road"></div><div class="cv-in"><div class="cv-tag">3D 台灣街頭生存遊戲</div><h1 class="cv-t">台灣三寶<br>駕駛模擬器</h1><p class="cv-s">紅燈要停・老人要讓・救護車要閃</p><p class="big" id="bs"></p><input id="nk" maxlength="10" placeholder="輸入你的暱稱" autocomplete="off"><div class="lbs" id="lbs0"></div><button id="st" type="button">🏁 上路</button><p class="cv-h">W 油門・S 煞車・A D 轉向・空白 喇叭・E 彈射<br>小心 8+9、陣頭、違停、下雨天<br>任務：開進綠色取餐區，慢速通過就能取餐（猜單用 1/2/3 或點按鈕）<br>M 或點小地圖：看全圖<br>手機請用下方按鈕</p></div><div class="cv-f">陳品叡製作</div></div>
+<div id="toast"></div><div id="mini"></div><div id="rear"></div><div id="fl"></div><div id="fade"></div><canvas id="mm" width="120" height="120"></canvas><div id="mmh">🔍 點小地圖看全圖（M）</div><div class="ov hide" id="mapov"><h1>🗺️ 前方路況地圖</h1><p style="margin:0 0 8px;font-size:13px;opacity:.85">點地圖上的圖案，看它是什麼</p><div class="mpw"><div class="mpc"><canvas id="bigmap"></canvas><div id="mapinfo"><button id="mi-x" type="button" aria-label="關閉說明">✕</button><b id="mi-t"></b><div id="mi-p"></div><div id="mi-d"></div></div></div><div id="maplist"></div></div><button id="mapx" type="button">繼續開車</button></div><button id="pb" type="button" aria-label="暫停">⏸</button><button id="snd" type="button" aria-label="切換音效與音樂">🔊</button><div class="ov hide" id="pz"><h1>暫停中</h1><p>按 P 或點下面繼續</p><button id="rs" type="button">繼續</button><button type="button" class="snd2" onclick="ACH.open()">🏆 成就</button></div>
+<div class="ov cover" id="ov"><div class="cv-road"></div><div class="cv-in"><div class="cv-tag">3D 台灣街頭生存遊戲</div><h1 class="cv-t">台灣三寶<br>駕駛模擬器</h1><p class="cv-s">紅燈要停・老人要讓・救護車要閃</p><p class="big" id="bs"></p><input id="nk" maxlength="10" placeholder="輸入你的暱稱" autocomplete="off"><div class="lbs" id="lbs0"></div><button id="st" type="button">🏁 上路</button><button id="snd2" type="button" class="snd2">🔊 音效＋音樂</button><button id="achb" type="button" class="snd2" onclick="ACH.open()">🏆 成就</button><p class="cv-h">W 油門・S 煞車（停住再按住＝倒車）・A D 轉向・空白 喇叭・E 彈射<br>小心 8+9、陣頭、違停、下雨天<br>任務：開進綠色取餐區，慢速通過就能取餐（猜單用 1/2/3 或點按鈕）<br>路口前按 ◀ ▶ 決定左轉、右轉（再按反方向取消）<br>M 或點小地圖：看全圖・N 切換音效／音樂<br>手機請用下方按鈕</p></div><div class="cv-f">陳品叡製作</div></div>
 </div>
-<div id="bar"><button id="bl" type="button" aria-label="向左"><b>◀</b><i>左轉</i></button><button id="br" type="button" aria-label="向右"><b>▶</b><i>右轉</i></button><button id="hk" type="button" aria-label="喇叭"><b>🔔</b><i>喇叭</i></button><button id="bk" type="button"><b>🛑</b><i>煞車</i></button><button id="gs" type="button"><b>⚡</b><i>油門</i></button><button id="bo" type="button"><b>🚀</b><i>彈射</i></button></div>
+<div id="bar"><button id="bl" type="button" aria-label="向左"><b>◀</b><i>左轉</i></button><button id="br" type="button" aria-label="向右"><b>▶</b><i>右轉</i></button><button id="hk" type="button" aria-label="喇叭"><b>🔔</b><i>喇叭</i></button><button id="bk" type="button"><b>🛑</b><i>煞車/倒車</i></button><button id="gs" type="button"><b>⚡</b><i>油門</i></button><button id="bo" type="button"><b>🚀</b><i>彈射</i></button></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 var stage=document.getElementById('stage'),ov=document.getElementById('ov'),hk=document.getElementById('hk'),toastEl=document.getElementById('toast');
@@ -118,7 +145,7 @@ var scene=new THREE.Scene(),SKY=0xb9cbd8;
 scene.background=new THREE.Color(SKY);scene.fog=new THREE.Fog(SKY,25,90);
 var cam=new THREE.PerspectiveCamera(65,1,.1,130);
 scene.add(new THREE.HemisphereLight(0xffffff,0x778899,.95));
-var sun=new THREE.DirectionalLight(0xffffff,.7);sun.position.set(-20,40,10);scene.add(sun);
+var sun=new THREE.DirectionalLight(0xffffff,.7);sun.position.set(-20,40,10);scene.add(sun);var SUN0=[-20,40,10];
 function fit(){var w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h);cam.aspect=w/h;cam.fov=w/h<1?78:60;cam.updateProjectionMatrix()}
 window.addEventListener('resize',fit);fit();
 var G=new THREE.BoxGeometry(1,1,1),CG=new THREE.CylinderGeometry(.5,.5,1,14),SPG=new THREE.SphereGeometry(.5,12,10),CNG=new THREE.CylinderGeometry(0,.25,.7,8),PG=new THREE.PlaneGeometry(3,1.1),TG=new THREE.CylinderGeometry(.9,.9,1.6,10),MC={};
@@ -227,9 +254,9 @@ var NAMES={scooter:'機車',delivery:'外送員',uncle:'阿北',taxi:'計程車'
 function lab(txt,col){col=col||'#f2c230';var c=document.createElement('canvas');c.width=320;c.height=80;var x=c.getContext('2d');x.fillStyle='rgba(18,22,30,.82)';x.strokeStyle=col;x.lineWidth=5;x.beginPath();x.moveTo(40,4);x.arcTo(316,4,316,76,36);x.arcTo(316,76,4,76,36);x.arcTo(4,76,4,4,36);x.arcTo(4,4,316,4,36);x.closePath();x.fill();x.stroke();x.fillStyle='#fff';x.font='bold 36px sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText(txt,160,42);var s=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c)}));s.scale.set(3.3,.82,1);s.position.y=3.6;return s}
 // scenery
 var SG=[['檳榔','#c0392b'],['小吃','#e6a817'],['當舖','#1f6f4a'],['藥局','#2a7de1'],['便利商店','#1a9b5a'],['滷肉飯','#b5452a'],['牙醫','#3aa6a0'],['鐵皮屋','#6b6f78'],['麻將','#a02c78'],['24H','#e94f1f'],['機車行','#2b6cb0']].map(function(a){var c=document.createElement('canvas');c.width=256;c.height=96;var x=c.getContext('2d');x.fillStyle=a[1];x.fillRect(0,0,256,96);x.fillStyle='#fff';x.font='bold 52px sans-serif';x.textAlign='center';x.fillText(a[0],128,66);return new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(c)})});
-var XK=1.3,mv=[];
+var XK=1.3,mv=[],STM=[];
 function addMv(o,z,L){o.position.z=z;scene.add(o);mv.push({o:o,L:L})}
-function mesh(w,h,l,x,y,z,c){var m=new THREE.Mesh(G,mat(c));m.scale.set(w*XK,h,l);m.position.set(x*XK,y+h/2,z);scene.add(m);return m}
+function mesh(w,h,l,x,y,z,c){var m=new THREE.Mesh(G,mat(c));m.scale.set(w*XK,h,l);m.position.set(x*XK,y+h/2,z);scene.add(m);STM.push(m);return m}
 mesh(19.2,.1,400,0,-.1,-150,'#3b3e45');mesh(2.5,.25,400,-10.85,-.1,-150,'#9a968a');mesh(2.5,.25,400,10.85,-.1,-150,'#9a968a');mesh(2.6,.25,400,-13.4,-.1,-150,'#8b8478');mesh(2.6,.25,400,13.4,-.1,-150,'#8b8478');
 mesh(.1,.02,400,-.12,0,-150,'#f2c230');mesh(.1,.02,400,.12,0,-150,'#f2c230');
 var SGC=['#c0392b','#e6a817','#1f6f4a','#2a7de1','#1a9b5a','#b5452a','#3aa6a0','#6b6f78','#a02c78','#e94f1f','#2b6cb0','#0b7a4b','#0b86dc','#e60012','#e60012'];
@@ -283,44 +310,145 @@ var VS=[['小吃','#c0392b'],['檳榔','#1f6f4a'],['牙醫','#2a7de1'],['當舖'
     for(var lg=0;lg<3;lg++){var lk=Math.floor(Math.random()*4),lh=lg===1?2.2:1.7,lw=lh*BS[lk],lp=new THREE.Mesh(new THREE.PlaneGeometry(lw,lh),SG[11+lk]);lp.rotation.y=-s*Math.PI/2;lp.position.set(s*8.25,4.2+Math.random()*Math.max(0,h-4.2-lh-1.5)+lh/2,-4.3+lg*4.3);g.add(lp);P(g,.12,lh+.25,lw+.25,s*8.3,lp.position.y-lh/2-.12,lp.position.z,'#fff')}
     for(var bn=0;bn<2;bn++)P(g,.05,.9,3.2,s*8.0,4.4+Math.floor(Math.random()*(fl-1))*3.3,Math.random()*8-4,pick(['#d62828','#f2c230','#2a7de1']));
     
-    g.scale.x=XK;g.position.x=s*6.3*XK;bake(g);addMv(g,10-i*13,104)}
+    g.scale.x=XK;g.position.x=s*6.3*XK;bake(g);addMv(g,10-i*13,104);mv[mv.length-1].hz=[-6.6,6.6,19.1];mv[mv.length-1].side=s}
   for(var j=0;j<6;j++){var p=new THREE.Group();
     P(p,.3,9,.3,s*6.4,0,0,'#7a7a7a');P(p,2.4,.2,.2,s*6.4,8.6,0,'#5a5a5a');P(p,.6,.8,.5,s*6.4,6.5,0,'#9aa0a6');
     [8.5,8,7.5].forEach(function(yy){P(p,.06,.06,26,s*6.4,yy,-13,'#222')});
     P(p,.3,2.8,.3,s*8,0,-13,'#6b4a2f');S(p,1.6,s*8,4.4,-13,'#3f7d3a');S(p,1.2,s*7.6,5.3,-12.2,'#4d8f45');
-    p.scale.x=XK;p.position.x=s*3.7*XK;bake(p);addMv(p,10-j*26,156)}
+    p.scale.x=XK;p.position.x=s*3.7*XK;bake(p);addMv(p,10-j*26,156);mv[mv.length-1].hz=[-26.5,.5,19.1];mv[mv.length-1].side=s}
 });
 for(var d=0;d<24;d++){var dg=new THREE.Group();dg.scale.x=XK;P(dg,.15,.02,2.2,-3,0,0,'#e9e5d2');P(dg,.15,.02,2.2,3,0,0,'#e9e5d2');
   [-1,1].forEach(function(q){P(dg,.15,.02,2.2,q*6.15,0,0,'#e9e5d2');P(dg,.16,.02,6.1,q*9.45,0,0,d%8>=5?'#f2c230':'#f4f4f4')});
-  addMv(dg,12-d*6,144)}
+  addMv(dg,12-d*6,144);mv[mv.length-1].hz=[-3.1,3.1,13.2];mv[mv.length-1].side=0}
 // player
-function sportB(g,c){var K2='#14171c';
+function sportB(g,c,nf){var K2='#14171c';
   P(g,1.98,.36,4.5,0,.3,0,c);P(g,1.84,.14,1.7,0,.64,-1.35,c);P(g,2.02,.42,1.7,0,.34,1.3,c);P(g,1.7,.2,1.1,0,.66,1.75,c);
   P(g,1.52,.42,1.9,0,.64,.2,K2);P(g,1.38,.07,1.5,0,1.05,.25,K2);P(g,1.5,.3,1,0,.7,1.25,K2);
   P(g,1.9,.1,.3,0,.1,-2.3,'#111');P(g,.06,.1,2.4,-1,.2,0,'#111');P(g,.06,.1,2.4,1,.2,0,'#111');
   P(g,1.7,.06,.34,0,.96,2.1,c);P(g,1.5,.07,.06,0,.68,2.27,'#ff2020',1);P(g,.5,.05,.4,0,.62,-1.4,'#d8d8dc');
-  [-1,1].forEach(function(q){S(g,.17,q*.66,.7,-2.12,'#fffbe0');S(g,.2,q*.66,.7,-2.1,'#222');P(g,.18,.1,.7,q*.5,.74,-1.3,'#111');W(g,.4,.3,q*.99,.4,-1.45,1);W(g,.42,.34,q*1.0,.42,1.5,1)});
+  [-1,1].forEach(function(q){S(g,.17,q*.66,.7,-2.12,'#fffbe0');S(g,.2,q*.66,.7,-2.1,'#222');P(g,.18,.1,.7,q*.5,.74,-1.3,'#111');if(!nf)W(g,.4,.3,q*.99,.4,-1.45,1);W(g,.42,.34,q*1.0,.42,1.5,1)});
   P(g,.5,.12,.04,0,.5,2.27,'#fff')}
-var pl=new THREE.Group();sportB(pl,'#f4f4f6');bake(pl);scene.add(pl);
+var pl=new THREE.Group();sportB(pl,'#f4f4f6',1);bake(pl);scene.add(pl);
+var PFW=[-1,1].map(function(q){var w=new THREE.Group();w.position.set(q*.99,.4,-1.45);W(w,.4,.3,0,0,0,1);w.children.forEach(function(c){c.userData.keep=1});pl.add(w);return w}),latV=0,plYaw=0,steerA=0,lastPH=0,revHold=0,revBeep=0,pRev=[-.55,.55].map(function(q){var m=new THREE.Mesh(G,new THREE.MeshBasicMaterial({color:'#ffffff'}));m.scale.set(.28,.1,.05);m.position.set(q,.55,2.28);m.visible=false;pl.add(m);return m});
 var walkers=[];for(var wi=0;wi<10;wi++){var wc=wi<3,wg=walkB(wc),wd=Math.random()<.5?1:-1;wg.position.set(XK*(wc?(wi%2?10.9:-10.9):pick([10.9,-10.9,13.5,-13.5])),0,-100+Math.random()*120);wg.rotation.y=wd>0?0:Math.PI;scene.add(wg);walkers.push({g:wg,z:wg.position.z,dir:wd,sp:wc?1:1.2+Math.random()*.5})}
 var LX=[-7.8,-4.5,-1.5,1.5,4.5,7.8],PW=1.9,PL=4.2,PO={x:3,z:0,w:PW,l:PL,cur:0,dn:1};
 LINES.elder='老人過馬路，你要讓，再急也要讓。';NAMES.afc='AFC 外送員';LINES.afc='炸雞飛滿天，阿嬤在遠處喊：「我的雞啊！」';LINES.amb='你撞上了救護車，這是最糟的結局。';NAMES.elder='老人';NAMES.amb='救護車';LINES.drug='毒駕車根本不看路，你也被捲進去了。';LINES.police='你撞上了警車，今天要錄很久的口供。';NAMES.drug='毒駕車';NAMES.police='警車';
-var hzNext=0,lastBo="",boostCd=0,boostT=0,fireT=30,NICK="",vl={yl:0,red:0,ped:0,spd:0,spdAmt:0},paused=false,hiScore=0,cams=[],camT=80,pz=document.getElementById('pz');try{hiScore=+localStorage.getItem('twdrive_hi')||0}catch(x){}
+var hzNext=0,lastBo="",boostCd=0,boostT=0,fireT=30,NICK="",vl={yl:0,red:0,ped:0,spd:0,spdAmt:0,lane:0},paused=false,hiScore=0,cams=[],camT=80,pz=document.getElementById('pz');try{hiScore=+localStorage.getItem('twdrive_hi')||0}catch(x){}
 if(hiScore)document.getElementById('bs').textContent='最高分 '+hiScore;
 var mode='ready',dist=0,t=0,v=8,px=3,dir=0,gas=0,brk=0,ents=[],xings=[],near=0,fine=0,bonus=0,spawnT=.5,honkCd=0,shake=0,lastTs=0,tmo,wasL=false,nextX=40,evT=20,amb=null,ambT=0,blockT=0,sirT=0;
-function toast(m){toastEl.textContent=m;toastEl.classList.add('on');clearTimeout(tmo);tmo=setTimeout(function(){toastEl.classList.remove('on')},1300)}
+var TQ=[],tBusy=0,tCur='',miniEl=null,miniT=0;
+// ===== 成就系統（Steam 風格）=====
+// 統一入口：ACH.ev(事件, 數量) 累計型、ACH.best(鍵, 數值) 單場最佳型。資料存在 localStorage 'twdrive_ach_v1'，格式壞掉會自動重建，不影響其他存檔（最高分、音效設定、排行榜）。
+// 成就不發放分數，避免影響排行榜公平；已解鎖的不會重複通知、不會重複播音效。
+var ACH=(function(){
+  var KEY='twdrive_ach_v1',
+  // t:'c' 累計（跨場次）、t:'b' 單場最佳；k=對應統計鍵；n=目標；h=隱藏
+  LIST=[
+    {id:'deliv1',i:'📦',n:'第一份外送',d:'完成第一筆外送或早餐取餐',t:'c',k:'deliv',g:1},
+    {id:'deliv10',i:'🛵',n:'外送小達人',d:'累計完成 10 筆外送',t:'c',k:'deliv',g:10},
+    {id:'deliv50',i:'👑',n:'外送之神',d:'累計完成 50 筆外送',t:'c',k:'deliv',g:50},
+    {id:'special',i:'⭐',n:'客製化地獄生還者',d:'完成一張特殊訂單',t:'c',k:'special',g:1},
+    {id:'earn2k',i:'💰',n:'今天賺到了',d:'單場外送收入達到 NT$2,000',t:'b',k:'earn',g:2000},
+    {id:'turn1',i:'↪️',n:'第一個路口',d:'在路口成功轉彎一次',t:'c',k:'turn',g:1},
+    {id:'turn25',i:'🧭',n:'路口老司機',d:'累計成功轉彎 25 次',t:'c',k:'turn',g:25},
+    {id:'clean3k',i:'😇',n:'模範駕駛',d:'單場零違規開滿 3,000 公尺',t:'b',k:'clean',g:3000},
+    {id:'dist50k',i:'🗺️',n:'台灣走透透',d:'累計行駛 50 公里',t:'c',k:'dist',g:50000},
+    {id:'near20',i:'💨',n:'閃避大師',d:'累計驚險閃過 20 次',t:'c',k:'near',g:20},
+    {id:'sb10',i:'🐍',n:'三寶剋星',d:'累計閃過三寶 10 次',t:'c',k:'sbDodge',g:10},
+    {id:'amb',i:'🚑',n:'生命通道',d:'成功禮讓救護車',t:'c',k:'ambYield',g:1},
+    {id:'ped5',i:'🚶',n:'行人優先',d:'在斑馬線前禮讓行人 5 次',t:'c',k:'pedYield',g:5},
+    {id:'cuff',i:'🚓',n:'正義到來',d:'看到警察攔下 8+9',t:'c',k:'cuff',g:1},
+    {id:'zt',i:'🏮',n:'神明保佑',d:'在路上遇到陣頭',t:'c',k:'zt',g:1},
+    {id:'bj',i:'🏍️',n:'8+9 來了',d:'遇到 8+9 車隊',t:'c',k:'bj',g:1},
+    {id:'rain',i:'🌧️',n:'雨天也要上路',d:'單場在下雨中行駛 1,000 公尺',t:'b',k:'rain',g:1000},
+    {id:'boost10',i:'🚀',n:'彈射起步',d:'累計使用彈射 10 次',t:'c',k:'boost',g:10},
+    {id:'score10k',i:'🏆',n:'萬分司機',d:'單場分數達到 10,000 分',t:'b',k:'score',g:10000},
+    {id:'runs10',i:'🔁',n:'每天都要上路',d:'累計開始 10 場遊戲',t:'c',k:'runs',g:10},
+    {id:'cam',i:'📸',n:'笑一個',d:'被測速照相拍到超速',t:'c',k:'cam',g:1,h:1},
+    {id:'rev',i:'🔙',n:'倒車入庫',d:'單場倒車累計 30 公尺',t:'b',k:'rev',g:30,h:1},
+    {id:'lane',i:'↗️',n:'直走就對了',d:'在右轉專用道直行被開罰',t:'c',k:'laneFine',g:1,h:1},
+    {id:'elder',i:'👵',n:'嚇到阿嬤了',d:'按喇叭嚇到過馬路的老人',t:'c',k:'elder',g:1,h:1},
+    {id:'ambhit',i:'💀',n:'最糟的結局',d:'撞上救護車',t:'c',k:'ambCrash',g:1,h:1}],
+  S={v:1,u:{},c:{},b:{},vol:.7},run={},Q=[],busy=0,saveT=0,dirty=0;
+  function num(x){x=+x;return isFinite(x)&&x>=0?x:0}
+  function load(){try{var r=localStorage.getItem(KEY);if(!r)return;var o=JSON.parse(r);if(!o||typeof o!=='object'||o.v!==1)throw 0;
+      ['u','c','b'].forEach(function(k){if(o[k]&&typeof o[k]==='object'&&!Array.isArray(o[k]))Object.keys(o[k]).forEach(function(q){var n=num(o[k][q]);if(k!=='u'||n>0)S[k][q]=n})});
+      if(o.vol!=null)S.vol=Math.max(0,Math.min(1,num(o.vol)))}
+    catch(x){S={v:1,u:{},c:{},b:{},vol:.7};try{localStorage.removeItem(KEY)}catch(y){}}}
+  function save(now){dirty=1;if(!now&&Date.now()-saveT<4000)return;saveT=Date.now();dirty=0;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(x){}}
+  function prog(a){return a.t==='c'?(S.c[a.k]||0):Math.max(S.b[a.k]||0,run[a.k]||0)}
+  function check(k){LIST.forEach(function(a){if(a.k===k&&!S.u[a.id]&&prog(a)>=a.g)unlock(a)})}
+  function unlock(a){if(S.u[a.id])return;S.u[a.id]=Date.now();save(true);Q.push(a);if(!busy)next()}
+  function ev(k,n){if(!k)return;S.c[k]=(S.c[k]||0)+(n==null?1:num(n));check(k);save()}
+  function best(k,val){val=num(val);if(val>(run[k]||0))run[k]=val;if(val>(S.b[k]||0)){S.b[k]=val;save()}check(k)}
+  function add(k,n){best(k,(run[k]||0)+num(n))}
+  function newRun(){run={};ev('runs')}
+  // --- 通知（右上角，佇列依序顯示）
+  var box=null;function el(){if(!box){box=document.createElement('div');box.id='achq';box.setAttribute('aria-live','polite');(document.getElementById('stage')||document.body).appendChild(box)}return box}
+  function next(){var a=Q.shift();if(!a){busy=0;return}busy=1;var c=document.createElement('div');c.className='achc';
+    c.innerHTML='<div class="achi"></div><div class="acht"><small>🏆 成就解鎖</small><b></b><span></span></div>';c.querySelector('.achi').textContent=a.i;c.querySelector('b').textContent=a.n;c.querySelector('span').textContent=a.d;
+    el().appendChild(c);void c.offsetWidth;c.classList.add('in');chime();
+    setTimeout(function(){c.classList.remove('in');c.classList.add('out');setTimeout(function(){if(c.parentNode)c.parentNode.removeChild(c);next()},450)},4200)}
+  function chime(){try{if(typeof AUi!=='function'||!AUi()||AU.mode===2||S.vol<=0)return;if(ac.state==='suspended')ac.resume();
+      var g=ac.createGain();g.gain.value=S.vol;g.connect(AU.sfx);var t=ac.currentTime+.02;
+      [[784,0],[1175,.09],[1568,.18]].forEach(function(p){osc('sine',p[0],p[0],.55,.09,t+p[1],g);osc('triangle',p[0]*2,p[0]*2,.25,.018,t+p[1],g)});
+      nz(.35,.012,'highpass',6000,0,.7,t+.18,g)}catch(x){}}
+  // --- 成就列表
+  var ovl=null,tab='all';
+  function fmt(n){return Math.floor(n).toLocaleString()}
+  function render(){var L=ovl.querySelector('.achl');L.innerHTML='';var cnt=0;
+    LIST.forEach(function(a){if(S.u[a.id])cnt++});ovl.querySelector('.achs').textContent='已解鎖 '+cnt+' / '+LIST.length;
+    LIST.filter(function(a){return tab==='all'||(tab==='on')===!!S.u[a.id]}).forEach(function(a){var on=!!S.u[a.id],hid=a.h&&!on,p=Math.min(a.g,prog(a)),r=document.createElement('div');r.className='achr'+(on?' on':'');
+      r.innerHTML='<div class="achi"></div><div class="acht"><b></b><span></span><div class="achp"><i></i></div><small></small></div>';
+      r.querySelector('.achi').textContent=hid?'🔒':a.i;r.querySelector('b').textContent=hid?'隱藏成就':a.n;r.querySelector('span').textContent=hid?'達成特定條件後才會顯示內容':a.d;
+      var bar=r.querySelector('.achp'),sm=r.querySelector('small');
+      if(on){bar.style.display='none';var d=new Date(S.u[a.id]);sm.textContent='解鎖於 '+d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate()+' '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)}
+      else if(hid||a.g<=1){bar.style.display='none';sm.textContent=''}
+      else{bar.querySelector('i').style.width=(p/a.g*100).toFixed(1)+'%';sm.textContent=(a.t==='b'?'單場最佳 ':'進度 ')+fmt(p)+' / '+fmt(a.g)}
+      L.appendChild(r)})}
+  function open(){if(!ovl){ovl=document.createElement('div');ovl.className='ov hide';ovl.id='achov';
+      ovl.innerHTML='<h1>🏆 成就</h1><p class="achs"></p><div class="acht2"><button type="button" data-t="all">全部</button><button type="button" data-t="on">已解鎖</button><button type="button" data-t="off">未解鎖</button></div><label class="achv">成就音效音量 <input type="range" min="0" max="100"></label><div class="achl"></div><button type="button" class="achx">關閉</button>';
+      (document.getElementById('stage')||document.body).appendChild(ovl);
+      ovl.querySelectorAll('[data-t]').forEach(function(b){b.onclick=function(){tab=b.getAttribute('data-t');ovl.querySelectorAll('[data-t]').forEach(function(q){q.classList.toggle('sel',q===b)});render()}});
+      var rg=ovl.querySelector('input');rg.oninput=function(){S.vol=rg.value/100;save(true)};rg.onchange=function(){chime()};
+      ovl.querySelector('.achx').onclick=close}
+    ovl.querySelector('input').value=Math.round(S.vol*100);ovl.querySelectorAll('[data-t]').forEach(function(q){q.classList.toggle('sel',q.getAttribute('data-t')===tab)});render();ovl.classList.remove('hide');ACH.isOpen=true}
+  function close(){if(ovl)ovl.classList.add('hide');ACH.isOpen=false}
+  load();window.addEventListener&&window.addEventListener('pagehide',function(){if(dirty)save(true)});
+  return {ev:ev,best:best,add:add,newRun:newRun,open:open,close:close,isOpen:false,flush:function(){save(true)},LIST:LIST,S:function(){return S},run:function(){return run}}})();
+// 由提示訊息帶出的事件（這些事件在原本的程式裡只有提示，沒有獨立的統計）
+function achToast(m){if(/優先禮讓行人/.test(m))ACH.ev('pedYield');else if(/警察攔下 8\+9/.test(m))ACH.ev('cuff');else if(/神明生日|路邊有陣頭表演/.test(m))ACH.ev('zt');else if(/8\+9 車隊/.test(m))ACH.ev('bj');else if(/^📷 超速/.test(m))ACH.ev('cam');else if(/右轉專用道直行/.test(m))ACH.ev('laneFine');else if(/嚇到老人/.test(m))ACH.ev('elder')}
+var achAcc=0,achDm=0,achRv=0,achRn=0;
+function achTick(dt){var dm=Math.max(0,v)*dt;achDm+=dm;if(v<0)achRv+=-v*dt;if(typeof rainOn!=='undefined'&&rainOn)achRn+=dm;achAcc+=dt;if(achAcc<.5)return;achAcc=0;
+  try{ACH.ev('dist',achDm);if(achRv)ACH.add('rev',achRv);if(achRn)ACH.add('rain',achRn);achDm=achRv=achRn=0;
+    if(vl.yl+vl.red+vl.ped+vl.spd+(vl.lane||0)===0)ACH.best('clean',dist);ACH.best('score',score());ACH.best('earn',earn)}catch(x){}}
+function toast(m){if(!m)return;try{achToast(m)}catch(x){}
+  if(AU.ok){if(/^📷/.test(m)){sShutter();if(/被拍/.test(m))setTimeout(sBuzz,120)}else if(/^(驚險|閃過三寶)/.test(m))sWhoosh();else if(/-[0-9]+\s*$|❌/.test(m))sBuzz();else if(/守法通過|鞭炮|\+[0-9]+\s*$/.test(m))sTick()}
+  if(/^(驚險|閃過三寶|📷 守法|禮讓|讓行人|讓老人)/.test(m)||/^\+[0-9]/.test(m))return mini(m);
+  if(m===tCur||TQ.indexOf(m)>=0)return;
+  TQ.push(m);if(TQ.length>3)TQ.splice(0,TQ.length-3);if(!tBusy)tNext()}
+function tNext(){var m=TQ.shift();if(!m){tBusy=0;tCur='';toastEl.classList.remove('on');return}
+  tBusy=1;tCur=m;toastEl.textContent=m;toastEl.classList.add('on');clearTimeout(tmo);
+  tmo=setTimeout(function(){toastEl.classList.remove('on');tmo=setTimeout(tNext,280)},1900+Math.min(1200,m.length*35))}
+function mini(m){miniEl=miniEl||document.getElementById('mini');miniEl.textContent=m;miniEl.classList.remove('on');void miniEl.offsetWidth;miniEl.classList.add('on');clearTimeout(miniT);miniT=setTimeout(function(){miniEl.classList.remove('on')},1100)}
+function toastClear(){TQ=[];clearTimeout(tmo);tBusy=0;tCur='';toastEl.classList.remove('on')}
 function score(){return Math.max(0,Math.floor(dist)+near*30+bonus-fine)}
 function title(s){return s<400?'駕訓班學員':s<1000?'計程車新手':s<2000?'外送員等級':s<3500?'雙黃線大師':'台北市區老司機'}
-function clear(){ents.forEach(function(e){scene.remove(e.g);if(e.cone)scene.remove(e.cone);if(e.mar)scene.remove(e.mar);if(e.fire)scene.remove(e.fire)});xings.forEach(function(x){scene.remove(x.g)});cams.forEach(function(c){scene.remove(c.g)});cams=[];sides.forEach(function(q){scene.remove(q.g)});sides=[];ents=[];xings=[];amb=null}
-function start(){clear();mode='play';dist=0;t=0;v=7;px=3;boostCd=0;boostT=0;fireT=30;dir=0;gas=0;brk=0;near=0;fine=0;bonus=0;spawnT=.6;nextX=45;evT=22;ambT=0;blockT=0;ov.classList.add('hide');paused=false;pz.classList.add('hide');camT=80;vl={yl:0,red:0,ped:0,spd:0,spdAmt:0};resetEvents();twReset();sync()}
+function clear(){GHOSTS.forEach(function(q){scene.remove(q)});GHOSTS=[];XENTS.forEach(function(e){scene.remove(e.g)});XENTS=[];xings.forEach(function(x){if(x.ix)scene.remove(x.ix.g)});ents.forEach(function(e){scene.remove(e.g);if(e.cone)scene.remove(e.cone);if(e.mar)scene.remove(e.mar);if(e.fire)scene.remove(e.fire)});xings.forEach(function(x){scene.remove(x.g)});cams.forEach(function(c){scene.remove(c.g)});cams=[];sides.forEach(function(q){scene.remove(q.g)});sides=[];ents=[];xings=[];amb=null}
+function start(){try{ACH.newRun();ACH.close()}catch(x){}achDm=achRv=achRn=0;XQ=[];revHold=0;latV=0;plPsi=PV.psi=0;PV.del=plDel=0;TURN.st='IDLE';TURN.x=null;plYaw=0;steerA=0;lastPH=0;sun.position.set(SUN0[0],SUN0[1],SUN0[2]);mv.forEach(function(m){m.hold=false});clear();toastClear();PT=null;PHX=0;PHZ=-1;VZ=7;ixAppr=null;lastDir=0;camSnap=true;ROADN=pick(ROADS);if(AUi()){auBuild();playTrack('drive')}mode='play';dist=0;t=0;v=7;px=3;boostCd=0;boostT=0;coastT=0;fireT=30;dir=0;gas=0;brk=0;near=0;fine=0;bonus=0;spawnT=.6;nextX=45;evT=22;ambT=0;blockT=0;ov.classList.add('hide');paused=false;pz.classList.add('hide');camT=80;vl={yl:0,red:0,ped:0,spd:0,spdAmt:0,lane:0};resetEvents();twReset();sync()}
 function pickKind(){
-  var w=[['scooter',28],['delivery',34],['afc',14],['uncle',8],['taxi',12],['bus',6],['garbage',6],['mini',8],['parked',10],['ped',5],['ferrari',6],['pzone',5],['szone',5]];
+  var w=[['scooter',28],['delivery',34],['afc',14],['uncle',8],['taxi',12],['bus',6],['garbage',6],['mini',8],['parked',10],['ped',1],['ferrari',6],['pzone',5],['szone',5]];
   if(t>8){var f=Math.min(2,.6+t/40);w.push(['sbfam',7*f],['sbsnake',5*f]);if(!crashAct())w.push(['sbwrong',4*f])}
   var s=0;w.forEach(function(a){s+=a[1]});var r=Math.random()*s;
   for(var i=0;i<w.length;i++){r-=w[i][1];if(r<=0)return w[i][0]}return 'scooter'}
 function light(x){if(!x.lit)return 0;var c=(t+x.off)%14;return c<5.5?0:c<7?1:2}
 function hit(a,b,k){return Math.abs(a.x-b.x)<(a.w+b.w)/2*k&&Math.abs(a.z-b.z)<(a.l+b.l)/2*k}
-function freeAt(e,tx){var q={x:tx,z:e.z,w:e.w+.2,l:e.l+8};return !ents.concat([PO]).some(function(f){return f!==e&&!f.ped&&hit(f,q,1)})}
+var OBS=[];
+// 換道空間檢查：目標車道前方要留「車長+3m+速度差×1秒」，後方要留「車長+2.5m+後車速度差×1.4秒」（後車比較快就要更大空間）
+function freeAt(e,tx){var ec=Math.max(0,e.cur||0),fw=e.dn>=0?-1:1;return !ents.concat([PO],OBS).some(function(f){if(f===e||f.ped||Math.abs(f.x-tx)>=(f.w+e.w)/2+.3)return 0;
+  var rel=(f.z-e.z)*fw,fs=f.crash?0:f===PO?v:(f.dn===e.dn||f.any)?(f.cur||0):-(f.cur||0),half=(e.l+f.l)/2;
+  if(f===PO&&rel<0)return -rel<half+4+Math.max(0,v)*.8+Math.max(0,fs-ec)*1.4;
+  return rel>=0?rel<half+3+Math.max(0,ec-fs)*1.0:-rel<half+2.5+Math.max(0,fs-ec)*1.4})}
 function zoneBusy(x){return ents.concat([PO]).some(function(f){return !f.ped&&Math.abs(f.z-x.z)<f.l/2+2.4})}
 function spawn(avoid,kind,ln,zz,zb){
   var k=kind||pickKind(),d=K[k],lane=ln!=null?ln:1+Math.floor(Math.random()*4),ped=k==='ped'||k==='elder';
@@ -329,15 +457,36 @@ function spawn(avoid,kind,ln,zz,zb){
   if(lane===avoid)lane=1+(lane+Math.floor(Math.random()*3))%4;
   var z0=zz!=null?zz:(ped?-95:-105-d.l/2);
   if(!ped&&ents.some(function(f){return !f.ped&&Math.abs(f.x-LX[lane])<(f.w+d.w)/2+.4&&Math.abs(f.z-z0)<(f.l+d.l)/2+8}))return -1;
-  if(k==='parked'&&xings.some(function(x){return Math.abs(x.z-z0)<12}))return -1;
+  if(k==='parked'&&xings.some(function(x){return Math.abs(x.z-z0)<12}))return -1;if((k==='pzone'||k==='szone')&&xings.some(function(x){return Math.abs(x.z-z0)<d.l/2+6}))return -1;
+  if(!ped&&z0>-500&&{parked:1,pzone:1,szone:1,firetruck:1,illcar:1,pscoot:1,stopcar:1,stopscoot:1,stopdel:1}[k]&&inIx(z0,8))return -1;
   var onc=lane<3&&!ped&&!d.sb,g=new THREE.Group();d.b(g);bake(g);if(onc)g.rotation.y=Math.PI;if(d.sb)g.add(lab(d.sb));
   var e={k:k,g:g,w:d.w,l:d.l,us:d.us,cur:d.us,dn:(onc||k==='sbwrong')?-1:1,x:LX[lane],z:z0,vx:0,mt:0,warn:0,wt:.6+Math.random()*1.5,dir:1,passed:z0>0,ph:Math.random()*6,told:false,onc:onc,ped:ped,crash:0,pause:0};
   e.base=e.x;
-  if(ped){var lf=Math.random()<.5;e.x=lf?-10.5:10.5;e.vx=(lf?1:-1)*(k==='elder'?.9:2.1);e.sx=-2+Math.random()*4;if(zb){e.zb=zb;e.off=z0-zb.z;e.wait=true}else e.jay=true}
+  if(ped){var lf=Math.random()<.5;e.x=lf?-10.5:10.5;e.vx=(lf?1:-1)*(k==='elder'?.9:2.1);e.sx=-2+Math.random()*4;if(zb){e.zb=zb;e.off=z0-zb.z;e.wait=true}else{if(inIx(z0,10)||ents.some(function(f){return f.jay||(!f.ped&&f.us<=0&&Math.abs(f.z-z0)<f.l/2+3)})){return -1}e.jay=true;e.lab=1;var lj=lab(k==='elder'?'三寶老人':'三寶行人','#ff5a3a');lj.position.y=3;g.add(lj)}}
   if(d.sb)toast('⚠ '+d.sb+'出沒');
   scene.add(g);ents.push(e);return lane}
-function crashIt(e){if(e.crash)return;e.crash=1;e.us=0;e.cur=0;e.vx=0;e.mt=0;e.warn=0;
-  var sg=Math.cos(e.g.rotation.y)>=0?1:-1,sm=new THREE.Mesh(G,mat('#2a2a2a'));sm.scale.set(1.2,1.4,1.2);sm.position.y=2.4;e.g.add(sm);
+function pedBlk(p,sp){if((p.pw||0)>5)return false;var nx=p.x+(sp>0?.75:-.75);if(ents.some(function(c){if(c.ped||c.crash||Math.abs(c.x-nx)>=c.w/2+.55)return 0;var ah=c.dn>0?c.z-p.z:p.z-c.z,ln=Math.abs(c.x-p.x)<c.w/2+.5,al=ah>-(c.l/2+.7)&&ah<c.l/2+.5;if(al)return !(ln&&Math.abs(c.x-nx)>Math.abs(c.x-p.x));return !ln&&ah>=c.l/2+.5&&ah<c.l/2+.8+Math.max(0,c.cur)*1.1}))return true;
+  return XENTS.some(function(q){if(!q.X||q.cv<.8)return 0;var dx=q.lx-nx*XK,dz=q.lz-(p.z-ixZ(q.X)),r=Math.max(q.l,q.w)/2+.7;return dx*dx+dz*dz<r*r})}
+// ===== 救護車 AI =====
+// 目標：沿著同向三條車道往前開（不看玩家位置）。前車太慢/停住/事故 → 評估左右相鄰車道（前方空間、後方來車、車速），
+// 安全才用共用轉向模型平順換道；都不行就跟車減速等待。前方同車道的 NPC 會主動往旁邊讓。
+var AMBL=[1.5,4.5,7.8];
+function laneLead(e,lx){var best=null,bd=1e9,fw=e.dn>=0?-1:1;ents.concat([PO],OBS).forEach(function(f){if(f===e||f.ped||Math.abs(f.x-lx)>=(f.w+e.w)/2+.2)return;var rel=(f.z-e.z)*fw-(e.l+f.l)/2;if(rel>-1&&rel<bd){bd=rel;best=f}});return {f:best,d:bd,sp:best?(best.crash?0:best===PO?v:(best.dn===e.dn||best.any?best.cur:0)):99}}
+function ambAI(e,dt){e.us=31;e.wt=99;if(e.amb0==null){e.amb0=1;e.lcd=1}
+  var cur=laneSnap(e.x);if(e.ltx!=null||e.mt>0)return;
+  var L=laneLead(e,cur);
+  // 擋路的是玩家而且玩家旁邊有空間 → 跟在後面鳴笛等玩家讓（這時才會判定玩家有沒有禮讓）；玩家沒地方讓才自己換道
+  if(L.f===PO&&L.d<60&&plCanYield()&&!PT)return;
+  if(L.d<45&&L.sp<e.us-4&&(e.lcd||0)<=0&&(e.cur>4||(L.f&&L.f.crash&&L.d>2))){var opts=AMBL.filter(function(x){return Math.abs(x-cur)>1&&Math.abs(x-cur)<3.6&&freeAt(e,x)}).map(function(x){var q=laneLead(e,x);return {x:x,d:q.d,sp:q.sp}});
+    opts.sort(function(a,b){return (b.d+b.sp*2)-(a.d+a.sp*2)});var o=opts[0];
+    if(o&&o.d>18&&(o.d>L.d+10||o.sp>L.sp+5)){e.dir=o.x>e.x?1:-1;e.vx=e.dir*3;e.mt=1;e.lcd=2.2;e.ambLC=lastTs}}
+  // 前方同車道的 NPC 主動讓道（往旁邊空的車道，優先外側）
+  ents.forEach(function(f){if(f===e||f.ped||f.crash||f.dn!==e.dn||K[f.k].nc||f.us<=0||f.cur<3||f.tg||f.bj||f.mt>0||f.ltx!=null||Math.abs(f.x-e.x)>=(f.w+e.w)/2)return;var rel=e.z-f.z;if(rel<4||rel>50||(f.ayT||0)>lastTs)return;f.ayT=lastTs+1500;
+    [3,-3].some(function(dx){var tx=laneSnap(f.x+dx);if(Math.abs(tx-f.x)<1||tx<.6||tx>8.1||!freeAt(f,tx))return 0;f.dir=dx>0?1:-1;f.vx=f.dir*2.6;f.mt=1;f.warn=0;return 1})})}
+// 玩家是否「有合理機會讓道」：旁邊同向車道有足夠空間
+function plCanYield(){return [-3,3].some(function(dx){var tx=laneSnap(px+dx);if(Math.abs(tx-px)<1||tx<.6||tx>8.1)return false;return !ents.concat(OBS).some(function(f){return !f.ped&&Math.abs(f.x-tx)<(f.w+PW)/2+.2&&Math.abs(f.z)<(f.l+PL)/2+4})})}
+function crashIt(e){if(e.crash)return;e.crash=1;if(mode==='play')sCrash(Math.max(0,1-Math.abs(e.z)/100)*.7);e.us=0;e.cur=0;e.vx=0;e.mt=0;e.warn=0;
+  var sg=Math.cos(e.g.rotation.y)>=0?1:-1;
   e.g.rotation.y+=(Math.random()-.5)*.7;
   var fl=[P(e.g,.4,.25,.4,-.6,1.6,0,'#ff9a1a',1),P(e.g,.4,.25,.4,.6,1.6,0,'#ff2020',1)];fl.forEach(function(m){m.userData.keep=1});
   var u=e.g.userData;u.hz=(u.hz||[]).concat(fl);
@@ -345,16 +494,320 @@ function crashIt(e){if(e.crash)return;e.crash=1;e.us=0;e.cur=0;e.vx=0;e.mt=0;e.w
   else{var cn=mkTri();cn.position.set(e.x,.05,e.z+e.l/2+30);scene.add(cn);e.cone=cn;
     var mm=walkB(1);mm.rotation.y=Math.PI;mm.add(lab('請從旁邊慢慢過','#3ec97a'));scene.add(mm);e.mar=mm}
   var lb=lab('⚠ 車禍','#ff4d3a');lb.scale.set(4,1,1);lb.position.y=4.8;lb.material.fog=false;lb.material.depthTest=false;lb.renderOrder=9;e.g.add(lb);
-  toast('💥 前方出車禍，有民眾指揮車流');if(!amb&&ambT<=0)ambT=3}
-function mkXing(lit){var g=new THREE.Group(),x={g:g,lit:lit,z:-110,off:Math.random()*14,lamps:[],hs:[],rt:0,sp:0,sp2:0,pass:0,pen:0,occ:false,occP:false,yd:0,rs:false};
+  toast('💥 前方出車禍！三角錐和指揮的人也要閃開');if(!amb&&ambT<=0)ambT=3}
+function mkXing(lit,tk){var g=new THREE.Group(),x={g:g,lit:lit,z:-110,off:Math.random()*14,lamps:[],hs:[],rt:0,sp:0,sp2:0,pass:0,pen:0,occ:false,occP:false,yd:0,rs:false};
   for(var i=0;i<14;i++)P(g,.7,.03,3.4,-9.1+i*1.4,0,0,'#f2f2f2');
-  if(lit){P(g,9.2,.03,.35,4.6,0,2.9,'#f2f2f2');P(g,9.2,.03,.35,-4.6,0,-2.9,'#f2f2f2');
+  if(lit&&tk)P(g,9.2,.03,.35,4.6,0,2.9,'#f2f2f2');
+  else if(lit){P(g,9.2,.03,.35,4.6,0,2.9,'#f2f2f2');P(g,9.2,.03,.35,-4.6,0,-2.9,'#f2f2f2');
     [[1,-3.6],[-1,3.6]].forEach(function(q){var s=q[0],zp=q[1];P(g,.25,5,.25,s*9.7,0,zp,'#444');P(g,5.4,.2,.2,s*7,5,zp,'#444');P(g,.5,1.5,.4,s*4.4,4.3,zp,'#222');x.hs.push(q)})}
   else{[[1,2.4],[-1,-2.4]].forEach(function(q){var s=q[0],zp=q[1];P(g,.12,2.6,.12,s*9.7,0,zp,'#666');var m=P(g,.9,.9,.08,s*9.7,2.0,zp,'#f2c230');m.rotation.z=Math.PI/4;P(g,.25,.5,.1,s*9.7,2.2,zp+.06,'#222')})}
   bake(g);
-  if(lit){var cp=walkB(1);cp.position.set(10.2,0,-6.5);cp.rotation.y=Math.PI/2;g.add(cp);x.cop=cp}
+  if(lit&&!tk){var cp=walkB(1);cp.position.set(10.2,0,-6.5);cp.rotation.y=Math.PI/2;g.add(cp);x.cop=cp}
   x.hs.forEach(function(q){var s=q[0],zp=q[1],L=[];[['#ff2a2a',5.5],['#ffcc20',5.05],['#30e060',4.6]].forEach(function(c){var m=new THREE.Mesh(G,new THREE.MeshBasicMaterial({color:c[0]}));m.scale.set(.32,.32,.12);m.position.set(s*4.4,c[1],zp+s*.22);g.add(m);L.push(m.material)});x.lamps.push(L)});
   g.position.z=x.z;g.scale.x=XK;scene.add(g);return x}
+
+// ===== 道路網：十字路口、T 字路口、節點與轉彎路徑 =====
+// 座標說明：路口「區域座標」以路口中心為原點，x 向東（右）、z 向南（玩家前進方向是 -z），單位公尺。
+// 主幹道的車道 x（車道單位）×XK = 公尺。路口中心 Zc = 斑馬線 z - IXOFF。
+var RNB=9.6*XK,IXOFF=14.4,IXBAND=19.1,RNO=[1.5*XK,4.5*XK,7.8*XK];
+var ARMU={S:[0,1],N:[0,-1],W:[-1,0],E:[1,0]};
+var ROADS=['中山路','中正路','民生路','民權路','復興路','忠孝路','仁愛路','信義路','和平路','建國路','光復路','成功路','自由路','博愛路','文化路','三民路','五福路','公園路','大同路','長春路'];
+var camYaw=null,camBx=0,ixAppr=null,ROADN='中山路',VZ=0,PT=null,PHX=0,PHZ=-1,XENTS=[],camP=null,camL=null,camSnap=true;
+function armOf(u){for(var k in ARMU)if(Math.abs(ARMU[k][0]-u[0])<.01&&Math.abs(ARMU[k][1]-u[1])<.01)return k;return null}
+// 路徑：取樣點 [x,z,hx,hz,s]
+function bez(P0,P1,P2,P3,t){var u=1-t;return [u*u*u*P0[0]+3*u*u*t*P1[0]+3*u*t*t*P2[0]+t*t*t*P3[0],u*u*u*P0[1]+3*u*u*t*P1[1]+3*u*t*t*P2[1]+t*t*t*P3[1]]}
+function rnCurve(P0,h0,P3,h3,straight){var pts=[];
+  if(straight)return rnLine(P0,P3);
+  var C=Math.abs(h0[0])<.5?[P0[0],P3[1]]:[P3[0],P0[1]],k0=Math.hypot(C[0]-P0[0],C[1]-P0[1])*.552,k3=Math.hypot(C[0]-P3[0],C[1]-P3[1])*.552;
+  var P1=[P0[0]+h0[0]*k0,P0[1]+h0[1]*k0],P2=[P3[0]-h3[0]*k3,P3[1]-h3[1]*k3],N=24,s=0,prev=null;
+  for(var i=0;i<=N;i++){var p=bez(P0,P1,P2,P3,i/N),q=bez(P0,P1,P2,P3,Math.min(1,i/N+.01)),r=bez(P0,P1,P2,P3,Math.max(0,i/N-.01)),hx=q[0]-r[0],hz=q[1]-r[1],hl=Math.hypot(hx,hz)||1;
+    if(prev)s+=Math.hypot(p[0]-prev[0],p[1]-prev[1]);pts.push([p[0],p[1],hx/hl,hz/hl,s]);prev=p}
+  return pts}
+function rnJoin(a,b){var last=a[a.length-1],res=a.slice(),gap=Math.hypot(b[0][0]-last[0],b[0][1]-last[1]),base=last[4]+gap;b.forEach(function(p,i){if(i===0&&gap<.01)return;res.push([p[0],p[1],p[2],p[3],p[4]+base])});return res}
+function rnLine(P0,P1){var L=Math.hypot(P1[0]-P0[0],P1[1]-P0[1])||.001,h=[(P1[0]-P0[0])/L,(P1[1]-P0[1])/L],n=Math.max(1,Math.ceil(L/1.2)),r=[];for(var i=0;i<=n;i++){var k=i/n;r.push([P0[0]+(P1[0]-P0[0])*k,P0[1]+(P1[1]-P0[1])*k,h[0],h[1],L*k])}return r}
+function pathAt(pts,s){var n=pts.length;if(s<=0)return pts[0];if(s>=pts[n-1][4])return pts[n-1];
+  for(var i=1;i<n;i++)if(pts[i][4]>=s){var a=pts[i-1],b=pts[i],k=(s-a[4])/((b[4]-a[4])||1),hx=a[2]+(b[2]-a[2])*k,hz=a[3]+(b[3]-a[3])*k,hl=Math.hypot(hx,hz)||1;return [a[0]+(b[0]-a[0])*k,a[1]+(b[1]-a[1])*k,hx/hl,hz/hl,s]}
+  return pts[n-1]}
+// 路口範本：每個方向的進入節點、離開節點，以及節點之間合法的直行／左轉／右轉路徑
+function rnBuild(name,arms){var T={name:name,arms:arms,nodes:{},entries:[]};
+  arms.forEach(function(A){var u=ARMU[A],hi=[-u[0],-u[1]],ri=[-hi[1],hi[0]],ro=[-u[1],u[0]];
+    RNO.forEach(function(o,li){
+      var en={id:A+'in'+li,arm:A,lane:li,pos:[u[0]*RNB+ri[0]*o,u[1]*RNB+ri[1]*o],dir:hi,right:ri,next:[]};
+      var ex={id:A+'out'+li,arm:A,lane:li,pos:[u[0]*RNB+ro[0]*o,u[1]*RNB+ro[1]*o],dir:u,next:[]};
+      T.nodes[en.id]=en;T.nodes[ex.id]=ex;T.entries.push(en)})});
+  T.entries.forEach(function(en){var hi=en.dir,ri=en.right;if(!en)return;
+    [['straight',hi],['right',ri],['left',[-ri[0],-ri[1]]]].forEach(function(mv){var tA=armOf(mv[1]);if(!tA||arms.indexOf(tA)<0)return;
+      var hasL=arms.indexOf(armOf([-ri[0],-ri[1]]))>=0,hasR=arms.indexOf(armOf(ri))>=0;
+      var hasS=arms.indexOf(armOf(hi))>=0;
+      if(mv[0]==='left'&&en.lane!==0)return;
+      if(mv[0]==='right'&&(en.lane===0||(en.lane===1&&hasS)))return;
+      if(mv[0]==='straight'&&en.lane===2&&hasR)return;
+      var ex=T.nodes[tA+'out'+(mv[0]==='right'?1:en.lane)],pts=rnCurve(en.pos,en.dir,ex.pos,ex.dir,mv[0]==='straight'),ys=0;
+      if(mv[0]==='left'){for(var i=0;i<pts.length;i++)if(pts[i][0]*ri[0]+pts[i][1]*ri[1]<.6){ys=Math.max(0,pts[i][4]-5.2);break}}
+      en.next.push({move:mv[0],to:ex.id,pts:pts,len:pts[pts.length-1][4],ys:ys})})});
+  return T}
+// 新的路口型式只要在這裡加一行（列出有哪些方向的道路）
+var RNT={X4:rnBuild('十字路口',['S','N','W','E']),TE:rnBuild('T字路口',['S','N','E']),TW:rnBuild('T字路口',['S','N','W'])};
+function hasArm(x,A){return !!(x&&x.ix&&x.ix.T.arms.indexOf(A)>=0)}
+function ixZ(x){return x.z-IXOFF}
+function inIx(z,pad){return xings.some(function(x){return x.ix&&Math.abs(z-ixZ(x))<IXBAND+(pad||0)})}
+function cphase(x){var c=(t+x.off)%14;return c>=8&&c<12?0:c>=12&&c<13?1:2}
+function roadY(lx,lz){var a=Math.abs(lx);if(a<=RNB-.82||Math.abs(lz)>RNB)return 0;if(a<RNB)return .16*(a-RNB+.82)/.82;return .16}
+// --- 路口模型
+function sigHead(g,x0,z0,ax,az,len,fx,fz){P(g,.28,5.3,.28,x0,0,z0,'#444');var hx=x0+ax*len,hz=z0+az*len;
+  P(g,Math.abs(ax)*len+.2,.2,Math.abs(az)*len+.2,x0+ax*len/2,5.1,z0+az*len/2,'#444');P(g,Math.abs(fz)>.5?1.6:.4,.55,Math.abs(fx)>.5?1.6:.4,hx,4.55,hz,'#222');
+  return ['#ff2a2a','#ffcc20','#30e060'].map(function(c,k){var m=new THREE.Mesh(G,new THREE.MeshBasicMaterial({color:c}));m.scale.set(Math.abs(fz)>.5?.36:.1,.36,Math.abs(fx)>.5?.36:.1);m.position.set(hx+fx*.22+(Math.abs(fz)>.5?(k-1)*.48:0),4.83,hz+fz*.22+(Math.abs(fx)>.5?(k-1)*.48:0));m.userData.keep=1;g.add(m);return m.material})}
+var ARM={};
+function arrowMat(tp){if(ARM[tp])return ARM[tp];var c=document.createElement('canvas');c.width=160;c.height=360;var g=c.getContext('2d');g.fillStyle='#f4f4f0';g.strokeStyle='#f4f4f0';g.lineWidth=20;g.lineCap='butt';g.lineJoin='round';
+  function head(x,y,a){g.save();g.translate(x,y);g.rotate(a);g.beginPath();g.moveTo(0,-46);g.lineTo(-36,4);g.lineTo(36,4);g.closePath();g.fill();g.restore()}
+  var hasS=tp.indexOf('S')>=0,cx=tp.indexOf('R')>=0?56:tp.indexOf('L')>=0?104:80;
+  if(hasS){g.beginPath();g.moveTo(cx,360);g.lineTo(cx,76);g.stroke();head(cx,60,0)}
+  if(tp.indexOf('R')>=0){var x0=cx;g.beginPath();g.moveTo(x0,360);g.lineTo(x0,250);g.quadraticCurveTo(x0,196,x0+34,196);g.stroke();head(x0+48,196,Math.PI/2)}
+  if(tp.indexOf('L')>=0){var x1=cx;g.beginPath();g.moveTo(x1,360);g.lineTo(x1,250);g.quadraticCurveTo(x1,196,x1-34,196);g.stroke();head(x1-48,196,-Math.PI/2)}
+  var t=new THREE.CanvasTexture(c);return ARM[tp]=new THREE.MeshBasicMaterial({map:t,transparent:true,depthWrite:false})}
+var ARG=new THREE.PlaneGeometry(2,4.5);
+function roadArrow(g,tp,x,y,z,yaw){var m=new THREE.Mesh(ARG,arrowMat(tp));m.rotation.order='YXZ';m.rotation.set(-Math.PI/2,yaw,0);m.position.set(x,y,z);m.userData.keep=1;g.add(m)}
+function ixArrows(g,T){
+  function lanes(A){var u=ARMU[A],hi=[-u[0],-u[1]],ri=[-hi[1],hi[0]],L=T.arms.indexOf(armOf([-ri[0],-ri[1]]))>=0,Rr=T.arms.indexOf(armOf(ri))>=0,S=T.arms.indexOf(armOf(hi))>=0;
+    return [L?(S?'SL':'L'):'S',S?'S':(Rr?'R':'S'),Rr?'R':(S?'S':'')]}
+  [['S',0,1],['N',Math.PI,-1]].forEach(function(a){var tp=lanes(a[0]),s=a[2];[IXOFF+9,IXOFF+30].forEach(function(dz){[1.5,4.5,7.8].forEach(function(lx,i){if(tp[i])roadArrow(g,tp[i],s*lx*XK,.032,s*dz,a[1])})})});
+  [['E',Math.PI/2],['W',-Math.PI/2]].forEach(function(a){if(T.arms.indexOf(a[0])<0)return;var s=a[0]==='E'?1:-1,tp=lanes(a[0]);[24,44].forEach(function(dx){RNO.forEach(function(o,i){if(tp[i])roadArrow(g,tp[i],s*dx,.18,-s*o,a[1])})})})}
+function mkIx(x,tk,nm0){var T=RNT[tk],g=new THREE.Group(),B=RNB,k,nm=nm0||pick(ROADS.filter(function(r){return r!==ROADN}));
+  P(g,2*B,.025,2*B,0,0,0,'#3b3e45');
+  for(k=0;k<14;k++)P(g,.7*XK,.03,3.4,(-9.1+k*1.4)*XK,0,-IXOFF,'#f2f2f2');
+  P(g,9.2*XK,.03,.35,-4.6*XK,0,-IXOFF-2.9,'#f2f2f2');
+  var arms={};
+  T.arms.forEach(function(a){if(a!=='W'&&a!=='E')return;var s=a==='E'?1:-1;
+    var rp=P(g,.9,.04,2*B,s*(B-.41),.04,0,'#3b3e45');rp.rotation.z=s*.17;
+    for(k=0;k<14;k++)P(g,3.4,.012,.9,s*15.3,.16,-11.8+k*1.815,'#f2f2f2');
+    P(g,.4,.012,B,s*18.2,.16,-s*B/2,'#f2f2f2');
+    arms[a]=armScenery(g,a)});
+  ixArrows(g,T);
+  var cl=[],ml=[];
+  ml.push(sigHead(g,IXOFF,-IXOFF,-1,0,8.5,0,1));ml.push(sigHead(g,-IXOFF,IXOFF,1,0,8.5,0,-1));
+  if(hasArm({ix:{T:T}},'E'))cl.push(sigHead(g,-IXOFF,-IXOFF,0,1,8.5,1,0));
+  if(hasArm({ix:{T:T}},'W'))cl.push(sigHead(g,IXOFF,IXOFF,0,-1,8.5,-1,0));
+  var sn=new THREE.Mesh(new THREE.PlaneGeometry(4.2,1.1),txtMat(nm,'#1f6f4a',512,134,78));sn.position.set(IXOFF-2.4,6.1,-IXOFF+.2);g.add(sn);sn.userData.keep=1;
+  var sn2=sn.clone();sn2.rotation.y=Math.PI;sn2.position.set(-IXOFF+2.4,6.1,IXOFF-.2);g.add(sn2);
+  bake(g);g.position.z=ixZ(x);scene.add(g);
+  x.lamps=ml;x.ix={T:T,tk:tk,g:g,name:nm,cl:cl,arms:arms,spT:{W:.5,E:.5},want:null,pdone:0};
+  ents.forEach(function(e){if(!e.ped&&e.us===0&&Math.abs(e.z-ixZ(x))<IXBAND+e.l/2+2)e.z=999});
+  ['W','E'].forEach(function(A){if(!hasArm(x,A))return;for(var q=0;q<2;q++)xSpawn(x,A,'app',10+q*22+Math.random()*12);xSpawn(x,A,'dep',8+Math.random()*30)})}
+// 轉彎座標轉換：路口區域座標 ↔ 轉彎後的新道路座標
+function ixTf(A){var E=A==='E',ex=E?[RNB,RNO[1]]:[-RNB,-RNO[0]],end=[ex[0]+(E?10:-10),ex[1]],th=E?Math.PI/2:-Math.PI/2,c=Math.cos(th),sn=Math.sin(th),np=E?4.5:1.5,P0=np*XK;
+  return {th:th,np:np,fwd:function(L){var a=L[0]-end[0],b=L[1]-end[1];return [a*c+b*sn+P0,-a*sn+b*c]},inv:function(q){var a=q[0]-P0,b=q[1];return [a*c-b*sn+end[0],a*sn+b*c+end[1]]}}}
+function armScenery(g,A){var T=ixTf(A),sg=A==='E'?1:-1,ag=new THREE.Group(),recs=[],ZF=-95;ag.position.y=.16;
+  function zc(ox){return T.fwd([sg*ox,0])[1]}
+  var zR=zc(RNB),zS=zc(IXBAND),zD=zc(18.6),zB=zc(31);
+  STM.forEach(function(m,i){var z0=Math.max(ZF,m.position.z-m.scale.z/2),z1=Math.min(i===0?zR:zS,m.position.z+m.scale.z/2);if(z1<=z0)return;
+    var c=new THREE.Mesh(m.geometry,m.material);c.scale.set(m.scale.x,m.scale.y,z1-z0);var L=T.inv([m.position.x,(z0+z1)/2]);c.position.set(L[0],m.position.y,L[1]);c.rotation.y=-T.th;ag.add(c)});
+  mv.forEach(function(m){var qz=m.o.position.z,hz=m.hz||[-3,3,0],lim=hz[2]>15?(hz[0]<-20?zS:zB):zD,ok=qz+hz[1]<lim&&qz+hz[0]>ZF;recs.push({m:m,qz:qz,ok:ok,near:qz+hz[1]>=lim});if(!ok)return;
+    var c=m.o.clone();var L=T.inv([m.o.position.x,qz]);c.position.set(L[0],m.o.position.y,L[1]);c.rotation.y=m.o.rotation.y-T.th;c.visible=true;ag.add(c)});
+  g.add(ag);return {g:ag,recs:recs,T:T}}
+var GHOSTS=[],XQ=[];
+// 前方路口的預先規劃（大地圖可以看到還沒開到的路口）
+function xqFill(){var tot=nextX;XQ.forEach(function(q,i){if(i>0)tot+=q.g});
+  while(!XQ.length||tot<700){var lit=Math.random()<.6,tk=lit&&Math.random()<.85?pick(['X4','X4','X4','TE','TW']):null,used=XQ.map(function(q){return q.name}).concat([ROADN]),
+    nm=pick(ROADS.filter(function(r){return used.indexOf(r)<0})),g=(tk?150:130)+Math.random()*90;XQ.push({g:g,lit:lit,tk:tk,name:nm});if(XQ.length>1)tot+=g}}
+function ixRemove(x){scene.remove(x.ix.g);for(var i=XENTS.length-1;i>=0;i--)if(XENTS[i].X===x){scene.remove(XENTS[i].g);XENTS.splice(i,1)}}
+// --- 支線車輛（路口車輛）
+var XK_KINDS=['taxi','scooter','delivery','afc','uncle','mini','scooter','delivery','taxi'];
+function xSpawn(x,A,st,dd){if(XENTS.filter(function(q){return q.X===x}).length>=16)return;
+  var T=x.ix.T,r0=Math.random(),li=r0<.38?0:r0<.88?1:2,k=pick(XK_KINDS);
+  if(spawn(-1,k,3,-900)<0)return;var e=ents.pop();
+  e.X=x;e.st=st;e.arm=A;e.cv=Math.min(e.us,12);e.dd=dd;e.wt=0;e.uid=++XUID;
+  if(st==='app'){var en=T.nodes[A+'in'+li],sN=en.next.filter(function(n){return n.move==='straight'})[0],tN=en.next.filter(function(n){return n.move!=='straight'})[0],mv=(sN&&(Math.random()<.65||!tN))?sN:(tN||sN);if(!mv){scene.remove(e.g);return}
+    e.en=en;e.nx=mv;e.mv=mv.move}
+  else{e.ex=T.nodes[A+'out'+Math.min(li,1)]}
+  if(XENTS.some(function(q){return q.X===x&&q.arm===A&&q.st===st&&Math.abs(q.dd-dd)<q.l/2+e.l/2+3&&(st==='app'?q.en===e.en:q.ex===e.ex)})){scene.remove(e.g);return}
+  XENTS.push(e);xPose(e)}
+function xPose(e){var x=e.X,Zc=ixZ(x),p;
+  if(e.mv&&e.mv!=='straight'&&e.st!=='dep'){if(!e.tsig){e.tsig=[0,1].map(function(k){var m=new THREE.Mesh(G,BKM);m.scale.set(.16,.16,.3);e.g.add(m);return m});var sd=e.mv==='right'?1:-1;e.tsig[0].position.set(sd*(e.w/2+.02),.72,-e.l/2+.35);e.tsig[1].position.set(sd*(e.w/2+.02),.72,e.l/2-.35)}var on=Math.floor(lastTs/300)%2===0;e.tsig.forEach(function(m){m.visible=on})}
+  else if(e.tsig)e.tsig.forEach(function(m){m.visible=false});
+  if(e.st==='app')p=[e.en.pos[0]-e.en.dir[0]*e.dd,e.en.pos[1]-e.en.dir[1]*e.dd,e.en.dir[0],e.en.dir[1]];
+  else if(e.st==='path'){var q=pathAt(e.pts,e.s);p=[q[0],q[1],q[2],q[3]]}
+  else p=[e.ex.pos[0]+e.ex.dir[0]*e.dd,e.ex.pos[1]+e.ex.dir[1]*e.dd,e.ex.dir[0],e.ex.dir[1]];
+  e.lx=p[0];e.lz=p[1];e.hx=p[2];e.hz=p[3];
+  e.g.position.set(e.lx,roadY(e.lx,e.lz),Zc+e.lz);e.g.rotation.set(0,Math.atan2(-e.hx,-e.hz),0)}
+function obbHit(ax,az,ahx,ahz,aw,al,bx,bz,bhx,bhz,bw,bl,k){var dx=bx-ax,dz=bz-az,A=[[ahx,ahz],[-ahz,ahx],[bhx,bhz],[-bhz,bhx]];
+  for(var i=0;i<4;i++){var n=A[i],d=Math.abs(dx*n[0]+dz*n[1]),ra=al/2*Math.abs(ahx*n[0]+ahz*n[1])+aw/2*Math.abs(-ahz*n[0]+ahx*n[1]),rb=bl/2*Math.abs(bhx*n[0]+bhz*n[1])+bw/2*Math.abs(-bhz*n[0]+bhx*n[1]);if(d>(ra+rb)*k)return false}
+  return true}
+// 對向來車：左轉要讓
+function yConf(e,x){var Zc=ixZ(x),A=e.arm;
+  if(A==='S')return ents.some(function(f){var lz=f.z-Zc;return !f.ped&&!f.crash&&f.dn<0&&f.x<0&&f.cur>.8&&lz>-55&&lz<RNB})||XENTS.some(function(q){return q.X===x&&q.arm==='N'&&q.st==='path'&&q.mv==='straight'});
+  if(A==='N'){var pz=-Zc;return ents.some(function(f){var lz=f.z-Zc;return !f.ped&&!f.crash&&f.dn>0&&f.x>0&&f.cur>.8&&lz<55&&lz>-RNB})||(!PT&&mode==='play'&&px>0&&v>.8&&pz<60&&pz>-RNB)||(PT&&PT.X===x)}
+  var O=A==='W'?'E':'W',cp=cphase(x);return XENTS.some(function(q){return q.X===x&&q.arm===O&&((q.st==='app'&&q.dd<40&&q.cv>.8&&(cp===0||q.dd-q.l/2-5.5<3))||(q.st==='path'&&q.mv==='straight'))})}
+function xObstacles(e,x,ig){var Zc=ixZ(x),o=[];
+  XENTS.forEach(function(q){if(q!==e&&q.X===x&&!(ig&&q.cv<.1&&q.uid>e.uid&&q.arm!==e.arm&&Math.abs(q.hx*e.hx+q.hz*e.hz)<.7))o.push([q.lx,q.lz,q.hx,q.hz,q.w,q.l])});
+  ents.forEach(function(f){var lz=f.z-Zc;if(f.ped){if(Math.abs(lz)<45&&Math.abs(f.x)<10.2){o.push([f.x*XK,lz,0,0,1,1]);if(f.vx&&!f.wait)o.push([(f.x+f.vx*1.2)*XK,lz,0,0,1,1])}return}if(Math.abs(lz)<45)o.push([f.x*XK,lz,0,-f.dn,f.w,f.l])});
+  if(mode==='play')o.push([px*XK,-Zc,PHX,PHZ,PW,PL]);
+  return o}
+function xTarget(e,x){var lim=(e.st==='path'||e.st==='app')?(e.mv==='right'?6.5:e.mv==='left'?8:12):12,tg=Math.min(e.us||10,lim)*(1-TW.rainNpcSlow*wk);
+  if(e.st==='app'){tg=Math.min(tg,Math.sqrt(lim*lim+2*4*Math.max(0,e.dd)))}
+  if(e.st==='app'&&(e.arm==='W'||e.arm==='E')){var cp=cphase(x),fr=e.dd-e.l/2-5.5;if((cp===2||(cp===1&&fr>3))&&fr>-.8)tg=Math.min(tg,Math.max(0,fr*1.8))}
+  if(e.st==='app'&&e.dd<e.l/2+6){var gh=e.ghost>0,go=canEnter(e,x,e.mv==='left'?e.nx.pts.filter(function(p){return p[4]<=e.nx.ys+e.l/2+2}):e.nx.pts,gh);if(go&&!e.ok)x.ix.tf=-1;e.ok=go;if(!go)tg=Math.min(tg,Math.sqrt(Math.max(0,2*7*(e.dd-e.l/2-.3))))}
+  if(e.st==='path'&&e.gate!=null&&e.s<e.gate){var gh2=e.ghost>0,go2=canEnter(e,x,e.pts.filter(function(p){return p[4]>=e.gate&&(e.mv!=='left'||p[4]<=e.ys+e.l/2+2)}),gh2);if(!go2)tg=Math.min(tg,Math.sqrt(Math.max(0,2*7*(e.gate-e.s-.3))));else{e.gate=null;x.ix.tf=-1}}
+  if(e.st==='path'&&e.gate!=null&&e.s>=e.gate){e.gate=null;x.ix.tf=-1}
+  if(e.st==='path'&&e.mv==='left'&&!e.yok&&e.gate==null){var dy=e.ys-e.s;if(dy<e.cv*e.cv/14+3){var cf=!canEnter(e,x,e.pts.filter(function(p){return p[4]>=Math.min(e.s,e.ys)}),e.ghost>0)||(yConf(e,x)&&(e.yw||0)<14);
+      if(cf)tg=Math.min(tg,Math.sqrt(Math.max(0,2*7*(dy-.1))));else{e.yok=1;x.ix.tf=-1}}}
+  xObstacles(e,x,e.ghost>0).forEach(function(q){var dx=q[0]-e.lx,dz=q[1]-e.lz,al=dx*e.hx+dz*e.hz,lat=Math.abs(dx*e.hz-dz*e.hx);
+    if(al<=0||al>18)return;var ol=Math.abs(q[2]*e.hx+q[3]*e.hz)>.7?q[5]:q[4],ow=Math.abs(q[2]*e.hx+q[3]*e.hz)>.7?q[4]:q[5];
+    if(lat<(e.w+ow)/2+.35)tg=Math.min(tg,Math.max(0,(al-(e.l+ol)/2-1.3)*1.7))});
+  return tg}
+var IXF=0,XUID=0;
+function ixTracks(x){var I=x.ix;if(I.tf===IXF)return I.tr;var L=[],Zc=ixZ(x);
+  XENTS.forEach(function(e){if(e.X!==x)return;var pts=null;
+    if(e.st==='path')pts=(e.gate!=null||(e.mv==='left'&&!e.yok))?e.pts.filter(function(p){return p[4]>=e.s-e.l/2&&p[4]<=e.s+e.l/2+1}):e.pts.filter(function(p){return p[4]>=e.s-e.l/2});else if(e.st==='app'&&e.dd<e.l/2+2&&e.ok)pts=e.nx.pts;
+    if(pts&&pts.length)L.push({e:e,pts:pts,full:(e.st==='path'&&e.mv==='left'&&!e.yok&&e.gate==null)?e.pts.filter(function(p){return p[4]>=e.s-e.l/2}):null})});
+  function lane(lx,lz,dn,l){var p=[],end=dn>0?-RNB-3:RNB+3;for(var z=lz;dn>0?z>=end:z<=end;z-=dn*2)p.push([lx,z]);return p}
+  ents.forEach(function(f){if(f.ped||f.crash)return;var lz=f.z-Zc,lx=f.x*XK,inB=Math.abs(lz)<RNB+f.l/2,app=f.dn>0?(lz>=RNB&&lz<RNB+9):(lz<=-RNB&&lz>-RNB-9);
+    if(Math.abs(lx)>RNB||!(inB||(app&&f.cur>.5)))return;L.push({f:f,pts:lane(lx,lz+f.dn*f.l/2,f.dn,f.l)})});
+  if(mode==='play'){var pz=-Zc;if(PT&&PT.X===x)L.push({pl:1,pts:PT.pts.filter(function(p){return p[4]>=PT.s-PL/2})});
+    else if(!PT&&Math.abs(px*XK)<RNB&&((pz<RNB+PL/2&&pz>-RNB-PL/2)||(pz>=RNB&&pz<RNB+12&&v>1)))L.push({pl:1,pts:lane(px*XK,pz-PL/2,1,PL)})}
+  I.tf=IXF;I.tr=L;return L}
+function trkConf(A,B){for(var i=0;i<A.length;i++)for(var j=0;j<B.length;j++){var dx=A[i][0]-B[j][0],dz=A[i][1]-B[j][1];if(dx*dx+dz*dz<11.6)return true}return false}
+function canEnter(e,x,pts,ig){var Zc=ixZ(x),cr=e.arm==='W'||e.arm==='E';if(XENTS.some(function(q){return q!==e&&q.X===x&&q.st==='path'&&((q.arm==='W'||q.arm==='E')!==cr)&&q.gate==null&&q.s<q.len-2}))return false;
+  return !ixTracks(x).some(function(o){if(o.e===e||o.f===e)return 0;if(ig&&o.e&&o.e.cv<.1&&o.e.uid>e.uid)return 0;
+    if(o.f&&((e.arm==='S'&&o.f.dn>0&&o.f.z-Zc>e.lz)||(e.arm==='N'&&o.f.dn<0&&o.f.z-Zc<e.lz)))return 0;if(o.pl&&!PT&&e.arm==='S'&&-Zc>e.lz)return 0;
+    if(o.full&&o.e.arm!==e.arm&&trkConf(pts,o.full))return 1;if(o.e&&o.e.en===e.en&&o.e.nx===e.nx)return 0;return trkConf(pts,o.pts)})}
+function trunkBlocked(f,x){var Zc=ixZ(x),lx=f.x*XK,mine=[];for(var z=f.dn>0?RNB:-RNB;f.dn>0?z>=-RNB-3:z<=RNB+3;z-=f.dn*2)mine.push([lx,z]);
+  var flz=f.z-Zc,fa=f.dn>0?'S':'N';
+  return ixTracks(x).some(function(o){if(!o.e)return 0;if(o.e.arm===fa&&(f.dn>0?o.e.lz>flz:o.e.lz<flz))return 0;return trkConf(mine,o.pts)})}
+function xentsTick(dt){IXF++;
+  for(var i=XENTS.length-1;i>=0;i--){var e=XENTS[i],x=e.X;if(xings.indexOf(x)<0){scene.remove(e.g);XENTS.splice(i,1);continue}
+    if(e.st==='path'&&e.cv<.1){e.dl=(e.dl||0)+dt;if(e.dl>16){scene.remove(e.g);XENTS.splice(i,1);x.ix.tf=-1;continue}}else e.dl=0;
+    var tg=xTarget(e,x);
+    if(e.st==='path'&&e.mv==='left'&&!e.yok&&e.cv<.3&&e.s>e.ys-1.5)e.yw=(e.yw||0)+dt;
+    e.cv+=Math.max(-9*dt,Math.min(4*dt,tg-e.cv));if(e.cv<.05&&tg<.05)e.cv=0;
+    if((e.st==='path'||(e.st==='app'&&e.dd<8))&&e.cv<.1&&(e.st==='path'||cphase(x)===0||e.arm==='S'||e.arm==='N')){e.stk=(e.stk||0)+dt;if(e.stk>6){e.ghost=1.5;e.stk=0}}else e.stk=0;if(e.ghost>0)e.ghost-=dt;
+    var ds=e.cv*dt;
+    if(e.st==='app'){e.dd-=ds;if(e.dd<=0&&!e.ok&&e.dd>-3){e.dd=.02;e.cv=0}if(e.dd<=0){e.ok=0;e.st='path';e.pts=e.nx.pts;e.len=e.nx.len;e.ys=e.nx.ys;e.s=-e.dd;e.yok=e.mv!=='left';e.yw=0}}
+    else if(e.st==='path'){e.s+=ds;if(e.s>=e.len){var ex=x.ix.T.nodes[e.nx.to];
+        if(ex.arm==='S'||ex.arm==='N'){xToTrunk(e,ex,x);XENTS.splice(i,1);continue}
+        e.st='dep';e.ex=ex;e.dd=e.s-e.len}}
+    else{e.dd+=ds;if(e.dd>88){scene.remove(e.g);XENTS.splice(i,1);continue}}
+    xPose(e);
+    if(mode==='play'&&!e.crash){var Zc=ixZ(x);if(obbHit(px*XK,-Zc,PHX,PHZ,PW,PL,e.lx,e.lz,e.hx,e.hz,e.w,e.l,.85))return over(e)}}
+  ['W','E'].forEach(function(A){xings.forEach(function(x){if(!hasArm(x,A))return;var Zc=ixZ(x);if(Zc<-135||Zc>35)return;x.ix.spT[A]-=dt;if(x.ix.spT[A]<=0){x.ix.spT[A]=3.5+Math.random()*4;xSpawn(x,A,'app',70+Math.random()*10)}})})}
+function xToTrunk(e,ex,x){var Zc=ixZ(x),dn=ex.dir[1]<0?1:-1,lx=ex.pos[0]/XK,best=1;
+  for(var k=0;k<=5;k++)if(Math.abs(LX[k]-lx)<Math.abs(LX[best]-lx))best=k;
+  e.X=null;e.st=null;e.x=LX[best];e.base=e.x;e.z=Zc+ex.pos[1];e.dn=dn;e.onc=dn<0;e.vx=0;e.mt=0;e.warn=0;e.wt=2;e.cur=e.cv;e.vm=null;e.by=null;e.ltx=null;e.passed=e.z>0;e.ixd=x;
+  e.g.rotation.set(0,dn>0?0:Math.PI,0);e.g.position.set(e.x*XK,0,e.z);ents.push(e)}
+// 主幹道車輛在路口決定直行／左轉／右轉
+var TURNK={taxi:1,scooter:1,delivery:1,afc:1,uncle:1,mini:1,ferrari:1};
+function ixDecide(){for(var i=ents.length-1;i>=0;i--){var e=ents[i];if(e.ped||e.crash||!TURNK[e.k]||e.reck||e.tg||e.bj||e.cuff||e.stopper||e.pk>0||e.stopEv>0||e.ill||e.rv||e.mt>0)continue;
+    for(var j=0;j<xings.length;j++){var x=xings[j];if(!x.ix||e.ixd===x)continue;var Zc=ixZ(x),A=e.dn>0?'S':'N',line=e.dn>0?x.z+2.9:x.z-IXOFF*2-2.9,fr=e.dn>0?e.z-e.l/2:e.z+e.l/2,gap=e.dn>0?fr-line:line-fr;
+      if(!e.tplan&&gap>26&&gap<75&&e.mt<=0&&e.warn<=0&&e.wm!==x){e.wm=x;var sgn=e.dn>0?1:-1,inner=LX[sgn>0?3:2],mid=LX[sgn>0?4:1],lHas=hasArm(x,e.dn>0?'W':'E'),rr=Math.random(),want=null;
+        if(Math.abs(e.x-inner)<.5){if(rr<.2)want=mid}else if(Math.abs(e.x-mid)<.5){if(lHas&&rr<.22)want=inner}
+        if(want!=null&&freeAt(e,want)){e.dir=want>e.x?1:-1;e.warn=.6}}
+      if(gap<0||gap>26)continue;
+      if(!e.tplan||e.tplan.x!==x){var lxp=e.x*XK*(e.dn>0?1:-1),lip=Math.abs(lxp-RNO[0])<.5?0:Math.abs(lxp-RNO[1])<.5?1:Math.abs(lxp-RNO[2])<.6?2:-1,enp=lip<0?null:x.ix.T.nodes[A+'in'+lip],rp=Math.random(),mvp=null;
+        if(enp){var ms=enp.next.filter(function(n){return n.move!=='straight'}),st0=enp.next.filter(function(n){return n.move==='straight'})[0];
+          if(!st0)mvp=ms[0]||null;else if(lip===0&&ms.length&&rp<.5)mvp=ms[0]}
+        e.tplan={x:x,mv:mvp,li:lip}}
+      if(!e.tplan.mv){e.ixd=x;e.tcap=null;break}
+      e.tcap=Math.sqrt(Math.pow(e.tplan.mv.move==='right'?6.5:8,2)+2*4*gap);
+      if(gap>2.5||light(x)!==0)break;e.ixd=x;e.tcap=null;
+      var li=e.tplan.li,en=x.ix.T.nodes[A+'in'+li],mv=e.tplan.mv;e.tplan=null;
+      if(li<0||Math.abs(e.x*XK*(e.dn>0?1:-1)-RNO[li])>.6)break;
+      var cur=[e.x*XK,e.z-Zc],lead=rnLine(cur,en.pos);e.uid=++XUID;e.X=x;e.arm=A;e.en=en;e.nx=mv;e.mv=mv.move;e.st='path';e.pts=rnJoin(lead,mv.pts);e.len=e.pts[e.pts.length-1][4];
+      var ll=lead[lead.length-1][4];e.ys=mv.ys+ll;e.s=0;e.gate=Math.max(0,ll-e.l/2);e.yok=mv.move!=='left';e.yw=0;e.cv=e.cur;
+      if(e.bk)e.bk.forEach(function(m){m.visible=false});
+      ents.splice(i,1);XENTS.push(e);xPose(e);break}}}
+// 支線車輛在主幹道範圍內時，讓主幹道車輛看得到（避免追撞）
+function ixObs(){XENTS.forEach(function(q){if(!q.X||q.st==='app'||!(Math.abs(q.lx)<=RNB+1))return;var ax=Math.abs(q.hx)>.7;OBS.push({x:q.lx/XK,z:ixZ(q.X)+q.lz,w:ax?q.l/XK:q.w,l:ax?q.w:q.l,cur:Math.abs(q.hz)>.7?q.cv:0,dn:q.hz<-.3?1:q.hz>.3?-1:0,any:1,obs:1})})}
+// --- 玩家轉彎
+function ptStart(x,kind){var Zc=ixZ(x),a=kind==='R'?Math.max(px*XK,RNO[1]-.3):Math.max(.8,Math.min(px*XK,RNO[0]+1.2)),lim=kind==='R'?9:11;
+  var exA=kind==='R'?'E':'W',ex=x.ix.T.nodes[exA+'out'+(kind==='R'?1:0)],en=[a,RNB];
+  var pz=-Zc,pts=(pz-PL/2<RNB+.3)?rnCurve([px*XK,pz],[0,-1],ex.pos,ex.dir,false):rnJoin(rnLine([px*XK,pz],en),rnCurve(en,[0,-1],ex.pos,ex.dir,false));pts=rnJoin(pts,rnLine(ex.pos,[ex.pos[0]+ex.dir[0]*10,ex.pos[1]]));
+  PT={X:x,kind:kind,pts:pts,len:pts[pts.length-1][4],s:0,name:x.ix.name};
+  if(v>lim*1.75){PT=null;x.ix.fast=1;toast('💨 太快了（'+Math.round(v*3.6)+' km/h），來不及轉彎，直行通過');return false}
+  if(v>lim){fine+=30;toast('😱 轉彎太快！乘客嚇到 -30')}
+  else toast(kind==='R'?'↱ 右轉 '+x.ix.name:'↰ 左轉 '+x.ix.name)}
+function ptTick(dt){var x=PT.X;if(xings.indexOf(x)<0){PT=null;return}
+  PT.s+=v*dt;var p=pathAt(PT.pts,PT.s);
+  if(dt>0)VZ=((IXOFF-p[1])-x.z)/dt;px=p[0]/XK;PHX=p[2];PHZ=p[3];
+  if(PT.s>=PT.len)remap()}
+function remap(){try{ACH.ev('turn')}catch(x){}var k=PT.kind,nm=PT.name,x=PT.X,A=k==='R'?'E':'W',I=x.ix,AS=I.arms[A],T=AS.T,Zc=ixZ(x),keep=[],th=T.th,c=Math.cos(th),sn=Math.sin(th);
+  function W2N(wx,wz){return T.fwd([wx,wz-Zc])}
+  PT=null;PHX=0;PHZ=-1;VZ=v;
+  if(MS){if(MS.sd)keep.push(MS.sd);if(MS.drop)keep.push(MS.drop)}
+  ents.forEach(function(e){scene.remove(e.g);if(e.cone)scene.remove(e.cone);if(e.mar)scene.remove(e.mar);if(e.fire)scene.remove(e.fire)});ents=[];
+  XENTS.forEach(function(e){var onA=e.X===x&&((e.st==='app'&&e.arm===A)||(e.st==='dep'&&e.ex&&e.ex.arm===A));
+    if(!onA){scene.remove(e.g);return}
+    var n=T.fwd([e.lx,e.lz]),dn=e.st==='dep'?1:-1,cand=dn>0?[3,4]:[1,2],best=cand[0];if(Math.abs(LX[cand[1]]-n[0]/XK)<Math.abs(LX[best]-n[0]/XK))best=cand[1];
+    e.X=null;e.st=null;e.x=LX[best];e.base=e.x;e.z=n[1];e.dn=dn;e.onc=dn<0;e.vx=0;e.mt=0;e.warn=0;e.wt=2;e.cur=e.cv;e.vm=null;e.by=null;e.ltx=null;e.passed=e.z>0;e.g.rotation.set(0,dn>0?0:Math.PI,0);e.g.position.set(e.x*XK,0,e.z);ents.push(e)});
+  XENTS=[];
+  xings.forEach(function(q){if(q===x)return;scene.remove(q.g);if(q.ix)scene.remove(q.ix.g)});xings=[];
+  sides.forEach(function(q){if(keep.indexOf(q)<0)scene.remove(q.g)});sides=keep;cams.forEach(function(q){scene.remove(q.g)});cams=[];
+  // 原本的路口留在原地當背景（轉到新座標後慢慢退到後面），剛轉進的這段支線換成真正的街景
+  I.g.remove(AS.g);var p1=W2N(0,Zc);I.g.position.set(p1[0],0,p1[1]);I.g.rotation.y=th;GHOSTS.push(I.g);
+  var p2=W2N(0,x.z);x.g.position.set(p2[0],0,p2[1]);x.g.rotation.y=th;GHOSTS.push(x.g);
+  // 路口附近原本看得到的主幹道街景，先複製一份留在背景
+  var gc=new THREE.Group();
+  mv.forEach(function(m){if(!m.o.visible||Math.abs(m.o.position.z-Zc)>75)return;var cc=m.o.clone();cc.position.copy(m.o.position);cc.rotation.y=m.o.rotation.y;gc.add(cc)});
+  STM.forEach(function(m){var z0=Math.max(Zc-75,m.position.z-m.scale.z/2),z1=Math.min(Zc+75,m.position.z+m.scale.z/2);if(z1<=z0)return;var cc=new THREE.Mesh(m.geometry,m.material);cc.scale.set(m.scale.x,m.scale.y,z1-z0);cc.position.set(m.position.x,m.position.y,(z0+z1)/2);gc.add(cc)});
+  walkers.forEach(function(w){if(w.g.visible&&Math.abs(w.z-Zc)<60){var cc=w.g.clone();cc.position.copy(w.g.position);gc.add(cc)}});
+  var p3=W2N(0,0);gc.position.set(p3[0],0,p3[1]);gc.rotation.y=th;scene.add(gc);GHOSTS.push(gc);
+  AS.recs.forEach(function(r){r.m.o.position.z=r.qz;r.m.hold=r.near});
+  walkers.forEach(function(w){if(w.z>-50)w.z-=55+Math.random()*30});
+  var sp=sun.position,sx2=sp.x*c+sp.z*sn,sz2=-sp.x*sn+sp.z*c;sun.position.set(sx2,sp.y,sz2);
+  if(camYaw!=null)camYaw+=th;
+  plYaw+=th;lastPH=0;latV=0;plPsi=PV.psi=0;PV.del=plDel=0;
+  amb=null;blockT=0;bigLeft=0;OBS=[];px=T.np;wasL=false;nextX=120+Math.random()*60;XQ=[];camT=Math.max(camT,70);ROADN=nm;spawnT=1.5;
+  for(var q=0;q<4;q++){var ln=1+Math.floor(Math.random()*4),z0=-70-q*14;spawn(-1,pick(['scooter','delivery','taxi','afc','uncle','mini']),ln,z0)}
+  toast('📍 進入 '+nm+(MS?'・導航已重新規劃':''))}
+// 接近路口：在路口前按方向鍵決定要不要轉彎
+// ===== 共用車輛運動核心（玩家與 NPC 共用）=====
+// 自行車模型：前輪轉向角 del 以有限速度追隨目標，車頭方向 psi 依 v/軸距*tan(del) 變化，橫向位移 = v*sin(psi)。
+// 不同車種：軸距 wb、最大轉向角 dmax、轉向速度 rate、最大車頭偏角 pmax 不同。
+var VCLS={scooter:{wb:1.3,dmax:.7,rate:4.5,pmax:.42},car:{wb:2.7,dmax:.55,rate:3.2,pmax:.38},big:{wb:5.5,dmax:.45,rate:1.8,pmax:.26},em:{wb:3.2,dmax:.55,rate:3.4,pmax:.36}};
+function vCls(k){return {scooter:1,delivery:1,afc:1,bj:1,sbfam:1,pscoot:1,stopscoot:1,stopdel:1}[k]?VCLS.scooter:{bus:1,garbage:1,firetruck:1,ztb:1}[k]?VCLS.big:{amb:1,police:1}[k]?VCLS.em:VCLS.car}
+// 依輸入 st（-1..1，正=往右）更新 o.del / o.psi；st 為 null 時自動回正。回傳每秒橫向速度（公尺）
+function vehSteer(o,st,sp,dt,C){C=C||VCLS.car;var as=Math.abs(sp),dm=C.dmax/(1+Math.pow(as/9,2)),pm=Math.min(C.pmax,8/Math.max(as,1)),sg=sp<-.05?-1:1,tg;
+  if(st)tg=st*dm;else tg=Math.max(-dm,Math.min(dm,-o.psi*1.9*sg));
+  var r=C.rate*dt;o.del+=Math.max(-r,Math.min(r,tg-o.del));
+  o.psi+=sp/C.wb*Math.tan(o.del)*dt;if(o.psi>pm){o.psi=pm;if(o.del*sg>0)o.del*=.5}else if(o.psi<-pm){o.psi=-pm;if(o.del*sg<0)o.del*=.5}
+  if(!st&&Math.abs(o.psi)<.002&&Math.abs(o.del)<.004){o.psi=0;o.del=0}
+  return sp*Math.sin(o.psi)}
+var PV={psi:0,del:0},plPsi=0,plDel=0;
+// NPC 用：把 AI 想要的橫向速度 vreq（車道單位/秒）轉成「車頭偏角 → 前輪轉角 → 實際軌跡」，車頭方向永遠跟著實際行駛方向。
+// 停著的車換道時以最低 3.5m/s 的蠕行速度計算，避免永遠卡在事故車後面。
+function vehLat(o,vreq,sp,dt,C,fl){var se=Math.max(Math.abs(sp),fl==null?3.5:fl),pm=Math.min(C.pmax,8/se),pd=Math.max(-pm,Math.min(pm,Math.atan2(vreq*XK,se))),st=Math.max(-1,Math.min(1,(pd-o.psi)*6));if(Math.abs(st)<.01&&Math.abs(pd)<.001)st=0;vehSteer(o,st,se,dt,C);return se*Math.sin(o.psi)/XK}
+function laneSnap(x){var b=LX[0];LX.forEach(function(l){if(Math.abs(l-x)<Math.abs(b-x))b=l});return b}
+var LCV={scooter:3.2,car:2.4,big:1.8,em:3.0};
+var lastDir=0;
+var TURN={st:'IDLE',x:null,n:0};
+function ixApproach(fdt){fdt=Math.min(.05,fdt||0);var best=null;if(PT)return null;
+  xings.forEach(function(x){if(!x.ix||x.ix.pdone)return;var d=-(x.z+2.9)-PL/2;if(d>-9&&d<55&&(!best||d<best.d))best={x:x,d:d}});
+  if(best){var I=best.x.ix;
+    var edge=dir!==0&&dir!==lastDir;
+    if(edge&&I.want&&((I.want==='L'&&dir>0)||(I.want==='R'&&dir<0))){I.want=null;I.hl=I.hr=0;toast('取消轉彎，直行')}
+    // 停在停止線前、或已經壓到斑馬線/剛進路口，都還可以決定轉彎（左轉到路口前段、右轉到路口邊緣為止）
+    if(!I.want&&best.d>-8.5){I.hl=(dir<0&&px<3.0&&hasArm(best.x,'W'))?(I.hl||0)+fdt:0;I.hr=(dir>0&&px>=6.2&&hasArm(best.x,'E')&&best.d>-7)?(I.hr||0)+fdt:0;
+      if(I.hl>0&&px<1.0){px=1.0;if(latV<0)latV=0}
+      if(I.hl>=.35){I.want='L';I.wpx=px;toast('↰ 準備左轉 '+I.name+'，自動減速中（按 ▶ 取消）')}
+      else if(I.hr>=.35){I.want='R';I.wpx=px;toast('↱ 準備右轉 '+I.name+'，自動減速中（按 ◀ 取消）')}}
+    if(!I.hint&&!I.want&&best.d<70){if(px>=2.8&&hasArm(best.x,'E')){I.hint=1;toast(px>=6.2?'↱ 外側是右轉專用道：按住 ▶ 右轉 '+I.name+'（直行會被罰）':'↑ 中間車道只能直行，要右轉請先切到最外側')}else if(px<3.0&&px>0&&hasArm(best.x,'W')){I.hint=1;toast('↰ 內側車道可直行，按住 ◀ 左轉 '+I.name)}}
+    if(I.want==='L'){px=Math.max(px,1.0,Math.min(I.wpx,1.5)-.2);if(latV<0&&px<=Math.min(I.wpx,1.5)-.19)latV=0}
+    if(I.want==='R'){var mxr=Math.max(I.wpx,4.5)+.2;if(px>mxr){px=mxr;latV=Math.min(latV,0)}}
+    if(best.d<=0&&I.want){if(I.want==='L'&&px<3.0){if(ptStart(best.x,'L')===false)I.want=null;I.pdone=1}else if(I.want==='R'&&px>=6.0){if(ptStart(best.x,'R')===false)I.want=null;I.pdone=1}else{I.want=null;toast('車道不對，只能直行')}}
+    if(!PT&&!I.want&&best.d<=-8.4){I.pdone=1;{
+        if(px>=6.2&&hasArm(best.x,'E')&&!I.fast){fine+=100;vl.lane=(vl.lane||0)+1;toast('🚨 右轉專用道直行！違反道交條例§48 罰NT$600 -100')}}}}
+  lastDir=dir;return best}
+function ixHud(b){if(!b)return '';var I=b.x.ix,d=Math.max(0,Math.round(b.d)),lim=I.want==='R'?32:40;
+  if(I.want)return (I.want==='L'?'↰ 左轉 ':'↱ 右轉 ')+I.name+'・'+d+'m'+(v*3.6>lim+3?'｜⚠ 減速到 '+lim+' 以下':'｜速度 OK');
+  if(px>=6.2&&hasArm(b.x,'E'))return '↱ 右轉專用道 '+I.name+'・'+d+'m｜按住 ▶ 右轉，直行會被罰';
+  if(px>=2.8&&px<6.2)return '↑ 中間車道：直行・'+d+'m';
+  if(px<3.0&&px>0&&hasArm(b.x,'W'))return '↰↑ 內側車道 '+I.name+'・'+d+'m｜直行，或按住 ◀ 左轉';
+  var o=[];if(hasArm(b.x,'W'))o.push('◀左轉');if(hasArm(b.x,'E'))o.push('▶右轉');return I.name+'路口 '+d+'m｜'+o.join(' ')}
+// 主幹道房子、路燈、標線在路口範圍內要隱藏（才不會蓋在支線道路上）
+function mvHide(){var ix=xings.filter(function(x){return x.ix});
+  mv.forEach(function(m){var z=m.o.position.z,hide=!!m.hold;if(!m.hz){if(m.o.visible!==!hide)m.o.visible=!hide;return}
+    for(var i=0;i<ix.length&&!hide;i++){var Zc=ixZ(ix[i]);if(z+m.hz[1]>Zc-m.hz[2]&&z+m.hz[0]<Zc+m.hz[2]&&(m.side===0||hasArm(ix[i],m.side>0?'E':'W'))){hide=true;break}}
+    if(m.o.visible!==!hide)m.o.visible=!hide});
+  walkers.forEach(function(w){var hide=ix.some(function(x){return Math.abs(w.z-ixZ(x))<IXBAND+1&&hasArm(x,w.g.position.x>0?'E':'W')});w.g.visible=!hide})}
+
 var BKM=new THREE.MeshBasicMaterial({color:'#ff9a1a'});
 try{NICK=localStorage.getItem('twdrive_nick')||''}catch(x){}
 var LL={key:'dev_2a802c39b6684cabb126b3375d457584',ver:'1.0.0',kDist:'twdrive_dist',kFine:'twdrive_fine',kScore:'twdrive_score',kMoney:'twdrive_money',base:'https://api.lootlocker.io',tok:null,pr:null,nm:''};
@@ -402,7 +855,8 @@ var LBF={dist:function(n){return Math.floor(n||0)+' m'},fine:function(n){return 
 function lbRender(el){Promise.all([lbTop('score'),lbTop('money'),lbTop('dist'),lbTop('fine')]).then(function(r){el.textContent='';[['🏆 分數榜','score',r[0]],['💰 賺錢榜','money',r[1]],['🏁 距離榜','dist',r[2]],['💸 罰款榜','fine',r[3]]].forEach(function(c){var b=document.createElement('div');b.className='lb';var h=document.createElement('b');h.textContent=c[0];b.appendChild(h);if(!c[2]||!c[2].length){var z=document.createElement('div');z.textContent=c[2]?'還沒有紀錄':'⚠ 連不上排行榜';b.appendChild(z)}(c[2]||[]).slice(0,5).forEach(function(o,i){var d=document.createElement('div');d.textContent=(i+1)+'. '+o.name+' '+LBF[c[1]](o[c[1]]);b.appendChild(d)});el.appendChild(b)})})}
 lbRender(document.getElementById('lbs0'));
 function tryStart(){var n=document.getElementById('nk').value.trim().slice(0,10);if(!n){toast('請先輸入暱稱');document.getElementById('nk').focus();return}NICK=n;try{localStorage.setItem('twdrive_nick',n)}catch(x){}window.focus();start()}
-function launch(){if(mode!=='play'||paused||boostCd>0)return;v=44.4;boostCd=7;boostT=3.5;shake=.5;tone([180,260,360],.4,'sawtooth');toast('🚀 彈射！160 km/h')}
+var boostBase=0,coastT=0;
+function launch(){if(mode!=='play'||paused||boostCd>0)return;boostBase=Math.max(27.8,Math.min(33.3,v));coastT=0;v=38.9;boostCd=7;try{ACH.ev('boost')}catch(x){}boostT=.8;shake=.5;sBoost();toast('🚀 彈射！140 km/h')}
 var mmc=document.getElementById('mm').getContext('2d'),RT=[{l:4000,a:0}],rp0=[[0,0,0]];
 (function(){var x=0,y=0,h=0;RT.forEach(function(sg){var n=Math.ceil(sg.l/20);for(var i=0;i<n;i++){x+=Math.sin(h)*20;y-=Math.cos(h)*20;rp0.push([x,y,h])}h+=sg.a*Math.PI/180})})();
 function drawMap(){var R=60,c=mmc,sc=.32,oy=18,di=Math.min(rp0.length-1.01,dist/20),i0=Math.floor(di),f=di-i0,a=rp0[i0],b=rp0[i0+1],X0=a[0]+(b[0]-a[0])*f,Y0=a[1]+(b[1]-a[1])*f,hd=a[2],sn=Math.sin(hd),cs=Math.cos(hd),i;
@@ -410,6 +864,8 @@ function drawMap(){var R=60,c=mmc,sc=.32,oy=18,di=Math.min(rp0.length-1.01,dist/
   function D(x,z,col,r){var sx=R+x*1.2,sy=R+oy+z*sc;if(sy<4||sy>116)return;c.fillStyle=col;c.beginPath();c.arc(sx,sy,r,0,7);c.fill()}
   c.clearRect(0,0,120,120);c.save();c.beginPath();c.arc(R,R,R-1,0,7);c.clip();c.fillStyle='#2a3340';c.fillRect(0,0,120,120);
   c.lineCap='round';c.lineJoin='round';[['#d9dde3',9],['#4a505a',6]].forEach(function(st){c.strokeStyle=st[0];c.lineWidth=st[1];c.beginPath();for(i=Math.max(0,i0-12);i<=Math.min(rp0.length-1,i0+14);i++){var q=T(rp0[i][0],rp0[i][1]);if(i===Math.max(0,i0-12))c.moveTo(q[0],q[1]);else c.lineTo(q[0],q[1])}c.stroke()});
+  xings.forEach(function(x){if(!x.ix)return;var sy=R+oy+ixZ(x)*sc;if(sy<-10||sy>130)return;c.fillStyle='#5a616d';var xl=hasArm(x,'W')?0:R-14,xr=hasArm(x,'E')?120:R+14;c.fillRect(xl,sy-4,xr-xl,8)});
+  XENTS.forEach(function(e){D(e.lx/XK,ixZ(e.X)+e.lz,'#aab4c2',1.6)});
   xings.forEach(function(x){D(0,x.z,'#fff',2.5)});cams.forEach(function(x){D(0,x.z,'#35d0ff',2.5)});
   SHOPS.forEach(function(m){var pa=m.g.parent;if(!pa)return;var sy=R+oy+(pa.position.z+m.z)*sc,sx=R+m.s*22;if(sy<8||sy>112)return;var im=LGI[m.b];if(!im.complete)return;var lw=BS[m.b]*13,lh=13;if(lw>22){lw=22;lh=22/BS[m.b]}c.fillStyle='#fff';c.fillRect(sx-lw/2-1.5,sy-lh/2-1.5,lw+3,lh+3);c.drawImage(im,sx-lw/2,sy-lh/2,lw,lh)});
   var bl=Math.floor(lastTs/300)%2;
@@ -445,9 +901,9 @@ NAMES.pzone='路邊停好的車';LINES.pzone='你撞進路邊停車格，整排�
 // ===== 8+9 系統、陣頭系統 =====
 var NEON=['#ff2bd6','#2bf3ff','#a3ff2b','#ff8a00','#b04bff'],ROBE=['#2b2b2b','#6a2fb5','#1f6f4a','#d62828','#f2c230','#2a4a8a'];
 var sides=[],bjT=8,ztT=12,bigT=45,bigLeft=0,bigLane=3,bigSeg=0,bigLab=0,drumT=0,bc=0,revT=0;
-function env(type,f0,f1,dur,vol){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();var o=ac.createOscillator(),g=ac.createGain(),n=ac.currentTime;o.type=type;o.frequency.setValueAtTime(f0,n);o.frequency.exponentialRampToValueAtTime(f1,n+dur);g.gain.setValueAtTime(vol,n);g.gain.exponentialRampToValueAtTime(.001,n+dur);o.connect(g);g.connect(ac.destination);o.start(n);o.stop(n+dur)}catch(x){}}
-function noise(dur,vol){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();var n=Math.floor(ac.sampleRate*dur),b=ac.createBuffer(1,n,ac.sampleRate),d=b.getChannelData(0);for(var i=0;i<n;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/n,3);var s=ac.createBufferSource(),g=ac.createGain();g.gain.value=vol;s.buffer=b;s.connect(g);g.connect(ac.destination);s.start()}catch(x){}}
-function rev(){if(lastTs<revT)return;revT=lastTs+700;env('sawtooth',70,260,.55,.06);setTimeout(function(){env('sawtooth',90,330,.45,.05)},260)}
+function env(type,f0,f1,dur,vol){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();var o=ac.createOscillator(),g=ac.createGain(),n=ac.currentTime;o.type=type;o.frequency.setValueAtTime(f0,n);o.frequency.exponentialRampToValueAtTime(f1,n+dur);g.gain.setValueAtTime(vol,n);g.gain.exponentialRampToValueAtTime(.001,n+dur);o.connect(g);g.connect(OUT());o.start(n);o.stop(n+dur)}catch(x){}}
+function noise(dur,vol){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();var n=Math.floor(ac.sampleRate*dur),b=ac.createBuffer(1,n,ac.sampleRate),d=b.getChannelData(0);for(var i=0;i<n;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/n,3);var s=ac.createBufferSource(),g=ac.createGain();g.gain.value=vol;s.buffer=b;s.connect(g);g.connect(OUT());s.start()}catch(x){}}
+function rev(){if(lastTs<revT)return;revT=lastTs+700;env('triangle',70,220,.5,.07);setTimeout(function(){env('triangle',85,260,.4,.06)},260)}
 function drum(){env('sine',120,45,.35,.35)}
 function gong(){env('triangle',330,300,1.1,.12);env('triangle',495,470,1.1,.06)}
 function crackers(){for(var i=0;i<10;i++)setTimeout(function(){noise(.05,.18)},i*60+Math.random()*40)}
@@ -486,20 +942,24 @@ NAMES.bjcar='8+9 改裝車';LINES.bjcar='改裝車底盤燈還在閃，車主已
 NAMES.zt='陣頭';LINES.zt='你撞進了神明遶境的隊伍，整個宮廟的人都在看你。';NAMES.ztb='遶境隊伍';LINES.ztb='你撞進了大型遶境隊伍，今年的平安符你是拿不到了。';
 var TAUNT=['看三小啦','開那麼慢喔～','要不要尬一下？','車不錯喔，借騎一下','喇叭按什麼按','你是在看哪裡？'];
 // 8+9 AI
-function bjAI(e,dt){if(e.back){e.us=Math.max(20,v+7,e.us);if(e.z<-10){e.back=0;e.bt=.4}e.cur=e.us;return}
+function bjRear(e){var same=Math.abs(e.x-px)<(e.w+PW)/2+.5,gp=e.z-e.l/2-PL/2;
+    if(same&&gp>0&&gp<22){if(e.mt<=0){var ok=0;(px>3?[-1,1]:[1,-1]).some(function(dr){var tx=e.x+dr*3;if(tx>-1.7&&tx<4.7&&freeAt(e,tx)){e.vx=dr*4.5;e.mt=.66;ok=1;return 1}});
+        if(!ok)e.cur=Math.max(0,Math.min(e.us,v+(gp-6)*.8))}
+      if(!e.hornT||lastTs>e.hornT){e.hornT=lastTs+1800;env('square',520,500,.15,.04);setTimeout(function(){env('square',520,500,.15,.04)},180)}}}
+function bjAI(e,dt){if(e.back){e.us=Math.max(20,v+7,e.us);if(e.z<-10){e.back=0;e.bt=.4}e.cur=e.us;bjRear(e);return}
   e.bt-=dt;if(e.bt<=0){e.bt=.7+Math.random()*1.5;var r=Math.random();
     if(r<.3){e.us=30+Math.random()*10;if(Math.abs(e.z)<45)rev()}
-    else if(r<.5)e.us=5+Math.random()*6;
-    else if(r<.8&&e.mt<=0){var dr=Math.random()<.5?-1:1,tx=e.x+dr*3;if(tx>-1.7&&tx<8.2){e.vx=dr*4.5;e.mt=.66}}
+    else if(r<.5){if(Math.abs(e.x-px)<(e.w+PW)/2+.5&&e.z<0&&e.z>-35)e.us=Math.max(v+4,24);else e.us=5+Math.random()*6}
+    else if(r<.8&&e.mt<=0){var dr=Math.random()<.5?-1:1,tx=e.x+dr*3;if(tx>-1.7&&tx<4.7&&freeAt(e,tx)){e.vx=dr*4.5;e.mt=.66}}
     else e.us=16+Math.random()*14}
-  e.cur=e.us}
+  e.cur=e.us;if(e.z>0)bjRear(e)}
 function bjCarAI(e,dt){var df;
   if(e.cuff){e.us=Math.max(0,e.us-8*dt);e.cur=e.us;df=7.8-e.x;e.vx=Math.abs(df)<.2?0:(df>0?3:-3);e.mt=0;return}
   e.bt-=dt;if(e.bt<=0){e.bt=1+Math.random()*1.6;e.tx=pick([-4.5,-1.5,1.5,4.5,-1.5,1.5]);e.us=14+Math.random()*16;if(Math.abs(e.z)<50)rev()}
   df=(e.tx==null?e.x:e.tx)-e.x;e.vx=Math.abs(df)<.2?0:(df>0?5:-5);e.mt=0;e.cur=e.us;
   if(e.x<-.3&&!e.yl){e.yl=1;if(!e.cop&&e.z<-25&&e.z>-125&&Math.random()<.65&&spawn(-1,'police',4,Math.min(-14,e.z+28))>=0){var pe=ents[ents.length-1];pe.tg=e;pe.us=pe.cur=30;e.cop=pe;toast('🚓 8+9 跨越雙黃線，警察出動追逐！');env('square',700,900,.4,.04)}}
   var c=e.cop;if(c&&!e.cuff&&ents.indexOf(c)>=0&&!c.crash&&Math.abs(c.z-e.z)<8&&Math.abs(c.x-e.x)<2.4){e.cuff=1;c.tg=null;c.cuff=1;c.reck=1;toast('🚓 警察攔下 8+9 了，路邊開單中')}}
-function spawnGang(){var n=2+Math.floor(Math.random()*4),cand=[3,4,5].filter(function(l){return Math.abs(LX[l]-px)>1.7}),c=0,bk=cand.length>0&&Math.random()<.7,k,e;
+function spawnGang(){var n=2+Math.floor(Math.random()*4),cand=[3,4].filter(function(l){return Math.abs(LX[l]-px)>1.7}),c=0,bk=cand.length>0&&Math.random()<.7,k,e;
   if(!bk)cand=[3,4];
   for(k=0;k<n;k++){if(spawn(-1,'bj',cand[k%cand.length],bk?32+k*4.5:-104-k*4.5)>=0){e=ents[ents.length-1];e.bj=1;e.bt=.5+Math.random();
     if(bk){e.back=1;e.us=e.cur=Math.max(20,v+7)+Math.random()*3}
@@ -557,7 +1017,8 @@ function eventTick(dt){
     if(bigLeft<=0){ents.forEach(function(e){if(e.k==='ztb'&&e.z<-30)e.z=-999});toast('🏮 遶境結束，道路恢復正常')}}
   var zn=ents.some(function(e){return K[e.k].nc&&e.z>-70&&e.z<12})||sides.some(function(sd){return sd.typ==='zs'&&sd.z>-70&&sd.z<15});
   if(zn){drumT-=dt;if(drumT<=0){drumT=.42;drum();bc++;if(bc%4===0)gong();if(Math.random()<.06)crackers()}}
-  for(var i=sides.length-1;i>=0;i--){var sd=sides[i];sd.z+=v*dt;sd.g.position.z=sd.z;
+  for(var i=sides.length-1;i>=0;i--){var sd=sides[i];sd.z+=VZ*dt;sd.g.position.z=sd.z;
+    if(!sd.ixc){sd.ixc=1;if(sd.typ!=='drop'&&sd.typ!=='stall'&&inIx(sd.z,8)){scene.remove(sd.g);sides.splice(i,1);continue}}
     sd.np.forEach(function(n){if(n.fix)return;var ty=n.r0;if(sd.z>-30&&sd.z<8){var wx=sd.g.position.x+n.x,wz=sd.z+n.z;ty=Math.atan2(-(px*XK-wx),wz)}n.o.rotation.y+=(ty-n.o.rotation.y)*Math.min(1,dt*4)});
     if(sd.typ==='crowd'&&!sd.spect&&!sd.told&&sd.z>-22){sd.told=1;if(Math.random()<.35){var tx=pick(TAUNT),lb=lab(tx,'#ff4dd2');lb.position.set(0,3.2,0);sd.g.add(lb);toast('8+9：「'+tx+'」');rev()}}
     if(sd.typ==='zs'){sd.pf.forEach(function(p,k){p.position.y=Math.abs(Math.sin(lastTs/180+k))*.25;p.rotation.y=sd.r0+Math.sin(lastTs/300+k)*.6});
@@ -565,11 +1026,19 @@ function eventTick(dt){
       if(!sd.pass&&sd.z>-6){sd.pass=1;crackers();gong();shake=.18;softFlash();bonus+=20;toast('🎆 鞭炮炸開！神明保佑 +20')}}
     if(sd.upd)sd.upd(sd,dt);
     if(sd.z>30){scene.remove(sd.g);sides.splice(i,1)}}}
+var rearOn='',rearPing=0;
+function rearHud(){var el=document.getElementById('rear'),b=null;
+  if(mode==='play')ents.forEach(function(e){if((e.bj||e.k==='bjcar'||e===amb)&&!e.crash&&e.z>3&&e.z<95&&(e.back||e===amb||e.cur>v+2)&&(!b||e.z<b.z))b=e});
+  var txt='';if(b){var d=Math.round(b.z-PL/2),lr=Math.abs(b.x-px)<1.6?'正後方':b.x<px?'左後方':'右後方',am=b===amb;
+    txt=(am?'🚑 救護車':'🏍️ 8+9')+' 在你'+lr+' '+d+' 公尺'+(Math.abs(b.x-px)<1.6?(am?'・快讓路！':'・別急煞！'):'・別往'+(b.x<px?'左':'右')+'切！');
+    if(!rearPing||lastTs>rearPing){rearPing=lastTs+(d<25?700:1400);if(!am)env('sine',880,880,.08,.05)}}
+  else rearPing=0;
+  if(txt!==rearOn){rearOn=txt;el.textContent=txt;el.style.display=txt?'block':'none'}
+  if(txt)el.style.opacity=Math.floor(lastTs/250)%2?1:.7}
 function cwText(){var cw='',cwd=999;ents.forEach(function(e){if(e.z<-4&&e.z>-140){var dd=Math.round(-e.z),m=null;
-    if(e.crash)m='⚠ 前方 '+dd+' 公尺有車禍，請減速';else if(e.k==='drug')m='⚠ 前方 '+dd+' 公尺有毒駕車輛';else if(e.reck&&e.k==='scooter')m='⚠ 前方 '+dd+' 公尺有機車超速';
+    if(e.crash)m='⚠ 前方 '+dd+' 公尺有車禍・小心三角錐和人';else if(e.k==='drug')m='⚠ 前方 '+dd+' 公尺有毒駕車輛';else if(e.reck&&e.k==='scooter')m='⚠ 前方 '+dd+' 公尺有機車超速';
     else if(e.k==='zt'||e.k==='ztb')m='🏮 前方 '+dd+' 公尺有陣頭遶境，請減速';else if(e.k==='bjcar'&&!e.cuff)m='😎 前方 '+dd+' 公尺有 8+9 亂開車';else if(e.bj&&e.lead)m='🏍️ 前方 '+dd+' 公尺有 8+9 車隊';else if(e.ill)m='🚗 前方 '+dd+' 公尺有並排違停';else if(e.stopEv>0)m='⚠ 前方 '+dd+' 公尺有車突然停車';else if(e.rv&&e.rv.st<2)m='⚠ 前方 '+dd+' 公尺有車倒車出庫';
     if(m&&dd<cwd){cwd=dd;cw=m}}});
-  if(ents.some(function(e){return e.bj&&e.back&&e.z>0}))cw='⚠ 後方 8+9 車隊逼近！別亂切車道';
   if(!cw&&bigLeft>0)cw='🏮 大型遶境中，剩 '+Math.ceil(bigLeft)+' 秒';return cw}
 
 
@@ -609,7 +1078,7 @@ NAMES.stopdel='取餐的外送員';LINES.stopdel='外送員的餐還沒拿到，
 NAMES.illcar='並排違停的車';LINES.illcar='並排違停的車主拎著雞排回來，看到你撞上他的車，雞排都掉了。';
 NAMES.pscoot='違停機車';
 var CVSI=['☕ 買咖啡','🥚 茶葉蛋','🧋 買飲料','🍙 御飯糰','🧾 繳罰單','📦 取包裹'];
-function spawnStopper(s,z,type,tx){var lane=s>0?5:0;if(ztBusy(lane)||!spotFree(lane,z,6))return 0;
+function spawnStopper(s,z,type,tx){var lane=s>0?5:0;if(inIx(z,6))return 0;if(ztBusy(lane)||!spotFree(lane,z,6))return 0;
   var kind=type==='del'?'stopdel':(Math.random()<.5?'stopcar':'stopscoot');if(spawn(-1,kind,lane,z)<0)return 0;
   var e=ents[ents.length-1],n=walkB(0);n.visible=false;e.g.add(n);e.wt=99;
   e.stopper={s:s,tx:tx,st:0,t:0,wait:type==='del'?3:2.5+Math.random()*2,hide:type!=='del',item:type==='del'?'🛍️ 外送取餐':pick(CVSI),npc:n,car:kind==='stopcar'};return 1}
@@ -649,7 +1118,7 @@ function stallUpd(sd,dt){if(sd.z<-100||sd.z>25)return;var i,f,o;
   for(i=sd.lv.length-1;i>=0;i--){f=sd.lv[i];o=f.o;f.lt-=dt;var tx=-sd.s*2.1;
     if(Math.abs(o.position.x-tx)>.05){o.position.x+=Math.sign(tx-o.position.x)*Math.min(Math.abs(tx-o.position.x),1.4*dt);o.rotation.y=sd.s*Math.PI/2}else{o.position.z-=1.4*dt;o.rotation.y=0}
     legs(o,1);if(f.lt<=0){sd.g.remove(o);sd.lv.splice(i,1)}}}
-function spawnStall(){var s=Math.random()<.6?1:-1,z=-110;
+function spawnStall(){var s=Math.random()<.6?1:-1,z=-110;if(inIx(z,14))return 0;
   if(sides.some(function(q){return q.s===s&&Math.abs(q.z-z)<14}))s=-s;if(sides.some(function(q){return q.s===s&&Math.abs(q.z-z)<14}))return 0;
   var kind=bagNext(STB),sd=mkStall(s,z,kind);sides.push(sd);
   toast(kind==='bf'?'🍳 前方路邊有早餐店，蛋餅豆漿香噴噴':'🏮 前方有夜市攤販，雞排鹽酥雞香味飄過來了');
@@ -731,15 +1200,16 @@ function startMission(){var sp=Math.random()<TW.specialChance?wpick(SPEC):null,o
   if(ch)ch.pick=null;
   var sd=mkStall(1,z,'bf');sides.push(sd);addZone(sd,ZX-15.4,'🛍️ 取餐區・慢速通過');
   MS={dl:dl,o:o,sd:sd,stage:0,prog:0,lim:null,sp:sp,choice:ch,need:sp&&sp.need||1,vmax:sp&&sp.vmax||8.4,dlim:sp&&sp.dlim||TW.deliveryLimit,mult:sp&&sp.mult||1,tidy:sp&&sp.tidy?100:null};
-  toast(sp?'⭐ 特殊訂單！'+sp.tag+'（'+sp.type+'・NT$'+o.total+'）':(dl?'📦 外送訂單！':'🥪 早餐任務！')+o.tag+'（NT$'+o.total+'），前方右側取餐');tone(sp?[520,660,780,1040]:[520,660,780],.15,'sine')}
+  toast(sp?'⭐ 特殊訂單！'+sp.tag+'（'+sp.type+'・NT$'+o.total+'）':(dl?'📦 外送訂單！':'🥪 早餐任務！')+o.tag+'（NT$'+o.total+'），前方右側取餐');sChime()}
+function msBrk(){if(!MS||mode!=='play')return false;var q=msTgt();return !!q&&q.z>-170&&q.z<9}
 function msTgt(){if(!MS)return null;var q=MS.stage===0?MS.sd:MS.drop;return q&&sides.indexOf(q)>=0?q:null}
 function msEnd(ok,why){var m=MS;MS=null;msT=rnd(6,12);[m.sd,m.drop].forEach(function(q){if(q&&q.zone){q.zone.forEach(function(o){q.g.remove(o)});q.zone=null}});
   if(ok){var bad=m.choice&&m.choice.pick!==m.choice.ans,f=(m.mult||1)*(bad?.3:1)*(m.tidy!=null?Math.max(.2,m.tidy/100):1);
-    var pay=Math.round((m.o.total+(m.dl?50+Math.round(Math.max(0,m.lim)*2):0))*f),msc=Math.max(15,Math.min(60,Math.round(10+pay*.06)));earn+=pay;jobs++;bonus+=msc;
+    var pay=Math.round((m.o.total+(m.dl?50+Math.round(Math.max(0,m.lim)*2):0))*f),msc=Math.max(15,Math.min(60,Math.round(10+pay*.06)));earn+=pay;jobs++;bonus+=msc;try{ACH.ev('deliv');if(m.sp)ACH.ev('special');ACH.best('earn',earn)}catch(x){}
     var msg=bad?'😅 '+m.choice.wrong:m.tidy!=null&&m.tidy<60?'😵 蛋餅在車上被甩斷了，醬油膏灑滿袋子':m.sp?m.sp.done:(m.dl?'📦 外送送達！五星好評':'🥪 早餐到手！');
-    toast(msg+' 💰+NT$'+pay+'・+'+msc+' 分'+(m.o.joke?'（老闆做隱藏餐點時愣了三秒）':''));tone(bad?[440,330]:[660,880],.2,'sine')}
+    toast(msg+' 💰+NT$'+pay+'・+'+msc+' 分'+(m.o.joke?'（老闆做隱藏餐點時愣了三秒）':''));if(bad)sBuzz();else sCash()}
   else{toast('❌ '+why);if(m.drop)m.drop.z=999}}
-function msPick(i){if(!MS||!MS.choice||MS.choice.pick!=null||MS.stage!==0||i>=MS.choice.opts.length)return;MS.choice.pick=i;tone([700],.08,'sine');toast('✏️ 已選：'+MS.choice.opts[i])}
+function msPick(i){if(!MS||!MS.choice||MS.choice.pick!=null||MS.stage!==0||i>=MS.choice.opts.length)return;MS.choice.pick=i;sClick();toast('✏️ 已選：'+MS.choice.opts[i])}
 function msTick(dt){if(!MS)return;var q=msTgt();if(!q)return msEnd(0,MS.stage?'外送目的地不見了':'取餐點不見了');
   if(MS.stage===1){MS.lim-=dt;if(MS.lim<=0)return msEnd(0,MS.sp&&MS.sp.id==='rush'?'客人遲到了，留下評語：'+pick(BADREV):'外送超時，'+pick(BADREV))}
   if(MS.tidy!=null&&MS.stage===1){if(brk&&v>8)MS.tidy-=18*dt;if(dir&&v>15)MS.tidy-=6*dt;MS.tidy=Math.max(0,MS.tidy)}
@@ -748,14 +1218,14 @@ function msTick(dt){if(!MS)return;var q=msTgt();if(!q)return msEnd(0,MS.stage?'�
   if(MS.inZ&&!MS.fast&&!MS.wait){MS.prog+=dt;if(MS.prog>=MS.need){MS.prog=0;
       if(MS.stage===0){fly(q.g.position.x+.95,q.z,px*XK,0);if(!MS.dl)return msEnd(1);
         MS.stage=1;MS.lim=MS.dlim;var d=mkDrop(1,MS.sp&&MS.sp.id==='rush'?-rnd(170,220):-rnd(230,320));addZone(d,ZX-13.6,'📦 交餐區・慢速通過');sides.push(d);MS.drop=d;
-        toast('✅ 取餐完成！送到前方右側目的地，限時 '+MS.dlim+' 秒'+(MS.tidy!=null?'，別急煞、別猛切車道':''));tone([660,880],.15,'sine')}
+        toast('✅ 取餐完成！送到前方右側目的地，限時 '+MS.dlim+' 秒'+(MS.tidy!=null?'，別急煞、別猛切車道':''));sCoin()}
       else{fly(px*XK,0,q.g.position.x,q.z);return msEnd(1)}}}
   else if(!MS.inZ)MS.prog=Math.max(0,MS.prog-dt);
   if(q.z>10)msEnd(0,MS.stage?'錯過交餐區，餐點送不到':'錯過取餐區，老闆在後面喊你')}
 function msText(){if(!MS||mode!=='play')return '';var q=msTgt();if(!q)return '';var o=MS.o,d=Math.round(-q.z),st,n=Math.min(5,Math.ceil(MS.prog/MS.need*5)),kmh=Math.round((MS.stage===1?MS.vmax:8.4)*3.6);
   if(MS.wait)st='⬆ 先在上面選答案才能取餐！';
   else if(MS.inZ)st=MS.fast?'⚠ 太快了！降到 '+kmh+' km/h 以下':(MS.stage?'交餐中 ':'取餐中 ')+'▓▓▓▓▓'.slice(0,n)+'░░░░░'.slice(0,5-n);
-  else st=(MS.stage?'📍 交餐區':'🛍️ 取餐區')+'：前方 '+d+' 公尺（靠右）'+(d<150&&d>8?'・準備減速':'');
+  else st=(MS.stage?'📍 交餐區':'🛍️ 取餐區')+'：前方 '+d+' 公尺（靠右）'+(d<170&&d>8?'・🛑 煞車加倍中':'');
   var head=MS.sp?'⭐ '+o.tag+'｜'+o.type:(MS.dl?'📦 外送｜':'🥪 早餐｜')+o.tag;
   return head+'｜NT$'+o.total+(MS.mult>1?'（收入 ×'+MS.mult+'）':'')+'\n'+msItems(o.items)+
     (MS.choice&&MS.choice.pick!=null?'\n✏️ 你選了：'+MS.choice.opts[MS.choice.pick]:'')+(MS.tidy!=null&&MS.stage===1?'\n🥢 餐點完整度 '+Math.round(MS.tidy)+'%':'')+
@@ -785,16 +1255,16 @@ function evDesc(e){var k=e.k;
   if(e.ill)return ['🚗','並排違停','#ff9a1a'];if(e.stopEv>0)return ['⚠️','突然停車','#ff9a1a'];if(e.rv&&e.rv.st<2)return ['↩️','倒車出庫','#ff9a1a'];
   if(e.pk===2)return ['🚨','雙黃燈臨停','#ff9a1a'];if(e.stopper&&e.stopper.st<4)return [k==='stopdel'?'🛵':'🏪',k==='stopdel'?'外送員取餐中':'超商門口臨停買東西','#9fd8ff'];
   if(e.reck&&k==='scooter')return ['💨','機車超速','#ffd23a'];if(k==='ferrari')return ['🏎️','超跑','#ffd23a'];
-  if(e.ped&&e.jay)return ['🚶','行人亂穿越','#ffd23a'];if(k==='elder')return ['👴','老人過馬路','#ffd23a'];return null}
+  if(e.ped&&e.jay)return [e.k==='elder'?'👴':'🚶',e.k==='elder'?'三寶老人亂穿越':'三寶行人亂穿越','#ff5a3a'];if(k==='elder')return ['👴','老人過馬路','#ffd23a'];return null}
 function sideDesc(q){if(q.typ==='stall')return MS&&MS.sd===q?['🛍️','任務取餐點（早餐店）','#3ec97a']:[q.kind==='bf'?'🍳':'🏮',q.kind==='bf'?'早餐店':'夜市攤販','#ffd23a'];
   if(q.typ==='crowd')return q.spect?['👀','路邊圍觀人群','#ffd23a']:['🛵','8+9 路邊聚集','#ff4dd2'];if(q.typ==='zs')return ['🎊','路邊陣頭表演','#ffaa28'];if(q.typ==='drop')return ['📦','外送客人（交餐點）','#3ec97a'];return null}
-function openMap(){if(mode!=='play'||mapOpen)return;mapOpen=1;mapWasP=paused;paused=true;KS.l=KS.r=KS.g=KS.b=0;TS.l=TS.r=TS.g=TS.b=0;sync();document.getElementById('mapov').classList.remove('hide');MSEL=null;document.getElementById('mapinfo').style.display='none';drawBig()}
-function closeMap(){if(!mapOpen)return;mapOpen=0;document.getElementById('mapov').classList.add('hide');paused=mapWasP}
+function openMap(){if(mode!=='play'||mapOpen)return;mapOpen=1;mapWasP=paused;paused=true;KS.l=KS.r=KS.g=KS.b=0;TS.l=TS.r=TS.g=TS.b=0;sync();document.getElementById('mapov').classList.remove('hide');['pb','snd'].forEach(function(id){document.getElementById(id).style.visibility='hidden'});MSEL=null;document.getElementById('mapinfo').style.display='none';drawBig()}
+function closeMap(){if(!mapOpen)return;mapOpen=0;['pb','snd'].forEach(function(id){document.getElementById(id).style.visibility=''});document.getElementById('mapov').classList.add('hide');paused=mapWasP}
 // 點地圖圖案顯示說明
 var MINFO={
- '車禍，有民眾指揮車流':'兩台車撞在一起，前方有三角錐和民眾指揮。約 14 秒後拖吊車會清除。請減速從旁邊車道慢慢通過，撞上去遊戲就結束。救護車可能會從後方趕來。',
+ '車禍，有民眾指揮車流':'兩台車撞在一起。事故車道上，車禍前約 30 公尺擺了三角錐，前約 14 公尺有民眾站在車道邊指揮。車子、三角錐、指揮的人都不能撞，撞到遊戲就結束。請提早換到旁邊車道慢慢通過。約 14 秒後拖吊車會清除，救護車可能會從後方趕來。',
  '騎樓失火，消防車灌救中':'路邊騎樓失火，消防車停在路邊車道灌救，消防員在噴水。別開進消防車那條車道。',
- '救護車，請讓路':'救護車從後方趕來。擋在它前面超過 3 秒遊戲就結束，看到請換到旁邊車道讓路。',
+ '救護車，請讓路':'救護車從後方趕來。旁邊有空間卻擋在它前面超過 4 秒遊戲就結束，看到請換到旁邊車道讓路。',
  '警車追捕中':'警察正在追毒駕車或 8+9。警車會跟著目標換車道，小心別擋在中間。',
  '警察攔車開單':'警察把違規的車攔到路邊開單，兩台車都停在路邊車道。',
  '毒駕車':'毒駕的車會大幅左右蛇行，完全不看路，有時還會逆向。離它越遠越好。',
@@ -828,6 +1298,7 @@ var MINFO={
  '測速照相':'限速 60 km/h。超過 70 km/h 被拍到會罰款，守法通過可以加分。',
  '便利商店':'超商門口有茶葉蛋和咖啡立牌，常常有人臨停進去買東西。',
  '你':'這是你的車。橘色三角形的尖端是車頭方向。',
+ '路口':'有支線道路的路口。在路口前按 ◀ 或 ▶ 選擇左轉、右轉，再按反方向可以取消。右轉要在外側車道（靠右），左轉要在內側車道（靠雙黃線）。轉彎速度要慢：右轉 30 km/h、左轉 40 km/h 以下比較安全，太快會翻車。轉進新的道路後，會繼續在那條路上開。支線的車只在支線綠燈時通過，主幹道的車也會在這裡左轉、右轉。',
  '取餐區':'綠色的得來速區域。開進去，車速降到 30 km/h 以下約 1 秒就能完成取餐或交餐。'
 };
 var KINFO={scooter:'一般機車，常常不打方向燈就切車道。',delivery:'外送員，趕時間常常亂切車道。按喇叭他會閃開。',afc:'AFC 炸雞外送員。撞到的話炸雞會飛滿天。',uncle:'阿北騎機車，按喇叭他也不為所動。',
@@ -836,43 +1307,83 @@ var KINFO={scooter:'一般機車，常常不打方向燈就切車道。',deliver
  police:'警車。',amb:'救護車。',ped:'行人。',elder:'老人。',bj:'8+9 改裝機車，雙載沒戴安全帽。',bjcar:'8+9 改裝車，有霓虹底燈。',zt:'陣頭隊伍。',ztb:'大型遶境隊伍的一段。',
  stopcar:'在超商門口臨停的車。',stopscoot:'停在超商門口的機車。',stopdel:'等著取餐的外送機車。',illcar:'並排違停的車。',drug:'毒駕車。',sbsnake:'蛇行三寶。',sbwrong:'逆向三寶。'};
 var MHS=[],MSEL=null,CVSN=['8 TWELVE','FamiLee 全李','KO 超商','Hi-Broke 萊爾窮'];
-function drawBig(sel){var cv=document.getElementById('bigmap'),W=Math.round(Math.min(window.innerWidth*.94,420)),H=Math.round(Math.max(260,Math.min(window.innerHeight*.64,640))),dp=Math.min(2,window.devicePixelRatio||1);
+function drawBig(sel){var cv=document.getElementById('bigmap'),W=Math.round(Math.min(window.innerWidth*.94,420)),H=Math.round(Math.max(300,Math.min(window.innerHeight*.66,660))),dp=Math.min(2,window.devicePixelRatio||1);
   cv.style.setProperty('width',W+'px','important');cv.style.setProperty('height',H+'px','important');if(cv.width!==Math.round(W*dp)||cv.height!==Math.round(H*dp)){cv.width=Math.round(W*dp);cv.height=Math.round(H*dp)}
-  var c=cv.getContext('2d'),Z0=-300,Z1=40,X0=-21,X1=21,ev=[];c.setTransform(dp,0,0,dp,0,0);MHS=[];
-  function sx(x){return (x-X0)/(X1-X0)*W}function sy(z){return (z-Z0)/(Z1-Z0)*H}
+  var c=cv.getContext('2d'),Z0=-560,Z1=50,XR=58,ev=[];c.setTransform(dp,0,0,dp,0,0);MHS=[];
+  function sx(x){return W/2+x/XR*W/2}function sy(z){return (z-Z0)/(Z1-Z0)*H}
+  var kz=H/(Z1-Z0),kx=W/2/XR;
   function hs(X,Y,r,key,icon,title,info,z,lane){MHS.push({x:X,y:Y,r:r,key:key,icon:icon,title:title,info:info,z:z,lane:lane})}
-  function ic(t,x,z,col,label){var X=sx(x),Y=sy(z);c.fillStyle=col;c.globalAlpha=.35;c.beginPath();c.arc(X,Y,13,0,7);c.fill();c.globalAlpha=1;c.font='16px sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillText(t,X,Y+1);
-    if(label){c.font='bold 11px sans-serif';c.textAlign=x>0?'right':'left';c.lineWidth=3;c.strokeStyle='rgba(0,0,0,.8)';var lx=X+(x>0?-16:16);c.strokeText(label,lx,Y);c.fillStyle='#fff';c.fillText(label,lx,Y)}}
-  c.fillStyle='#4a4f5a';c.fillRect(0,0,W,H);c.fillStyle='#8b8478';c.fillRect(sx(-19),0,sx(-12.5)-sx(-19),H);c.fillRect(sx(12.5),0,sx(19)-sx(12.5),H);
-  c.fillStyle='#3b3e45';c.fillRect(sx(-12.5),0,sx(12.5)-sx(-12.5),H);c.fillStyle='rgba(255,255,255,.05)';c.fillRect(sx(-12.5),0,sx((LX[0]+LX[1])/2*XK)-sx(-12.5),H);c.fillRect(sx((LX[4]+LX[5])/2*XK),0,sx(12.5)-sx((LX[4]+LX[5])/2*XK),H);
-  c.strokeStyle='rgba(255,255,255,.55)';c.lineWidth=1;c.setLineDash([8,10]);[0,1,3,4].forEach(function(i){var x=sx((LX[i]+LX[i+1])/2*XK);c.beginPath();c.moveTo(x,0);c.lineTo(x,H);c.stroke()});c.setLineDash([]);
-  c.strokeStyle='#f2c230';c.lineWidth=1.5;[-.5,.5].forEach(function(d){var x=sx(0)+d*2;c.beginPath();c.moveTo(x,0);c.lineTo(x,H);c.stroke()});
-  c.font='10px sans-serif';c.textAlign='left';c.textBaseline='middle';for(var dz=50;dz<=300;dz+=50){var y=sy(-dz);c.fillStyle='rgba(255,255,255,.12)';c.fillRect(0,y,W,1);c.fillStyle='rgba(255,255,255,.75)';c.fillText(dz+'m',3,y-6)}
-  c.fillStyle='rgba(255,255,255,.75)';c.textAlign='center';c.font='bold 11px sans-serif';c.fillText('↑ 對向',sx(LX[1]*XK),12);c.fillText('↑ 你的方向',sx(LX[4]*XK),12);
-  xings.forEach(function(x){if(x.z<Z0||x.z>Z1)return;c.fillStyle='rgba(255,255,255,.75)';for(var k=0;k<14;k++)c.fillRect(sx((-9.1+k*1.4)*XK),sy(x.z-1.7),sx(.7*XK)-sx(0),sy(1.7)-sy(-1.7));
-    var st=light(x);if(x.lit){var cc=(t+x.off)%14,sec=Math.ceil(st===0?5.5-cc:st===1?7-cc:14-cc),nm='紅綠燈：'+['綠燈','黃燈','紅燈'][st]+' '+sec+' 秒',I=st===0?'🟢':st===1?'🟡':'🔴';ic(I,-17,x.z,'#000','紅綠燈 '+sec+'秒');ev.push([x.z,'🚦',nm,'']);hs(sx(-17),sy(x.z),18,'紅綠燈',I,nm,MINFO['紅綠燈'],x.z,'整條路')}
-    else{var n2='斑馬線'+(x.occ?'（有行人在過）':'');ic('🚸',-17,x.z,'#000',x.occ?'有行人':'');ev.push([x.z,'🚸',n2,'']);hs(sx(-17),sy(x.z),18,'斑馬線','🚸',n2,MINFO['斑馬線'],x.z,'整條路')}});
-  cams.forEach(function(m){if(m.z<Z0||m.z>Z1)return;ic('📷',17,m.z,'#35d0ff','限速60');ev.push([m.z,'📷','測速照相（限速 60）','']);hs(sx(17),sy(m.z),18,'測速照相','📷','測速照相（限速 60）',MINFO['測速照相'],m.z,'右側路邊')});
-  SHOPS.forEach(function(m){var p=m.g.parent;if(!p)return;var wz=p.position.z+m.z;[wz,wz-104,wz-208].forEach(function(z){if(z>Z0&&z<Z1){var X=sx(m.s*17.6),Y=sy(z),im=LGI[m.b],lh=22,lw=lh*BS[m.b];if(lw>34){lw=34;lh=34/BS[m.b]}c.fillStyle='#fff';c.fillRect(X-lw/2-2,Y-lh/2-2,lw+4,lh+4);if(im&&im.complete)c.drawImage(im,X-lw/2,Y-lh/2,lw,lh);hs(X,Y,Math.max(14,lw/2+2),'便利商店','🏪',CVSN[m.b],MINFO['便利商店'],z,m.s>0?'右側路邊':'左側路邊')}})});
+  function rr(x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+  function pill(t,X,Y,bg,fg,al){c.font='bold 11px sans-serif';var w=c.measureText(t).width+12;var x0=al==='l'?X:al==='r'?X-w:X-w/2;rr(x0,Y-8,w,16,8);c.fillStyle=bg;c.fill();c.fillStyle=fg||'#fff';c.textAlign='center';c.textBaseline='middle';c.fillText(t,x0+w/2,Y+.5);return w}
+  function ic(t,x,z,col,label,r0){var X=sx(x),Y=sy(z),r=r0||10;c.beginPath();c.arc(X,Y,r+2,0,7);c.fillStyle='rgba(0,0,0,.35)';c.fill();c.beginPath();c.arc(X,Y,r,0,7);c.fillStyle='#f6f7f9';c.fill();c.lineWidth=2;c.strokeStyle=col;c.stroke();
+    c.font=Math.round(r*1.25)+'px sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillStyle='#000';c.fillText(t,X,Y+1);if(label)pill(label,X+(x>0?-r-4:r+4),Y,'rgba(10,14,22,.82)','#fff',x>0?'r':'l')}
+  // 底色：街廓
+  c.fillStyle='#16202b';c.fillRect(0,0,W,H);
+  // 路口清單（已出現的＋預先規劃的）
+  var IXL=[];xings.forEach(function(x){if(x.ix)IXL.push({Zc:ixZ(x),name:x.ix.name,E:hasArm(x,'E'),W:hasArm(x,'W'),x:x,tname:x.ix.T.name})});
+  var acc=-(110+nextX);XQ.forEach(function(q,i){if(i>0)acc-=q.g;if(q.tk&&acc-IXOFF>Z0-30){var T=RNT[q.tk];IXL.push({Zc:acc-IXOFF,name:q.name,E:T.arms.indexOf('E')>=0,W:T.arms.indexOf('W')>=0,plan:1,tname:T.name})}});
+  // 街廓（建築區）被支線切開
+  [-1,1].forEach(function(s){var cuts=IXL.filter(function(q){return s>0?q.E:q.W}).map(function(q){return q.Zc}).sort(function(a,b){return a-b}),z=Z0-40;
+    cuts.concat([Z1+40]).forEach(function(cz){var a=z,b=cz-IXBAND-3;if(b-a>4){var x0=s>0?sx(IXBAND+3):sx(-XR-5),x1=s>0?sx(XR+5):sx(-IXBAND-3);rr(Math.min(x0,x1),sy(a),Math.abs(x1-x0),sy(b)-sy(a),6);c.fillStyle='#253141';c.fill();
+        for(var bz=a+6;bz<b-6;bz+=26){c.fillStyle='rgba(255,255,255,.035)';var bx0=s>0?sx(IXBAND+7):sx(-XR+4),bw=sx(XR-4)-sx(IXBAND+7);rr(bx0,sy(bz),Math.abs(bw),Math.max(3,sy(bz+18)-sy(bz)),4);c.fill()}}
+      z=cz+IXBAND+3})});
+  // 主幹道：人行道、路面、標線（標線跟著行駛距離捲動）
+  c.fillStyle='#3d4655';c.fillRect(sx(-IXBAND),0,sx(IXBAND)-sx(-IXBAND),H);
+  c.fillStyle='#2f343d';c.fillRect(sx(-RNB),0,sx(RNB)-sx(-RNB),H);
+  var off=(dist%12)*kz;c.strokeStyle='rgba(255,255,255,.35)';c.lineWidth=1;c.setLineDash([6*kz,6*kz]);c.lineDashOffset=-off;
+  [-6.15,-3,3,6.15].forEach(function(o){var X=sx(o*XK);c.beginPath();c.moveTo(X,0);c.lineTo(X,H);c.stroke()});c.setLineDash([]);
+  c.strokeStyle='rgba(255,255,255,.55)';[-9.45,9.45].forEach(function(o){var X=sx(o*XK);c.beginPath();c.moveTo(X,0);c.lineTo(X,H);c.stroke()});
+  c.strokeStyle='#f2c230';c.lineWidth=1.2;[-1.2,1.2].forEach(function(d){c.beginPath();c.moveTo(sx(0)+d,0);c.lineTo(sx(0)+d,H);c.stroke()});
+  var ph=dist%40;for(var tz=Z0-40+ph;tz<Z1;tz+=40){if(IXL.some(function(q){return Math.abs(tz-q.Zc)<IXBAND+2}))continue;[-1,1].forEach(function(s2){c.beginPath();c.arc(sx(s2*16.5),sy(tz),3.2,0,7);c.fillStyle='#3f7d4a';c.fill()})}
+  c.fillStyle='rgba(255,255,255,.22)';for(var az=Z0+ph*2%80;az<Z1;az+=80){[-1.5,-4.5,1.5,4.5].forEach(function(l){var X=sx(l*XK),Y=sy(az),u=l>0?-1:1;c.beginPath();c.moveTo(X,Y+u*5);c.lineTo(X-3,Y-u*1);c.lineTo(X+3,Y-u*1);c.closePath();c.fill()})}
+  // 支線道路
+  IXL.forEach(function(q){var Zc=q.Zc;if(Zc<Z0-30||Zc>Z1+30)return;c.globalAlpha=q.plan?.55:1;
+    var xl=q.W?0:sx(-IXBAND),xr=q.E?W:sx(IXBAND);c.fillStyle='#3d4655';c.fillRect(xl,sy(Zc-IXBAND),xr-xl,sy(Zc+IXBAND)-sy(Zc-IXBAND));
+    var rl=q.W?0:sx(-RNB),rr2=q.E?W:sx(RNB);c.fillStyle='#2f343d';c.fillRect(rl,sy(Zc-RNB),rr2-rl,sy(Zc+RNB)-sy(Zc-RNB));
+    c.strokeStyle='#f2c230';c.lineWidth=1.2;[[q.W,-1],[q.E,1]].forEach(function(a){if(!a[0])return;var x0=a[1]>0?sx(IXBAND):0,x1=a[1]>0?W:sx(-IXBAND);[-1.2,1.2].forEach(function(d){c.beginPath();c.moveTo(x0,sy(Zc)+d);c.lineTo(x1,sy(Zc)+d);c.stroke()})});
+    c.fillStyle='rgba(255,255,255,.55)';for(var k=-4;k<=4;k++){c.fillRect(sx(k*2.6)-1,sy(Zc+IXOFF)-2,2.2,4);c.fillRect(sx(k*2.6)-1,sy(Zc-IXOFF)-2,2.2,4)}
+    c.globalAlpha=1;
+    var lx=q.E?sx(IXBAND+4):sx(-IXBAND-4),lab=q.name+(q.plan?'・'+Math.round(-Zc)+'m':'');var pw=pill(lab,lx,sy(Zc),q.plan?'rgba(31,111,74,.7)':'#1f6f4a','#fff',q.E?'l':'r');
+    var hx=q.E?lx+pw/2:lx-pw/2;hs(hx,sy(Zc),Math.max(14,pw/2),'路口','🚦',q.name+'路口（'+q.tname+'）'+(q.plan?'・還沒到':''),MINFO['路口']+(q.plan?' 這個路口在前方 '+Math.round(-Zc)+' 公尺，還沒開到。':''),Zc,'路口');
+    if(q.plan)ev.push([Zc,'🚦',q.name+'路口（'+q.tname+'）','前方道路'])});
+  // 一般斑馬線、紅綠燈
+  xings.forEach(function(x){if(x.z<Z0||x.z>Z1)return;c.fillStyle='rgba(255,255,255,.6)';for(var k=-4;k<=4;k++)c.fillRect(sx(k*2.6)-1,sy(x.z)-2,2.2,4);
+    var st=light(x);if(x.lit){var cc=(t+x.off)%14,sec=Math.ceil(st===0?5.5-cc:st===1?7-cc:14-cc),nm='紅綠燈：'+['綠燈','黃燈','紅燈'][st]+' '+sec+' 秒',I=st===0?'🟢':st===1?'🟡':'🔴';ic(I,-RNB-4,x.z,st===0?'#30c060':st===1?'#f2c230':'#ff3b30',sec+'秒',9);ev.push([x.z,'🚦',nm,'']);hs(sx(-RNB-4),sy(x.z),14,'紅綠燈',I,nm,MINFO['紅綠燈'],x.z,'整條路')}
+    else{var n2='斑馬線'+(x.occ?'（有行人在過）':'');ic('🚸',-RNB-4,x.z,'#f2c230',x.occ?'有行人':'',9);ev.push([x.z,'🚸',n2,'']);hs(sx(-RNB-4),sy(x.z),14,'斑馬線','🚸',n2,MINFO['斑馬線'],x.z,'整條路')}});
+  // 測速照相（含還沒出現的下一支）
+  cams.forEach(function(m){if(m.z<Z0||m.z>Z1)return;ic('📷',RNB+4,m.z,'#35d0ff','60',9);ev.push([m.z,'📷','測速照相（限速 60）','']);hs(sx(RNB+4),sy(m.z),14,'測速照相','📷','測速照相（限速 60）',MINFO['測速照相'],m.z,'右側路邊')});
+  var cz2=-(110+camT);if(cz2>Z0){c.globalAlpha=.6;ic('📷',RNB+4,cz2,'#35d0ff','60',9);c.globalAlpha=1;ev.push([cz2,'📷','測速照相（還沒到）','']);hs(sx(RNB+4),sy(cz2),14,'測速照相','📷','測速照相（限速 60）',MINFO['測速照相'],cz2,'右側路邊')}
+  // 超商
+  SHOPS.forEach(function(m){var p=m.g.parent;if(!p||!m.g.parent.visible)return;var wz=p.position.z+m.z;[wz,wz-104,wz-208].forEach(function(z){if(z>-250&&z<Z1){var X=sx(m.s*(IXBAND+4)),Y=sy(z),im=LGI[m.b],lh=11,lw=lh*BS[m.b];if(lw>17){lw=17;lh=17/BS[m.b]}c.fillStyle='#fff';rr(X-lw/2-2,Y-lh/2-2,lw+4,lh+4,3);c.fill();if(im&&im.complete)c.drawImage(im,X-lw/2,Y-lh/2,lw,lh);hs(X,Y,Math.max(12,lw/2+3),'便利商店','🏪',CVSN[m.b],MINFO['便利商店'],z,m.s>0?'右側路邊':'左側路邊')}})});
+  // 路邊事件、任務取餐區
   sides.forEach(function(q){if(q.z<Z0||q.z>Z1)return;var d=sideDesc(q);if(!d)return;
-    if(q.zone){var zx=sx(ZX-4.3),zy=sy(q.z-7.5),zw=sx(4.3)-sx(-4.3),zh=sy(7.5)-sy(-7.5);c.fillStyle='rgba(62,201,122,.45)';c.fillRect(zx,zy,zw,zh);hs(zx+zw/2,zy+zh/2,Math.max(16,zh/2),'取餐區','🟩',q.typ==='drop'?'交餐區':'取餐區',MINFO['取餐區'],q.z,'同向外車道＋路邊')}
-    ic(d[0],q.s*15.4,q.z,d[2],d[1]);var sd2=q.s>0?'右側路邊':'左側路邊';ev.push([q.z,d[0],d[1],sd2]);hs(sx(q.s*15.4),sy(q.z),18,d[1],d[0],d[1],MINFO[d[1]]||'',q.z,sd2)});
+    if(q.zone){var zx=sx(ZX-4.3),zy=sy(q.z-7.5),zw=sx(4.3)-sx(-4.3),zh=Math.max(6,sy(7.5)-sy(-7.5));c.fillStyle='rgba(62,201,122,.55)';rr(zx,zy,zw,zh,3);c.fill();c.strokeStyle='#3ec97a';c.lineWidth=1.5;c.stroke();hs(zx+zw/2,zy+zh/2,Math.max(14,zh/2),'取餐區','🟩',q.typ==='drop'?'交餐區':'取餐區',MINFO['取餐區'],q.z,'同向外車道＋路邊')}
+    ic(d[0],q.s*(IXBAND-1),q.z,d[2],null,10);var sd2=q.s>0?'右側路邊':'左側路邊';ev.push([q.z,d[0],d[1],sd2]);hs(sx(q.s*(IXBAND-1)),sy(q.z),14,d[1],d[0],d[1],MINFO[d[1]]||'',q.z,sd2)});
+  // 車輛
+  function car(X,Y,w,h,col,rot){c.save();c.translate(X,Y);if(rot)c.rotate(rot);rr(-w/2,-h/2,w,h,Math.min(2,w/3));c.fillStyle=col;c.fill();c.lineWidth=1;c.strokeStyle='rgba(0,0,0,.55)';c.stroke();c.restore()}
+  XENTS.forEach(function(e){var Zc=ixZ(e.X),X=sx(e.lx),Y=sy(Zc+e.lz);if(Y<-10||Y>H+10)return;var ax=Math.abs(e.hx)>.7,w=Math.max(5,e.w*kx),h=Math.max(8,e.l*kz*1.8);car(X,Y,w,h,'#aab4c2',ax?Math.PI/2:0);
+    hs(X,Y,9,'k:'+e.k,'🚗',NAMES[e.k]||'車輛','在'+e.X.ix.name+'路口的車，'+({straight:'準備直行',left:'準備左轉',right:'準備右轉'}[e.mv]||'正在離開路口')+'。',Zc+e.lz,e.X.ix.name)});
   ents.forEach(function(e){if(e.z<Z0||e.z>Z1)return;var X=sx(e.x*XK),Y=sy(e.z),ln=laneName(e.x);
-    if(e.ped){c.fillStyle='#ffe08a';c.beginPath();c.arc(X,Y,2.5,0,7);c.fill()}
-    else{c.fillStyle=e.crash?'#ff3b30':K[e.k].nc?'#ffaa28':e.k==='taxi'?'#f2c230':e.k==='bus'?'#2b8a4a':(e.bj||e.k==='bjcar')?'#ff4dd2':'#aab4c2';
-      var w=Math.max(3,sx(e.w*XK)-sx(0)),h=Math.max(4,sy(e.l)-sy(0));c.fillRect(X-w/2,Y-h/2,w,h)}
-    var d=evDesc(e);if(d){ic(d[0],e.x*XK,e.z,d[2],null);ev.push([e.z,d[0],d[1],ln]);hs(X,Y,17,d[1],d[0],d[1],MINFO[d[1]]||KINFO[e.k]||'',e.z,ln)}
-    else hs(X,Y,e.ped?8:10,'k:'+e.k,e.ped?'🚶':'🚗',NAMES[e.k]||'車輛',(KINFO[e.k]||'')+(e.onc?' 正朝你的方向開過來（對向）。':''),e.z,ln)});
-  var PX=sx(px*XK),PY=sy(0);c.fillStyle='#ff6a00';c.beginPath();c.moveTo(PX,PY-9);c.lineTo(PX-6,PY+7);c.lineTo(PX+6,PY+7);c.closePath();c.fill();c.font='bold 12px sans-serif';c.textAlign='center';c.fillStyle='#fff';c.fillText('你',PX,PY+18);
-  hs(PX,PY,16,'你','🚘','你的車',MINFO['你']+' 目前時速 '+Math.round(v*3.6)+' km/h，在'+laneName(px)+'。',0,laneName(px));
-  if(sel){c.strokeStyle='#ffe08a';c.lineWidth=3;c.beginPath();c.arc(sel.x,sel.y,Math.min(22,sel.r+5),0,7);c.stroke()}
+    if(e.ped){c.fillStyle='#ffe08a';c.beginPath();c.arc(X,Y,2.2,0,7);c.fill()}
+    else car(X,Y,Math.max(5,e.w*XK*kx),Math.max(8,e.l*kz*1.8),e.crash?'#ff3b30':K[e.k].nc?'#ffaa28':e.k==='taxi'?'#f2c230':e.k==='bus'?'#2fae62':(e.bj||e.k==='bjcar')?'#ff4dd2':e.k==='police'?'#3b7bff':e.k==='amb'?'#ffffff':'#aab4c2');
+    var d=evDesc(e);if(d){ic(d[0],e.x*XK+(e.x>0?-6:6),e.z,d[2],null,9);ev.push([e.z,d[0],d[1],ln]);hs(sx(e.x*XK+(e.x>0?-6:6)),Y,13,d[1],d[0],d[1],MINFO[d[1]]||KINFO[e.k]||'',e.z,ln)}
+    else hs(X,Y,e.ped?7:9,'k:'+e.k,e.ped?'🚶':'🚗',NAMES[e.k]||'車輛',(KINFO[e.k]||'')+(e.onc?' 正朝你的方向開過來（對向）。':''),e.z,ln)});
+  // 距離刻度
+  c.textBaseline='middle';for(var dz=100;dz<=-Z0;dz+=100){var y=sy(-dz);c.fillStyle='rgba(255,255,255,.08)';c.fillRect(0,y,W,1);pill(dz+'m',4,y,'rgba(10,14,22,.75)','#cfd6df','l')}
+  // 玩家
+  var PX=sx(px*XK),PY=sy(0),pr=(lastTs/600)%1;c.beginPath();c.arc(PX,PY,8+pr*10,0,7);c.strokeStyle='rgba(255,138,26,'+(1-pr)*.8+')';c.lineWidth=2;c.stroke();
+  c.save();c.translate(PX,PY);c.rotate(PT?Math.atan2(PHX,-PHZ):0);c.beginPath();c.moveTo(0,-9);c.lineTo(-6.5,7);c.lineTo(0,3.5);c.lineTo(6.5,7);c.closePath();c.fillStyle='#ff8a1a';c.fill();c.lineWidth=1.5;c.strokeStyle='#fff';c.stroke();c.restore();
+  hs(PX,PY,15,'你','🚘','你的車',MINFO['你']+' 目前時速 '+Math.round(v*3.6)+' km/h，在'+laneName(px)+'。',0,laneName(px));
+  // 頂部資訊
+  c.fillStyle='rgba(10,14,22,.75)';rr(6,6,W-12,22,11);c.fill();c.font='bold 12px sans-serif';c.textAlign='left';c.fillStyle='#ffe08a';c.fillText('📍 '+ROADN,14,17.5);c.textAlign='right';c.fillStyle='#cfd6df';c.fillText('↑ 前進方向・前方 '+(-Z0)+' m',W-14,17.5);
+  if(sel){c.strokeStyle='#ffe08a';c.lineWidth=3;c.beginPath();c.arc(sel.x,sel.y,Math.min(20,sel.r+4),0,7);c.stroke()}
   ev.sort(function(a,b){return Math.abs(a[0])-Math.abs(b[0])});
   var L=document.getElementById('maplist');L.textContent='';
   var hd=document.createElement('div');hd.className='mlh';hd.textContent=(rainOn?'🌧 下雨中・路面濕滑':'☀️ 晴天')+(bigLeft>0?'｜🏮 大型遶境剩 '+Math.ceil(bigLeft)+' 秒':'')+(MS?'｜'+(MS.dl?'📦 外送中':'🥪 早餐任務'):'');L.appendChild(hd);
   if(MS){var od=document.createElement('div');od.className='mlo';od.textContent=(MS.sp?'⭐ ':'')+MS.o.tag+'｜NT$'+MS.o.total+'\n'+MS.o.items.map(function(x){return '・'+x.txt}).join('\n');L.appendChild(od)}
   var tip=document.createElement('div');tip.className='mlt';tip.textContent='👆 點地圖上的圖案或下面的項目，就會顯示說明';L.appendChild(tip);
   if(!ev.length){var z0=document.createElement('div');z0.textContent='附近目前很平靜';L.appendChild(z0)}
-  ev.slice(0,24).forEach(function(r){var d=document.createElement('div'),dd=Math.round(Math.abs(r[0]));d.className='mli';d.textContent=r[1]+' '+(r[0]<=0?'前方 ':'後方 ')+dd+' m'+(r[3]?'｜'+r[3]:'')+'｜'+r[2];
+  ev.slice(0,30).forEach(function(r){var d=document.createElement('div'),dd=Math.round(Math.abs(r[0]));d.className='mli';d.textContent=r[1]+' '+(r[0]<=0?'前方 ':'後方 ')+dd+' m'+(r[3]?'｜'+r[3]:'')+'｜'+r[2];
     d.onclick=function(){var h=MHS.filter(function(q){return q.icon===r[1]&&Math.abs(q.z-r[0])<.01})[0];if(h)mapSel(h)};L.appendChild(d)})}
 function mapSel(h){MSEL=h;drawBig(h);var box=document.getElementById('mapinfo'),cv=document.getElementById('bigmap'),dd=Math.round(Math.abs(h.z));
   document.getElementById('mi-t').textContent=h.icon+' '+h.title;
@@ -892,7 +1403,7 @@ window.addEventListener('keydown',function(e){if(e.target&&e.target.tagName==='I
   if(!mapOpen&&e.code==='KeyM'&&mode==='play'&&!e.repeat){e.preventDefault();openMap()}},true);
 window.addEventListener('resize',function(){if(mapOpen){MSEL=null;document.getElementById('mapinfo').style.display='none';drawBig()}});
 // --- 違停與交通事件（每次最多影響一條車道）
-function trafEv(it){var c,e,l;
+function trafEv(it){var c,e,l;if(inIx(-105,10))return 0;
   if(it==='dbl'){var ls=shuf([4,1]);for(var i=0;i<2;i++){l=ls[i];if(canBlock(l)&&spotFree(l,-105,12)&&spawn(-1,'illcar',l,-105)>=0){e=ents[ents.length-1];e.ill=1;e.illT=rnd(7,14);e.evL=labC('並排違停','#ff9a1a');e.g.add(e.evL);toast('🚗 前方有人並排違停，後車要繞道');return 1}}return 0}
   if(it==='stop'){c=ents.filter(function(q){l=laneOf(q);return ['taxi','scooter','mini','delivery','afc','uncle'].indexOf(q.k)>=0&&!q.crash&&!q.bj&&!q.reck&&!q.tg&&!q.stopEv&&q.mt<=0&&q.z>-65&&q.z<-25&&LANE.travel.indexOf(l)>=0&&canBlock(l)});
     if(!c.length)return 0;e=pick(c);e.stopEv=rnd(4,7);e.us0=e.us;e.us=0;e.evL=labC('突然停車','#ff9a1a');e.g.add(e.evL);
@@ -918,7 +1429,7 @@ for(var pi=0;pi<10;pi++){var pd=new THREE.Mesh(PUDG,PUDM);pd.scale.set(rnd(1.2,2
 var UMG=new THREE.CylinderGeometry(.05,.8,.28,10);
 walkers.forEach(function(w){var u=new THREE.Group(),cn=new THREE.Mesh(UMG,mat(pick(['#2a7de1','#d62828','#3a3a3a','#f2c230','#6bbf7a'])));cn.position.y=2.25;u.add(cn);P(u,.04,.75,.04,0,1.5,0,'#333');u.visible=false;w.g.add(u);w.um=u});
 function rainSnd(target){if(!RS){if(target<=0)return;try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();var n=ac.sampleRate*2,b=ac.createBuffer(1,n,ac.sampleRate),d=b.getChannelData(0);for(var i=0;i<n;i++)d[i]=Math.random()*2-1;
-  var s=ac.createBufferSource();s.buffer=b;s.loop=true;var f=ac.createBiquadFilter();f.type='bandpass';f.frequency.value=1400;f.Q.value=.4;var g=ac.createGain();g.gain.value=0;s.connect(f);f.connect(g);g.connect(ac.destination);s.start();RS={g:g,v:0}}catch(x){return}}
+  var s=ac.createBufferSource();s.buffer=b;s.loop=true;var f=ac.createBiquadFilter();f.type='bandpass';f.frequency.value=1400;f.Q.value=.4;var g=ac.createGain();g.gain.value=0;s.connect(f);f.connect(g);g.connect(OUT());s.start();RS={g:g,v:0}}catch(x){return}}
   if(Math.abs(RS.v-target)>.003){RS.v=target;RS.g.gain.setTargetAtTime(target,ac.currentTime,.3)}}
 function weatherVis(dt,sv){var tg=rainOn?1:0;wk+=(tg-wk)*Math.min(1,dt*.6);if(Math.abs(tg-wk)<.002)wk=tg;
   scene.background.copy(SKYC).lerp(RAINC,wk);scene.fog.color.copy(scene.background);scene.fog.near=25-10*wk;scene.fog.far=90-25*wk;
@@ -932,7 +1443,7 @@ function weatherVis(dt,sv){var tg=rainOn?1:0;wk+=(tg-wk)*Math.min(1,dt*.6);if(Ma
 var STB,TRB,cvsT=1,stallT=10,trafT=8,dlvT=40,honkT=0,earn=0,jobs=0;
 function twReset(){STB=mkBag(['bf','nm']);TRB=mkBag(['dbl','stop','rev','scoot','stop','dbl']);
   rainOn=Math.random()<TW.rainStartChance;wk=rainOn?1:0;wT=rainOn?rnd(TW.rainTime[0],TW.rainTime[1]):rnd(TW.sunTime[0],TW.sunTime[1]);
-  cvsT=1;stallT=rnd(TW.stallFirst[0],TW.stallFirst[1]);trafT=rnd(TW.trafFirst[0],TW.trafFirst[1]);earn=0;jobs=0;msT=rnd(6,10);FLY.forEach(function(f){scene.remove(f.m)});FLY=[];if(mapOpen){mapOpen=0;document.getElementById('mapov').classList.add('hide')}honkT=0;MS=null;SHOPS.forEach(function(m){m.used=0})}
+  cvsT=1;stallT=rnd(TW.stallFirst[0],TW.stallFirst[1]);trafT=rnd(TW.trafFirst[0],TW.trafFirst[1]);earn=0;jobs=0;msT=rnd(6,10);FLY.forEach(function(f){scene.remove(f.m)});FLY=[];if(mapOpen){mapOpen=0;document.getElementById('mapov').classList.add('hide');['pb','snd'].forEach(function(id){document.getElementById(id).style.visibility=''})}honkT=0;MS=null;SHOPS.forEach(function(m){m.used=0})}
 twReset();
 function twTick(dt){
   wT-=dt;if(wT<=0){rainOn=!rainOn;wT=rainOn?rnd(TW.rainTime[0],TW.rainTime[1]):rnd(TW.sunTime[0],TW.sunTime[1]);toast(rainOn?'🌧️ 下雨了！路面濕滑，煞車距離變長':'☀️ 雨停了，路面慢慢變乾')}
@@ -955,17 +1466,111 @@ function twTick(dt){
   msTick(dt)}
 
 NAMES.firetruck='消防車';LINES.firetruck='你撞上了消防車，火還沒滅，你就先出事了。';
+function bump(A,B){if(A.dn===B.dn&&!(A.crash&&B.crash)){var fr=A.dn>0?(A.z<B.z?A:B):(A.z>B.z?A:B),rr=fr===A?B:A;if(rr.crash){var t2=fr;fr=rr;rr=t2}if(rr.crash)return;
+  rr.z=fr.z+rr.dn*((fr.l+rr.l)/2+.3);rr.cur=Math.min(rr.cur,fr.cur);if(K[rr.k].nf)rr.us=Math.min(rr.us,fr.cur+1)}
+  else{ // 對向（例如逆向三寶）撞上：兩台都變成車禍現場，不再直接讓車子消失
+    if(!A.crash&&!B.crash){var fx=(A===amb||K[A.k].nc)?A:(B===amb||K[B.k].nc)?B:null;if(fx){var o2=fx===A?B:A;if(o2===amb||K[o2.k].nc)return;o2.z=fx.z+o2.dn*((fx.l+o2.l)/2+.3);o2.cur=0;return}
+      crashIt(A);crashIt(B);if(A.z>-120&&A.z<40){var sbq=K[A.k].sb?A:K[B.k].sb?B:null,ot=sbq===A?B:A;toast('💥 '+(sbq?(NAMES[sbq.k]||'三寶')+'撞上'+(NAMES[ot.k]||'車'):'前方兩車對撞')+'！小心車禍現場')}}
+    else{var w=A.crash?A:B,q=w===A?B:A;if(q.crash)return;q.z=w.z+q.dn*((w.l+q.l)/2+.3);q.cur=0}}}
 function crashAct(){return ents.some(function(f){return f.crash})}
 function mkTri(){var g=new THREE.Group();[[.9,'#d8201c',0],[.64,'#ff5a30',.01],[.4,'#3b3e45',.02]].forEach(function(a){var m=new THREE.Mesh(new THREE.CylinderGeometry(a[0],a[0],.06,3),new THREE.MeshLambertMaterial({color:a[1]}));m.rotation.x=-Math.PI/2;m.position.set(0,.6,a[2]);g.add(m)});g.rotation.x=-.1;return g}
 function mkCam(){var g=new THREE.Group();P(g,.3,4.4,.3,10.2,0,0,'#555');P(g,.8,.65,1.3,10.2,4.4,0,'#2a2d33');P(g,.32,.32,.12,10.2,4.55,-.7,'#9fd8ff',1);P(g,.9,.1,.9,10.2,5.05,0,'#555');
   var sg=lab('限速60');sg.position.set(10.2,6.2,0);g.add(sg);g.position.z=-110;g.scale.x=XK;scene.add(g);return {g:g,z:-110,d:0}}
 function flash(){var f=document.getElementById('fl');f.style.opacity=.9;setTimeout(function(){f.style.opacity=0},90)}
-function setPause(p){paused=p;pz.classList.toggle('hide',!p);if(p){KS.l=KS.r=KS.g=KS.b=0;TS.l=TS.r=TS.g=TS.b=0;sync()}}
+function setPause(p){paused=p;pz.classList.toggle('hide',!p);if(!p)try{ACH.close()}catch(x){}if(p){KS.l=KS.r=KS.g=KS.b=0;TS.l=TS.r=TS.g=TS.b=0;sync()}}
 var ac=null;
-function tone(fs,dur,type){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();fs.forEach(function(f){var o=ac.createOscillator(),g=ac.createGain();o.type=type||'square';o.frequency.value=f;g.gain.value=.05;o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+dur)})}catch(x){}}
+// ===== 音效與音樂（全部用 Web Audio 即時合成，不用下載音檔）=====
+var AU={ok:0,mode:0,track:null,nextT:0,step:0,timer:0,eng:null,scr:null,sir:null,NB:null};
+try{AU.mode=+localStorage.getItem('twdrive_snd')||0}catch(x){}
+function AUi(){if(AU.ok)return true;try{ac=ac||new (window.AudioContext||window.webkitAudioContext)()}catch(x){return false}
+  var cp=ac.createDynamicsCompressor();cp.threshold.value=-14;cp.ratio.value=4;cp.connect(ac.destination);
+  AU.master=ac.createGain();AU.master.connect(cp);AU.sfx=ac.createGain();AU.sfx.connect(AU.master);AU.mus=ac.createGain();AU.mus.gain.value=0;AU.mus.connect(AU.master);
+  AU.dly=ac.createDelay(1);AU.dly.delayTime.value=.39;var fb=ac.createGain();fb.gain.value=.28;var dl=ac.createGain();dl.gain.value=.35;AU.dly.connect(fb);fb.connect(AU.dly);AU.dly.connect(dl);dl.connect(AU.mus);
+  var n=ac.sampleRate,b=ac.createBuffer(1,n,n),d=b.getChannelData(0);for(var i=0;i<n;i++)d[i]=Math.random()*2-1;AU.NB=b;
+  AU.ok=1;auApply();return true}
+function OUT(){return AUi()?AU.sfx:ac.destination}
+function auApply(){if(!AU.ok)return;var t0=ac.currentTime;AU.master.gain.setTargetAtTime(AU.mode===2?0:.9,t0,.05);musLevel();
+  var b=document.getElementById('snd');if(b){b.textContent=['🔊','🎵','🔇'][AU.mode];b.title=['音效＋音樂','只有音效（音樂關閉）','全部靜音'][AU.mode]}
+  var c=document.getElementById('snd2');if(c)c.textContent=['🔊 音效＋音樂','🔈 只有音效','🔇 靜音'][AU.mode]}
+function auCycle(){AU.mode=(AU.mode+1)%3;try{localStorage.setItem('twdrive_snd',AU.mode)}catch(x){}AUi();if(ac&&ac.state==='suspended')ac.resume();auApply();sClick()}
+function musLevel(){if(!AU.ok)return;var base=AU.mode?0:(AU.track==='drive'?.24:.3);
+  if(typeof paused!=='undefined'&&paused)base*=.35;if(typeof mapOpen!=='undefined'&&mapOpen)base*=.5;if(AU.duck)base*=.35;
+  if(AU.lastMus!==base){AU.lastMus=base;AU.mus.gain.setTargetAtTime(base,ac.currentTime,.3)}}
+// --- 基本音色
+function nz(dur,vol,type,f0,f1,q,t0,out){var t=(t0||ac.currentTime),s=ac.createBufferSource();s.buffer=AU.NB;s.loop=true;var f=ac.createBiquadFilter();f.type=type||'lowpass';f.frequency.setValueAtTime(f0,t);if(f1)f.frequency.exponentialRampToValueAtTime(f1,t+dur);f.Q.value=q||1;
+  var g=ac.createGain();g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(vol,t+Math.min(.02,dur/4));g.gain.exponentialRampToValueAtTime(.0001,t+dur);s.connect(f);f.connect(g);g.connect(out||OUT());s.start(t,Math.random()*.5);s.stop(t+dur+.05)}
+function osc(type,f0,f1,dur,vol,t0,out,att){var t=(t0||ac.currentTime),o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.setValueAtTime(f0,t);if(f1&&f1!==f0)o.frequency.exponentialRampToValueAtTime(f1,t+dur);
+  g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(vol,t+(att||.008));g.gain.exponentialRampToValueAtTime(.0001,t+dur);o.connect(g);g.connect(out||OUT());o.start(t);o.stop(t+dur+.05);return o}
+function tone(fs,dur,type){if(!AUi())return;fs.forEach(function(f){osc(type==='sawtooth'?'triangle':type||'triangle',f,f,Math.max(.12,dur),.06)})}
+// --- 遊戲音效
+function sBoost(){if(!AUi())return;var t=ac.currentTime;osc('sine',140,38,.45,.55,t);nz(1.5,.32,'lowpass',260,7000,.8,t);nz(.9,.12,'bandpass',900,4200,3,t+.05);osc('sine',700,2600,1,.035,t+.05,null,.15);osc('sine',2600,1400,.8,.02,t+1)}
+function sHorn(){if(!AUi())return;var t=ac.currentTime,f=ac.createBiquadFilter();f.type='lowpass';f.frequency.value=2200;var g=ac.createGain();g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.11,t+.015);g.gain.setValueAtTime(.11,t+.24);g.gain.exponentialRampToValueAtTime(.0001,t+.32);f.connect(g);g.connect(OUT());
+  [392,494].forEach(function(fr){var o=ac.createOscillator();o.type='sawtooth';o.frequency.value=fr;o.connect(f);o.start(t);o.stop(t+.34)})}
+function sCrash(vol){if(!AUi())return;var t=ac.currentTime,k=vol==null?1:vol;if(k<.03)return;osc('sine',95,28,.5,.6*k,t);nz(.7,.5*k,'lowpass',1600,200,.7,t);nz(.3,.22*k,'highpass',3500,0,.7,t+.02);
+  for(var i=0;i<4;i++)osc('triangle',300+Math.random()*700,0,.25+Math.random()*.3,.05*k,t+.04+i*.06)}
+function sWhoosh(){if(!AUi())return;nz(.38,.13,'bandpass',500,2600,1.4)}
+function sCoin(){if(!AUi())return;var t=ac.currentTime;osc('square',988,0,.09,.04,t);osc('square',1319,0,.32,.045,t+.08);osc('sine',2637,0,.3,.02,t+.08)}
+function sCash(){if(!AUi())return;var t=ac.currentTime;[1047,1319,1568,2093].forEach(function(f,i){osc('triangle',f,0,.25,.06,t+i*.07)});nz(.18,.05,'highpass',5000,0,.7,t+.28);osc('sine',2093,0,.5,.03,t+.3)}
+function sChime(){if(!AUi())return;var t=ac.currentTime;[784,988,1175].forEach(function(f,i){osc('sine',f,0,.4,.07,t+i*.09);osc('triangle',f*2,0,.2,.015,t+i*.09)})}
+function sClick(){if(!AUi())return;osc('sine',1300,900,.05,.05)}
+function sBuzz(){if(!AUi())return;var t=ac.currentTime;osc('square',150,140,.28,.035,t);osc('square',156,146,.28,.035,t)}
+function sShutter(){if(!AUi())return;var t=ac.currentTime;nz(.03,.2,'highpass',4000,0,.7,t);nz(.05,.15,'highpass',2500,0,.7,t+.07)}
+function sTick(){if(!AUi())return;osc('sine',1700,0,.04,.03)}
+function sOver(){if(!AUi())return;var t=ac.currentTime+.35,f=ac.createBiquadFilter();f.type='lowpass';f.frequency.value=1100;f.connect(OUT());
+  [[311,.32],[294,.32],[277,.32],[262,1.1]].forEach(function(a,i){var st=t+i*.36,o=ac.createOscillator(),g=ac.createGain();o.type='sawtooth';o.frequency.setValueAtTime(a[0],st);o.frequency.linearRampToValueAtTime(a[0]*.97,st+a[1]);
+    if(i===3){var l=ac.createOscillator(),lg=ac.createGain();l.frequency.value=6;lg.gain.value=6;l.connect(lg);lg.connect(o.frequency);l.start(st);l.stop(st+a[1])}
+    g.gain.setValueAtTime(.0001,st);g.gain.exponentialRampToValueAtTime(.07,st+.03);g.gain.setValueAtTime(.07,st+a[1]*.7);g.gain.exponentialRampToValueAtTime(.0001,st+a[1]);o.connect(g);g.connect(f);o.start(st);o.stop(st+a[1]+.05)})}
+function sRecord(){if(!AUi())return;var t=ac.currentTime+.2;[523,659,784,1047,784,1047].forEach(function(f,i){osc('square',f,0,.16,.035,t+i*.11)})}
+// --- 持續音：引擎、輪胎、警笛
+function loopNz(type,f,q){var s=ac.createBufferSource();s.buffer=AU.NB;s.loop=true;var fl=ac.createBiquadFilter();fl.type=type;fl.frequency.value=f;fl.Q.value=q;var g=ac.createGain();g.gain.value=0;s.connect(fl);fl.connect(g);g.connect(AU.sfx);s.start();return {g:g,f:fl}}
+function auBuild(){if(AU.eng||!AUi())return;
+  var e={},f=ac.createBiquadFilter();f.type='lowpass';f.frequency.value=220;f.Q.value=.4;var g=ac.createGain();g.gain.value=0;f.connect(g);g.connect(AU.sfx);
+  e.o1=ac.createOscillator();e.o1.type='triangle';e.o2=ac.createOscillator();e.o2.type='sine';e.o3=ac.createOscillator();e.o3.type='sine';
+  [e.o1,e.o2,e.o3].forEach(function(o){o.connect(f);o.start()});e.f=f;e.g=g;e.rum=loopNz('lowpass',120,.5);AU.eng=e;
+  AU.scr=loopNz('bandpass',2300,3);
+  var so=ac.createOscillator();so.type='triangle';var sf=ac.createBiquadFilter();sf.type='lowpass';sf.frequency.value=2400;var sg=ac.createGain();sg.gain.value=0;so.connect(sf);sf.connect(sg);sg.connect(AU.sfx);so.start();AU.sir={o:so,g:sg}}
+var GEARS=[0,7,13,19,25,31,38,50],auT=0;
+function auTick(dt){if(!AU.ok||!AU.eng)return;var t0=ac.currentTime,e=AU.eng,on=mode==='play'&&!paused&&!(typeof mapOpen!=='undefined'&&mapOpen);
+  var gi=0;while(gi<GEARS.length-2&&v>GEARS[gi+1])gi++;var fr=(v-GEARS[gi])/(GEARS[gi+1]-GEARS[gi]),rpm=.3+.7*Math.max(0,Math.min(1,fr))+(boostT>0?.15:0),hz=38+rpm*34;
+  e.o1.frequency.setTargetAtTime(hz,t0,.06);e.o2.frequency.setTargetAtTime(hz*.5,t0,.06);e.o3.frequency.setTargetAtTime(hz*1.5,t0,.06);
+  e.f.frequency.setTargetAtTime(150+rpm*(gas?170:90),t0,.15);
+  e.g.gain.setTargetAtTime(on?(.05+.03*gas):0,t0,.25);e.rum.g.gain.setTargetAtTime(on?Math.min(.035,.008+v*.0009):0,t0,.3);
+  AU.scr.g.gain.setTargetAtTime(on&&brk&&v>13?Math.min(.03,(v-13)*.003):0,t0,.08);
+  var sb=null,sd=1e9;if(on)ents.forEach(function(q){if((q===amb||(q.k==='police'&&q.tg))&&!q.crash&&Math.abs(q.z)<sd){sd=Math.abs(q.z);sb=q}});
+  if(sb&&sd<110){var amb2=sb===amb,f2=amb2?(Math.floor(lastTs/480)%2?950:700):(720+480*Math.abs(Math.sin(lastTs/130)));AU.sir.o.frequency.setTargetAtTime(f2,t0,amb2?.01:.02);AU.sir.g.gain.setTargetAtTime(.055*Math.max(0,1-sd/110),t0,.1)}
+  else AU.sir.g.gain.setTargetAtTime(0,t0,.15);
+  AU.duck=typeof drumT!=='undefined'&&ents.some(function(q){return K[q.k].nc&&q.z>-70&&q.z<12});musLevel()}
+// --- 背景音樂（台式城市流行風，程式即時演奏）
+var MT={
+ drive:{bpm:116,chords:[[41,[53,57,60,64]],[43,[55,59,62,67]],[40,[55,59,62,64]],[45,[57,60,64,69]],[41,[53,57,60,64]],[43,[55,59,62,67]],[44,[56,59,64,68]],[45,[57,60,64,67]]],
+   drums:1,lead:[69,72,74,76,79,81,84],seed:7},
+ menu:{bpm:88,chords:[[45,[57,60,64,67]],[41,[57,60,65,69]],[48,[55,60,64,67]],[43,[55,59,62,67]]],drums:0,lead:[69,72,74,76,79,81],seed:3}};
+function mf(n){return 440*Math.pow(2,(n-69)/12)}
+function genMel(tr){var r=tr.seed,rnd2=function(){r=(r*9301+49297)%233280;return r/233280},bars=tr.chords.length,m=[],idx=3,rh=[[0,3,6,8,10,12],[0,2,4,7,10],[0,4,6,8,12,14],[2,6,8,11,14],[0,6,8,12]];
+  for(var b=0;b<bars;b++){var p=rh[Math.floor(rnd2()*rh.length)];if(b%4===3)p=[0,4,8];p.forEach(function(st,j){idx=Math.max(0,Math.min(tr.lead.length-1,idx+Math.round((rnd2()-.5)*3)));m.push([b*16+st,tr.lead[idx],(j===p.length-1)?4:2])})}
+  tr.mel=m}
+genMel(MT.drive);genMel(MT.menu);
+function playTrack(name){if(!AUi())return;if(AU.track===name)return;AU.track=name;AU.step=0;AU.nextT=ac.currentTime+.08;musLevel();if(!AU.timer)AU.timer=setInterval(musSched,40)}
+function stopMusic(){AU.track=null}
+function musSched(){if(!AU.ok||!AU.track||ac.state!=='running')return;var tr=MT[AU.track],sp=60/tr.bpm/4,len=tr.chords.length*16;
+  while(AU.nextT<ac.currentTime+.18){musStep(tr,AU.step%len,AU.nextT,sp);AU.nextT+=sp;AU.step++}}
+function musStep(tr,s,t,sp){var bar=Math.floor(s/16),st=s%16,ch=tr.chords[bar],out=AU.mus,i;
+  if(tr.drums){
+    if(st===0||st===8||st===10&&bar%2)osc('sine',150,42,.28,.5,t,out);
+    if(st===4||st===12){nz(.16,.16,'highpass',1800,0,.7,t,out);osc('triangle',190,150,.08,.12,t,out)}
+    if(st%2===0)nz(st===14?.14:.035,st===14?.05:.035,'highpass',8000,0,.7,t,out);
+    if([0,3,6,8,10,14].indexOf(st)>=0)osc('triangle',mf(ch[0]+(st===6||st===14?12:0)),0,sp*2.2,.2,t,out);
+    if([2,6,10,14].indexOf(st)>=0){var fl=ac.createBiquadFilter();fl.type='lowpass';fl.frequency.value=1600;fl.connect(out);ch[1].forEach(function(n){osc('square',mf(n),0,sp*.9,.012,t,fl)})}}
+  else{
+    if(st===0){ch[1].forEach(function(n){osc('sine',mf(n),0,sp*16,.035,t,out,.4)});osc('triangle',mf(ch[0]),0,sp*16,.12,t,out,.05)}
+    if(st%4===2){var ar=ch[1][(st/4|0)%ch[1].length]+12;osc('triangle',mf(ar),0,sp*3,.035,t,AU.dly);osc('triangle',mf(ar),0,sp*3,.035,t,out)}
+    if(st===8)nz(.3,.015,'highpass',6000,0,.7,t,out)}
+  for(i=0;i<tr.mel.length;i++){var m=tr.mel[i];if(m[0]===bar*16+st){var d=sp*m[2]*(tr.drums?1:1.6);var o1=osc('triangle',mf(m[1]),0,d,tr.drums?.06:.05,t,out);osc('sine',mf(m[1]+12),0,d*.6,.012,t,out);osc('triangle',mf(m[1]),0,d,.03,t,AU.dly)}}}
+document.addEventListener('visibilitychange',function(){if(!ac)return;if(document.hidden)ac.suspend();else if(AU.mode!==2)ac.resume()});
+
 function honk(){
   if(mode!=='play'||paused)return;
-  shake=.2;tone([400,500],.25);
+  shake=.2;sHorn();
   ents.forEach(function(e){
     if(e.z>-3||e.z<-48||e.crash)return;var d=K[e.k];
     if(e.k==='elder'){fine+=50;toast('嚇到老人 -50')}
@@ -973,28 +1578,45 @@ function honk(){
     else if(d.ign){if(!e.told){e.told=true;toast(d.ign)}}
     else if(d.wv&&!e.reck&&e.k!=='amb'){var dr=e.x>=px?1:-1;if(freeAt(e,e.x+dr*3)){e.dir=dr;e.vx=dr*3.5;e.mt=.86;e.warn=0}}})}
 function over(e,ttl,line){
-  mode='over';shake=.4;gas=0;brk=0;var s=score();tone([110,70],.6,'sawtooth');var nr=s>hiScore;if(nr){hiScore=s;try{localStorage.setItem('twdrive_hi',s)}catch(x){}}ov.innerHTML='';ov.classList.remove('hide');ov.classList.remove('cover');
+  try{if(e===amb&&!/擋住/.test(ttl||''))ACH.ev('ambCrash');ACH.best('score',score());ACH.flush()}catch(x){}
+  mode='over';shake=.4;gas=0;brk=0;var s=score();sCrash(1);stopMusic();sOver();var nr=s>hiScore;if(nr&&s>0)setTimeout(sRecord,1900);setTimeout(function(){if(mode==='over')playTrack('menu')},3200);if(nr){hiScore=s;try{localStorage.setItem('twdrive_hi',s)}catch(x){}}ov.innerHTML='';ov.classList.remove('hide');ov.classList.remove('cover');
   function add(tag,cls,txt){var n=document.createElement(tag);if(cls)n.className=cls;n.textContent=txt;ov.appendChild(n);return n}
   add('h1','',ttl||('撞到'+NAMES[e.k]+'了'));add('p','',line||(e.k==='afc'?pick(['炸雞飛滿天，阿嬤在遠處喊：「我的雞啊！」','整盒炸雞灑一地，阿嬤說：「賠我十塊雞腿！」','外送員的炸雞全報銷，AFC 阿嬤要你賠！','雞排、雞腿、薯條散落一地，今天的炸雞全沒了。']):LINES[e.k]));add('p','big','得分 '+s);add('p','big2','💰 這趟外送賺了 NT$'+earn.toLocaleString()+'（完成 '+jobs+' 單）');add('p','','稱號：'+title(s));add('p','',nr?'🏆 新紀錄！':'最高分 '+hiScore);
-  var A1=vl.yl*900,A2=vl.red*2700,A3=vl.ped*3600,A4=vl.spdAmt,TT=A1+A2+A3+A4,rp=document.createElement('div');rp.className='rep';
+  var A1=vl.yl*900,A2=vl.red*2700,A3=vl.ped*3600,A4=vl.spdAmt,A5=(vl.lane||0)*600,TT=A1+A2+A3+A4+A5,rp=document.createElement('div');rp.className='rep';
   function nt(n){return 'NT$'+n.toLocaleString()}
-  rp.innerHTML='<div><span>跨越雙黃線（§45）'+vl.yl+' 次</span><span>'+nt(A1)+'</span></div><div><span>闖紅燈（§53）'+vl.red+' 次</span><span>'+nt(A2)+'</span></div><div><span>未禮讓行人（§44）'+vl.ped+' 次</span><span>'+nt(A3)+'</span></div><div><span>超速（§40、§43）'+vl.spd+' 次</span><span>'+nt(A4)+'</span></div><div><b>共違規 '+(vl.yl+vl.red+vl.ped+vl.spd)+' 次</b><b>罰鍰 '+nt(TT)+'</b></div><small>依道路交通管理處罰條例及統一裁罰基準（小型車、期限內繳納）概算，僅供遊戲參考，實際以主管機關裁決為準。</small>';
+  rp.innerHTML='<div><span>跨越雙黃線（§45）'+vl.yl+' 次</span><span>'+nt(A1)+'</span></div><div><span>闖紅燈（§53）'+vl.red+' 次</span><span>'+nt(A2)+'</span></div><div><span>未禮讓行人（§44）'+vl.ped+' 次</span><span>'+nt(A3)+'</span></div><div><span>超速（§40、§43）'+vl.spd+' 次</span><span>'+nt(A4)+'</span></div><div><span>轉彎專用道直行（§48）'+(vl.lane||0)+' 次</span><span>'+nt(A5)+'</span></div><div><b>共違規 '+(vl.yl+vl.red+vl.ped+vl.spd+(vl.lane||0))+' 次</b><b>罰鍰 '+nt(TT)+'</b></div><small>依道路交通管理處罰條例及統一裁罰基準（小型車、期限內繳納）概算，僅供遊戲參考，實際以主管機關裁決為準。</small>';
   ov.appendChild(rp);var lbd=document.createElement('div');lbd.className='lbs';ov.appendChild(lbd);lbSave(NICK,Math.floor(dist),TT,s,earn).then(function(){lbRender(lbd)});add('p','','行駛 '+Math.floor(dist)+' 公尺，驚險 '+near+' 次，罰款 '+fine+'，禮讓加分 '+bonus);
-  var b=add('button','','再上路一次');b.type='button';b.onclick=function(){start()};b.focus()}
+  var b=add('button','','再上路一次');b.type='button';b.onclick=function(){start()};var ab=add('button','','🏆 成就');ab.type='button';ab.className='snd2';ab.onclick=function(){ACH.open()};b.focus()}
 function update(dt){
   t+=dt;
+  // 倒車：停住後繼續按住煞車約 0.4 秒就會開始後退（最快約 15 km/h）
+  if(brk&&!gas&&v<=.05&&!PT)revHold+=dt;else if(!brk||gas)revHold=0;
+  if(!PT&&(v<-.01||revHold>.4)){
+    if(brk&&!gas)v=Math.max(-4.2,v-2.6*dt);else if(gas)v=Math.min(0,v+11*dt);else v=Math.min(0,v+3*dt);
+    if(v<-.3&&lastTs>revBeep){revBeep=lastTs+650;if(AU.ok)osc('sine',1050,1050,.18,.05)}
+  }else{
   var acl=(gas?2.2:0)-(brk?11-TW.rainBrakeLoss*wk:0)-(gas||brk?0:1.8);
-  v=Math.max(0,v+acl*dt);if(v>33.3)v=Math.max(33.3,v-(boostT>0?5:25)*dt);boostT-=dt;if(boostCd>0)boostCd-=dt;dist+=v*dt;
-  px+=dir*9*dt;px=Math.max(-7.6,Math.min(7.6,px));
-  if(px<-.3&&!wasL){wasL=true;vl.yl++;toast('⚠ 你開進對向車道了')}if(px>.3)wasL=false;
+  if((msBrk()||(ixAppr&&ixAppr.x.ix&&ixAppr.x.ix.want&&ixAppr.d<60))&&brk)acl-=11-TW.rainBrakeLoss*wk;
+  v=Math.max(0,v+acl*dt)}
+  if(boostT>0){if(boostT-dt<=0)coastT=14}
+  else if(coastT>0){coastT-=dt;if(v>boostBase)v=Math.max(boostBase,v-(gas?3.6:2.4)*dt-(v>33.3?1.2*dt:0));else coastT=0}
+  else if(v>33.3)v=Math.max(33.3,v-6*dt);
+  if(ixAppr&&!PT&&ixAppr.x.ix&&ixAppr.x.ix.want&&v>0){var tl=ixAppr.x.ix.want==='R'?8.5:10.5,va=Math.sqrt(tl*tl+2*4.5*Math.max(0,ixAppr.d-3));if(v>va){v=Math.max(va,v-11*dt);coastT=0;boostT=0}}
+  if(PT){var tl2=PT.kind==='R'?9:11;if(v>tl2)v=Math.max(tl2,v-12*dt)}
+  boostT-=dt;if(boostCd>0)boostCd-=dt;dist+=Math.max(0,v)*dt;VZ=v;achTick(dt);
+  if(PT)ptTick(dt);
+  if(!PT){var mLat=Math.min(9,3+Math.abs(v)*.5);latV+=(dir*mLat-latV)*Math.min(1,dt*11);px+=latV*dt;if(px<-7.6||px>7.6){px=Math.max(-7.6,Math.min(7.6,px));latV=0}
+  if(px<-.3&&!wasL){wasL=true;vl.yl++;toast('⚠ 你開進對向車道了')}if(px>.3)wasL=false}
+  ixAppr=ixApproach(dt);
+  for(var gi2=GHOSTS.length-1;gi2>=0;gi2--){var gq=GHOSTS[gi2];gq.position.z+=VZ*dt;if(gq.position.z>90){scene.remove(gq);GHOSTS.splice(gi2,1)}}
   if(honkCd>0)honkCd-=dt;if(shake>0)shake-=dt;
   PO.x=px;PO.cur=v;
-  spawnT-=dt*(.5+v/25);
+  if(!PT)spawnT-=dt*(.5+v/25);
   if(spawnT<=0){var q=spawn(-1);if(q>=0&&Math.random()<Math.min(.4,.1+t*.004))spawn(q);spawnT=Math.max(.4,1.05-t*.01)*(.8+Math.random()*.5)}
   evT-=dt;
   if(evT<=0){evT=14+Math.random()*14;
     var rr=Math.random();
-    if(rr<.3)spawn(-1,'elder');
+    if(rr<.3){if(Math.random()<.4)spawn(-1,'elder')}
     else if(rr<.6||t<15){var ln=2+Math.floor(Math.random()*2);if(spawn(-1,'taxi',ln,-96)>=0&&spawn(-1,'scooter',ln,-126)>=0){var r=ents[ents.length-1];r.us=r.cur=24;r.reck=1;r.g.add(lab('騎太快'));toast('⚠ 前方有人騎太快')}}
     else{var dl=spawn(-1,'drug',2+Math.floor(Math.random()*2),-107);
       if(dl>=0){var de=ents[ents.length-1],wr=Math.random()<.55&&!crashAct();
@@ -1004,10 +1626,13 @@ function update(dt){
   ents.forEach(function(f){if((f.k==='pzone'||f.k==='szone')&&!f.ann&&f.z>-95&&f.z<-35){f.ann=1;toast('🅿️ 外側有停車位，小心有人雙黃燈臨停')}});
   fireT-=dt;if(fireT<=0){fireT=50+Math.random()*40;if(!ents.some(function(f){return f.fire})){var fl2=Math.random()<.5?0:5;if(spawn(-1,'firetruck',fl2,-105)>=0){var ft=ents[ents.length-1];ft.fire=mkFire(fl2===0?-1:1);scene.add(ft.fire);toast('🔥 前方騎樓失火，消防隊灌救中')}}}
   eventTick(dt);twTick(dt);
-  nextX-=v*dt;
-  if(nextX<=0){if(ents.some(function(e){return e.k==='parked'&&Math.abs(e.z+110)<14}))nextX=2;else{nextX=130+Math.random()*90;xings.push(mkXing(Math.random()<.45))}}
+  nextX-=VZ*dt;xqFill();
+  if(nextX<=0&&!PT){if(ents.some(function(e){return (e.k==='parked'&&Math.abs(e.z+110)<14)||((e.k==='pzone'||e.k==='szone')&&Math.abs(e.z+110)<e.l/2+6)}))nextX=2;else{var pq=XQ.shift(),lit=pq.lit,tk=pq.tk;
+    if(tk&&sides.some(function(q){return Math.abs(q.z+110+IXOFF)<IXBAND+18}))tk=null;
+    xqFill();nextX=XQ[0].g;var nx=mkXing(lit,tk);xings.push(nx);if(tk)mkIx(nx,tk,pq.name)}}
   for(var i=xings.length-1;i>=0;i--){
-    var x=xings[i];x.z+=v*dt;x.g.position.z=x.z;var st=light(x);
+    var x=xings[i];x.z+=VZ*dt;x.g.position.z=x.z;var st=light(x);
+    if(x.ix){x.ix.g.position.z=ixZ(x);var cp2=cphase(x);x.ix.cl.forEach(function(L){L[0].color.set(cp2===2?'#ff2a2a':'#3a1212');L[1].color.set(cp2===1?'#ffcc20':'#3a3010');L[2].color.set(cp2===0?'#30e060':'#103a1c')})}
     if(x.lit)x.lamps.forEach(function(L){L[0].color.set(st===2?'#ff2a2a':'#3a1212');L[1].color.set(st===1?'#ffcc20':'#3a3010');L[2].color.set(st===0?'#30e060':'#103a1c')});
     x.occ=ents.some(function(e){return e.zb===x&&!e.wait&&Math.abs(e.x)<9.8});
     if(x.occ&&!x.occP){x.rs=x.lit&&st===2;x.yd=0}
@@ -1020,47 +1645,54 @@ function update(dt){
       if(!x.sp2&&x.sp&&x.z>-60&&x.z<-25&&!x.occ){x.sp2=1;if(Math.random()<.5)pn(1+Math.floor(Math.random()*2))}}
     if(!x.pass&&x.z>-5){x.pass=1;if(x.lit&&st===2){fine+=100;vl.red++;toast('闖紅燈！-100')}}
     if(!x.pen&&x.z+1.7>-PL/2&&x.occ){x.pen=1;fine+=100;vl.ped++;toast('未禮讓行人 -100')}
-    if(x.z>30){scene.remove(x.g);xings.splice(i,1)}}
-  camT-=v*dt;
+    if(x.z>30){scene.remove(x.g);if(x.ix)ixRemove(x);xings.splice(i,1)}}
+  camT-=VZ*dt;
   if(camT<=0){camT=170+Math.random()*110;cams.push(mkCam());toast('📷 前方測速照相，限速 60')}
-  for(i=cams.length-1;i>=0;i--){var cm=cams[i];cm.z+=v*dt;cm.g.position.z=cm.z;
+  for(i=cams.length-1;i>=0;i--){var cm=cams[i];cm.z+=VZ*dt;cm.g.position.z=cm.z;
     if(!cm.d&&cm.z>=-1){cm.d=1;var kh=v*3.6,ex=kh-60;if(ex>10){var am=ex<=20?1600:ex<=40?2400:ex<=60?12000:16000;vl.spd++;vl.spdAmt+=am;fine+=100;toast('📷 超速 '+Math.round(kh)+' km/h 被拍！');flash()}else if(ex>0){toast('📷 略超速，免罰（警察勸導）')}else if(v>5){bonus+=20;toast('📷 守法通過 +20')}}
     if(cm.z>30){scene.remove(cm.g);cams.splice(i,1)}}
-  var all=ents.concat([PO]);
+  ixDecide();
+  OBS=[];ixObs();ents.forEach(function(c){if(!c.crash)return;if(c.cone)OBS.push({x:c.x,z:c.z+c.l/2+30,w:1.5,l:1,cur:0,dn:c.dn,crash:1,obs:1});if(c.mar)OBS.push({x:c.x+(c.x>0?-1:1),z:c.z+c.l/2+14,w:.8,l:.8,cur:0,dn:c.dn,crash:1,obs:1})});
+  var all=ents.concat([PO],OBS);
   ents.forEach(function(e){
     if(e.ped||e.crash)return;
-    var cur=e.us>0?e.us*(1-TW.rainNpcSlow*wk):e.us,blk=false;
+    var cur=e.us>0?e.us*(1-TW.rainNpcSlow*wk):e.us,blk=false;e.pcap=null;
+    ents.forEach(function(f){if(!f.ped||Math.abs(f.x)>11)return;var hw=(e.w+.6)/2+.55,a=f.x,b=f.wait?f.x:f.x+f.vx*1.3;if(Math.max(a,b)<e.x-hw||Math.min(a,b)>e.x+hw)return;var gap=e.dn>0?(e.z-f.z)-e.l/2-.3:(f.z-e.z)-e.l/2-.3;if(gap>22||gap<-(e.l+.6))return;if(gap<-.6&&Math.abs(f.x-e.x)>e.w/2+.45)return;var pc=Math.max(0,(gap-2)*1.8);cur=Math.min(cur,pc);e.pcap=e.pcap==null?pc:Math.min(e.pcap,pc);if(gap<10)blk=true});
     if(!e.reck&&!K[e.k].nf){
       all.forEach(function(f){
-        if(f===e||f.ped||f.dn!==e.dn||Math.abs(e.x-f.x)>=(e.w+f.w)/2+.35)return;
+        if(f===e||f.ped||(f.dn!==e.dn&&!f.any)||Math.abs(e.x-f.x)>=(e.w+f.w)/2+.35)return;
         var gap=e.dn>0?(e.z-f.z)-(e.l+f.l)/2:(f.z-e.z)-(e.l+f.l)/2;
+        if(f.any){if(gap>16||gap<-(e.l+f.l)/2)return;cur=Math.min(cur,Math.max(0,Math.min(f.cur+(gap-2),(gap-1.2)*1.6)));if(gap<9)blk=true;return}
         if(gap<-.5||gap>16)return;
         cur=Math.min(cur,Math.max(0,f.cur+(gap-2)));
         if(gap<9&&f.cur<e.us*.7)blk=true});
       xings.forEach(function(x){
         var s2=light(x),sr=!K[e.k].em&&s2>0;
+        var fr=e.dn>0?e.z-e.l/2:e.z+e.l/2;
+        if(x.ix){var be=e.dn>0?ixZ(x)+RNB:ixZ(x)-RNB,bg=e.dn>0?fr-be:be-fr;if(bg>0&&bg<14&&trunkBlocked(e,x))cur=Math.min(cur,Math.max(0,bg-.6))}
         if(!sr&&!x.occ)return;
-        var line=e.dn>0?x.z+2.9:x.z-2.9,fr=e.dn>0?e.z-e.l/2:e.z+e.l/2,gap=e.dn>0?fr-line:line-fr;
-        if(gap<0||gap>18)return;
-        if(x.occ||s2===2||gap>6)cur=Math.min(cur,Math.max(0,gap-.5))})}
+        [[sr,e.dn>0?x.z+2.9:(x.ix?x.z-IXOFF*2-2.9:x.z-2.9),1],[x.occ&&!(x.ix&&e.dn<0),e.dn>0?x.z+2.9:x.z-2.9,0]].forEach(function(L){if(!L[0])return;var gap=e.dn>0?fr-L[1]:L[1]-fr;
+          if(gap<0||gap>18)return;if(!L[2]||s2===2||gap>6)cur=Math.min(cur,Math.max(0,gap-.5))})})}
     if(!e.reck&&!K[e.k].nf&&!e.tg&&e.mt<=0&&!e.vx&&e.warn<=0&&all.some(function(f){if(!(f.crash||f.stopEv>0||f.ill)||f.dn!==e.dn||Math.abs(e.x-f.x)>=(e.w+f.w)/2+.4)return 0;var gp=e.dn>0?e.z-f.z:f.z-e.z;return gp>0&&gp<30})){
         var lo2=(e.onc||K[e.k].sb)?-8.1:.6,hi2=e.onc?-.6:8.1;
         (Math.random()<.5?[1,-1]:[-1,1]).some(function(dr){var tx=e.x+dr*3;if(tx>=lo2-.2&&tx<=hi2+.2&&freeAt(e,tx)){e.dir=dr;e.warn=1.0;return 1}})}
-      e.cur=cur;e.blk=blk});
+      if(e.tcap!=null)cur=Math.min(cur,e.tcap);e.cur=cur;e.blk=blk});
   for(i=ents.length-1;i>=0;i--){
     var e=ents[i],d=K[e.k];
+    if(!e.ped&&!e.crash&&e.us>0&&e.cur<.1&&!e.bj&&e!==amb&&xings.some(function(q){return q.ix&&Math.abs(e.z-ixZ(q))<RNB+e.l/2&&Math.abs(e.x*XK)<RNB})){e.dl=(e.dl||0)+dt;if(e.dl>16){scene.remove(e.g);ents.splice(i,1);continue}}else e.dl=0;
     if(e.crash&&(e.ct=(e.ct||0)+dt)>14){if(e===amb)amb=null;scene.remove(e.g);if(e.cone)scene.remove(e.cone);if(e.mar)scene.remove(e.mar);if(e.fire)scene.remove(e.fire);ents.splice(i,1);if(!crashAct())toast('🚧 拖吊車已清除，道路恢復通行');continue}
-    e.z+=(v-e.dn*e.cur)*dt;
+    e.z+=(VZ-e.dn*e.cur)*dt;
     if(e.ped){var sp=e.vx;
-      if(e.zb&&xings.indexOf(e.zb)>=0)e.z=e.zb.z+e.off;
+      if(e.zb){if(xings.indexOf(e.zb)>=0)e.z=e.zb.z+e.off;else e.z=999}
       if(e.wait){sp=0;var xb=e.zb;if(!zoneBusy(xb)&&(!xb.lit||light(xb)===2))e.wait=false}
       else if(e.k==='elder'){if(e.pause>0){e.pause-=dt;sp=0}else if(!e.done&&Math.abs(e.x-e.sx)<.2){e.pause=3.5;e.done=1;sp=0}}
-      if(e.thx>0){e.thx-=dt;sp=0;if(e.thx<=0&&e.thl){e.g.remove(e.thl);e.thl=null}}e.x+=sp*dt;e.g.rotation.y=e.vx>0?-Math.PI/2:Math.PI/2;
+      if(sp&&pedBlk(e,sp)){sp=0;e.pw=(e.pw||0)+dt}else if(sp)e.pw=0;if(e.thx>0){e.thx-=dt;sp=0;if(e.thx<=0&&e.thl){e.g.remove(e.thl);e.thl=null}}e.x+=sp*dt;e.g.rotation.y=e.vx>0?-Math.PI/2:Math.PI/2;
       var lg=e.g.userData.legs;if(lg){var sw=sp?Math.sin(lastTs/(e.k==='elder'?260:140))*(e.k==='elder'?.4:.7):0;lg[0].rotation.x=sw;lg[1].rotation.x=-sw}
-      if(e.jay&&!e.lab&&Math.abs(e.x)<.6){e.lab=1;var nm=e.k==='elder'?'三寶老人':'三寶行人',lb=lab(nm);lb.position.y=3;e.g.add(lb);toast('⚠ '+nm+'跨越雙黃線！')}}
+      if(e.jay&&!e.jt&&e.z>-75){e.jt=1;toast('⚠ 前方'+(e.k==='elder'?'三寶老人':'三寶行人')+'亂穿越馬路！')}}
     else if(!e.crash){
       var lo=d.lo!=null?d.lo:e.onc||d.sb||e.tg?-8.1:.6,hi=e.onc?-.6:8.1;
-      if(d.wv&&!e.reck&&!e.tg){
+      if(e===amb)ambAI(e,dt);
+      else if(d.wv&&!e.reck&&!e.tg){
         e.wt-=dt;
         if((e.wt<=0||(e.blk&&e.wt<1.2))&&e.warn<=0&&e.mt<=0&&e.z>-70&&e.z<60){
           e.wt=2.5+Math.random()*3;var ds=Math.random()<.5?[1,-1]:[-1,1],ok=0;
@@ -1075,9 +1707,23 @@ function update(dt){
         else if(e.pk===2){e.wt=99;e.us=Math.max(0,e.us-6*dt);e.pkT-=dt;if(e.pkT<=0&&e.us<=0)e.pk=3}
         else if(e.pk===3){e.us=Math.min(e.us0,e.us+3*dt);if(e.warn<=0&&e.mt<=0&&Math.abs(e.x-cl)<.8){var dr3=cl>0?-1:1;if(freeAt(e,e.x+dr3*3)){e.dir=dr3;e.warn=1.0}}else if(Math.abs(e.x-cl)>2.5){e.pk=4;e.wt=2}}}
       if(e.bj)bjAI(e,dt);else if(e.k==='bjcar')bjCarAI(e,dt);else if(e.cuff){e.us=Math.max(0,e.us-8*dt);var d2=7.8-e.x;e.vx=Math.abs(d2)<.2?0:(d2>0?3:-3);e.mt=0}
+      if(e.pcap!=null)e.cur=Math.min(e.cur,e.pcap);
       var ox=e.x,nx=e.k==='sbsnake'?e.base+Math.sin(t*2.3+e.ph)*2.6:e.k==='drug'?e.base+Math.sin(t*3.2+e.ph)*3.8:(e.tg&&ents.indexOf(e.tg)>=0&&!e.tg.crash)?e.x+Math.max(-7*dt,Math.min(7*dt,e.tg.x-e.x)):e.x+e.vx*dt;
-      e.x=Math.max(lo,Math.min(hi,nx));
-      if(e.x!==ox&&!d.nf&&all.some(function(f){return f!==e&&!f.ped&&hit(e,f,.95)})){e.x=ox;e.vx=0;e.mt=0}}
+      if(e.k==='sbsnake'||e.k==='drug')nx=ox+Math.max(-4.5*dt,Math.min(4.5*dt,nx-ox));
+      // 共用車輛運動：換道（vx+mt）轉成目標車道，再經過轉向模型產生平順軌跡
+      if(!e.vm)e.vm={psi:0,del:0};var VC=vCls(e.k),vreq;
+      if(e.mt>0&&e.vx&&e.ltx==null){e.ltx=Math.max(lo,Math.min(hi,laneSnap(e.x+e.vx*e.mt)));e.lfr=laneSnap(e.x);if(Math.abs(e.ltx-e.x)<.05)e.ltx=null}
+      // 換道一定要邊往前開邊切：快停住時改成「往前蠕行 ≤2.5m/s」（前方有空間才行），沒空間就先不橫移，避免原地打轉、橫著滑
+      var lfl=1;if(e.ltx!=null&&e.cur<2.5){var lg=laneLead(e,laneSnap(e.x)).d,cr=Math.max(0,Math.min(2.5,lg-1.2));if(cr>e.cur)e.cur=cr;lfl=.2}
+      if(e.ltx!=null){var er=e.ltx-e.x,cap=LCV[VC===VCLS.scooter?'scooter':VC===VCLS.big?'big':VC===VCLS.em?'em':'car'];vreq=Math.max(-cap,Math.min(cap,er*2.2));
+        if(Math.abs(er)<.05&&Math.abs(e.vm.psi)<.03){nx=e.ltx;e.ltx=null;e.lrv=0;e.mt=0;e.vx=0;e.vm.psi=0;e.vm.del=0;e.lcd=1.5;e.lcEnd=lastTs;vreq=null}else e.mt=Math.max(e.mt,.05)}
+      else vreq=(nx-ox)/Math.max(dt,1e-4);
+      if(e.lhold>0){e.lhold-=dt;if(e.ltx!=null)vreq=0}
+      if(vreq!=null)nx=ox+vehLat(e.vm,vreq,e.cur,dt,VC,lfl)*dt;
+      if(e.lcd>0)e.lcd-=dt;
+      e.x=Math.max(lo,Math.min(hi,nx));if(e.x===lo||e.x===hi){if(e.ltx==null&&Math.abs(e.vm.psi)>.01)e.vm.psi*=.8}
+      if(e.x!==ox&&ents.some(function(f){return f.ped&&Math.abs(f.x-e.x)<e.w/2+.55&&Math.abs(f.z-e.z)<e.l/2+.8})){e.x=ox;e.vx=0}
+      if(e.x!==ox&&!d.nf&&all.some(function(f){return f!==e&&!f.ped&&hit(e,f,.95)})){e.x=ox;if(e.ltx!=null&&e.lfr!=null&&e.ltx!==e.lfr&&!e.lrv){e.ltx=e.lfr;e.vx=-e.vx;e.lrv=1;e.lhold=.6}else if(e.ltx!=null){e.lhold=.6}else if(e.ltx==null){e.vx=0;e.mt=0;if(Math.abs(e.x-laneSnap(e.x))>.3&&!K[e.k].nf&&!e.bj&&!e.tg&&e.k!=='sbsnake'&&e.k!=='drug'){e.ltx=laneSnap(e.x);e.lfr=e.ltx;e.vx=e.ltx>e.x?1:-1;e.mt=.1}}e.vm.psi*=.5}}
     var u=e.g.userData;
     if(!e.ped&&!e.crash){var bo=(e.warn>0||e.mt>0)&&Math.floor(lastTs/280)%2===0;
     if(!e.bk&&(e.warn>0||e.mt>0))e.bk=[0,1].map(function(){var m=new THREE.Mesh(G,BKM);m.scale.set(.14,.16,.3);e.g.add(m);return m});
@@ -1086,37 +1732,53 @@ function update(dt){
     if(e.pk===2||e.stopEv>0){if(!e.hz4)e.hz4=[0,1,2,3].map(function(){var m=new THREE.Mesh(G,BKM);m.scale.set(.16,.16,.3);e.g.add(m);return m});var hb=Math.floor(lastTs/350)%2===0;e.hz4.forEach(function(m,k){m.position.set((k%2?1:-1)*(d.w/2+.02),.72,(k<2?-1:1)*(d.l/2-.35));m.visible=hb})}else if(e.hz4){e.hz4.forEach(function(m){m.visible=false})}
     if(u.hz){var on=Math.floor(lastTs/350)%2===0;u.hz.forEach(function(m){m.visible=on})}
     if(u.sir){var s3=Math.floor(lastTs/180)%2;u.sir[0].visible=s3===0;u.sir[1].visible=s3===1}
-    e.g.position.set(e.x*XK,0,e.z);if(d.nc)e.g.position.y=Math.abs(Math.sin(lastTs/220+e.ph))*.1;if(e.fire){e.fire.position.z=e.z;fireAnim(e)}if(e.cone)e.cone.position.set(e.x*XK,.05,e.z+e.l/2+30);if(e.mar){e.mar.position.set((e.x+(e.x>0?-1.7:1.7))*XK,0,e.z+e.l/2+14);var ar=e.mar.userData.arms;ar[0].rotation.z=-2.3+Math.sin(lastTs/160)*.35;ar[1].rotation.z=.2}e.g.rotation.z=e.thx>0?Math.sin(lastTs/110)*.22:(e.mt>0&&d.wv?-e.vx*.04:0);
+    e.g.position.set(e.x*XK,0,e.z);if(d.nc)e.g.position.y=Math.abs(Math.sin(lastTs/220+e.ph))*.1;if(e.fire){e.fire.position.z=e.z;fireAnim(e)}if(e.cone)e.cone.position.set(e.x*XK,.05,e.z+e.l/2+30);if(e.mar){e.mar.position.set((e.x+(e.x>0?-1:1))*XK,0,e.z+e.l/2+14);var ar=e.mar.userData.arms;ar[0].rotation.z=-2.3+Math.sin(lastTs/160)*.35;ar[1].rotation.z=.2}e.g.rotation.z=e.thx>0?Math.sin(lastTs/110)*.22:(e.vm&&d.wv?-e.vm.del*.5:0);
+    if(!e.ped&&e.vm){if(e.by==null||e.byDn!==e.dn){e.by=Math.round(e.g.rotation.y/Math.PI)*Math.PI;e.byDn=e.dn}e.g.rotation.y=e.by+(Math.cos(e.by)>=0?-1:1)*e.vm.psi}
     var dx=Math.abs(e.x-px),dz=Math.abs(e.z);
     if(dx<(e.w+PW)/2*.85&&dz<(e.l+PL)/2*.85)return over(e);
-    if(!e.passed&&e.z>0){e.passed=true;if(!e.crash&&dx<(e.w+PW)/2+.9){var sbq=!!d.sb;near++;if(sbq)dist+=30;toast(sbq?'閃過三寶！+60':'驚險！+30')}}
+    if(e.crash){if(e.cone&&Math.abs(e.x-px)<(1.5+PW)/2*.85&&Math.abs(e.z+e.l/2+30)<(1+PL)/2*.85)return over(e,'撞飛三角錐了','三角錐卡在你的保險桿上，警察說這樣也算破壞車禍現場。');
+      if(e.mar&&Math.abs(e.x+(e.x>0?-1:1)-px)<(.8+PW)/2*.85&&Math.abs(e.z+e.l/2+14)<(.8+PL)/2*.85)return over(e,'撞到指揮交通的民眾了','好心幫忙指揮交通的阿伯被你撞了，這次真的要上新聞了。')}
+    if(!e.passed&&e.z>0){e.passed=true;if(!e.crash&&dx<(e.w+PW)/2+.9){var sbq=!!d.sb;near++;try{ACH.ev('near');if(d.sb)ACH.ev('sbDodge')}catch(x){}if(sbq)dist+=30;toast(sbq?'閃過三寶！+60':'驚險！+30')}}
     if(e.z>((e===amb||e.back)?90:25)||e.z<-150||(e.ped&&Math.abs(e.x)>12.8&&!(e.thx>0))){if(e===amb)amb=null;scene.remove(e.g);if(e.cone)scene.remove(e.cone);if(e.mar)scene.remove(e.mar);if(e.fire)scene.remove(e.fire);ents.splice(i,1)}}
+  xentsTick(dt);if(mode!=='play')return;
   for(i=0;i<ents.length;i++)for(var j=0;j<i;j++){
     var A=ents[i],B=ents[j];
     if(A.ped||B.ped||(A.crash&&B.crash)||(A.us===0&&B.us===0&&!A.crash&&!B.crash)||(A.bj&&B.bj))continue;
-    if(hit(A,B,(K[A.k].sb||K[B.k].sb)?.7:.85)){if(!K[A.k].nc)crashIt(A);if(!K[B.k].nc)crashIt(B)}}
-  if(ambT>0){ambT-=dt;if(ambT<=0&&!amb){if(spawn(-1,'amb',px<3?3:2,50)>=0){amb=ents[ents.length-1];toast('🚑 救護車從後方來了，請讓路');tone([700],.3,'sine');setTimeout(function(){tone([900],.3,'sine')},350)}else ambT=1}}
+    if(hit(A,B,A.dn!==B.dn?.92:(K[A.k].sb||K[B.k].sb)?.7:.85)){if(!A.crash&&!B.crash&&A!==amb&&B!==amb&&!crashAct()&&Math.random()<.5){if(!K[A.k].nc)crashIt(A);if(!K[B.k].nc)crashIt(B)}else bump(A,B)}}
+  if(ambT>0){ambT-=dt;if(ambT<=0&&!amb){var al=px<3?3:px<6.2?4:5;if(spawn(-1,'amb',al,62)>=0){amb=ents[ents.length-1];amb.dn=1;amb.onc=false;amb.g.rotation.y=0;toast('🚑 救護車從後方來了，請讓路')}else ambT=1}}
   if(amb){
-    sirT-=dt;if(sirT<=0){sirT=1.4;if(amb.z<60&&amb.z>-40){tone([700],.25,'sine');setTimeout(function(){tone([900],.25,'sine')},300)}}
-    if(amb.z>0&&amb.z-PL/2-amb.l/2<10&&Math.abs(amb.x-px)<(amb.w+PW)/2+.4)blockT+=dt;else blockT=Math.max(0,blockT-dt*2);
-    if(blockT>3)return over(amb,'擋住救護車了','救護車按不到你，被路人拍下來了。')
+    
+    // 禮讓判定：救護車在你正後方同車道、它不是正在換道或剛切進來、你們之間沒有別台車、而且旁邊車道有空間可以讓，才開始計時
+    var gapA=amb.z-PL/2-amb.l/2,sameL=Math.abs(amb.x-px)<(amb.w+PW)/2,settled=amb.ltx==null&&amb.mt<=0&&lastTs-(amb.lcEnd||0)>2500&&lastTs-(amb.ambLC||0)>2500,
+      between=ents.some(function(f){return f!==amb&&!f.ped&&Math.abs(f.x-amb.x)<(f.w+amb.w)/2&&f.z>0&&f.z<amb.z}),can=plCanYield();
+    var resp=!PT&&!amb.crash&&amb.z>0&&gapA<16&&sameL&&settled&&!between;
+    if(resp&&can){amb.req=1;blockT+=dt;if(blockT>1.2&&!amb.warned){amb.warned=1;toast('🚑 救護車在你正後方！旁邊車道有空間，快讓路')}}else blockT=Math.max(0,blockT-dt*(resp?.5:2));
+    if(resp&&!can&&!amb.stuckTold){amb.stuckTold=1;toast('🚑 旁邊車道都被擋住了，保持車速，有空間再讓')}
+    if(!amb.yd&&amb.z<-8&&amb.seen&&!amb.warned){amb.yd=1;bonus+=40;toast('🚑 成功禮讓救護車 +40');if(window.ACH)ACH.ev('ambYield')}
+    if(amb.z>0&&amb.z<40)amb.seen=1;
+    if(blockT>4)return over(amb,'擋住救護車了','旁邊明明有空間，你卻擋在救護車前面超過 4 秒，被路人拍下來了。')
   }else blockT=0}
 function loop(ts){
-  perf(ts-lastTs);var dt=Math.min(.04,(ts-lastTs)/1000||0);lastTs=ts;if(paused)dt=0;
-  var sv=mode==='play'?v:mode==='ready'?8:0;
+  perf(ts-lastTs);if(AU.ok)auTick(Math.min(.04,(ts-lastTs)/1000||0));var dt=Math.min(.04,(ts-lastTs)/1000||0);lastTs=ts;if(paused)dt=0;
   if(mode==='play'&&!paused)update(dt);
-  mv.forEach(function(m){m.o.position.z+=sv*dt;if(m.o.position.z>25)m.o.position.z-=m.L});weatherVis(dt,sv);
+  var sv=mode==='play'?VZ:mode==='ready'?8:0;
+  mv.forEach(function(m){m.o.position.z+=sv*dt;if(m.o.position.z>25){m.o.position.z-=m.L;m.hold=false}else if(m.o.position.z<25-m.L)m.o.position.z+=m.L});weatherVis(dt,sv);mvHide();
   walkers.forEach(function(w){w.z+=(sv-w.dir*w.sp)*dt;if(w.z>25)w.z-=130;else if(w.z<-105)w.z+=130;w.g.position.z=w.z;var sw=Math.sin(lastTs/(w.sp>1.1?150:210))*.6,ud=w.g.userData;ud.legs[0].rotation.x=sw;ud.legs[1].rotation.x=-sw;ud.arms[0].rotation.x=-sw*.8;ud.arms[1].rotation.x=sw*.8});
-  pl.position.x=px*XK;pl.rotation.y=-dir*.12;
-  var sx=shake>0?(Math.random()-.5)*.3:0;
-  cam.position.set(px*.7*XK+sx,4.4,9.5);cam.lookAt(px*.7*XK,1.4,-14);
+  pl.position.x=px*XK;pl.position.y=PT?roadY(px*XK,-ixZ(PT.X)):0;var tyaw=PT?Math.atan2(-PHX,-PHZ):-Math.max(-.32,Math.min(.32,Math.atan2(latV*XK,Math.max(Math.abs(v),4))))*(v<-.05?-1:1);plYaw+=(tyaw-plYaw)*Math.min(1,dt*(PT?16:12));pl.rotation.y=plYaw;
+  var tst=PT?Math.max(-.55,Math.min(.55,(Math.atan2(-PHX,-PHZ)-lastPH)/Math.max(dt,.001)/Math.max(v,2)*2.8)):-Math.max(-.45,Math.min(.45,latV*.07));lastPH=Math.atan2(-PHX,-PHZ);steerA+=(tst-steerA)*Math.min(1,dt*10);PFW.forEach(function(w){w.rotation.y=steerA})
+  var sx=shake>0?(Math.random()-.5)*.3:0,cx3=px*XK,tp,tl;
+  var psi=PT?Math.atan2(-PHX,-PHZ):0,bo=PT?0:-cx3*.3;
+  if(camSnap||camYaw==null){camYaw=psi;camBx=bo;camSnap=false}else{var ck=1-Math.exp(-dt*6);var dy=psi-camYaw;while(dy>Math.PI)dy-=2*Math.PI;while(dy<-Math.PI)dy+=2*Math.PI;camYaw+=dy*ck;camBx+=(bo-camBx)*(1-Math.exp(-dt*5))}
+  var chx=-Math.sin(camYaw),chz=-Math.cos(camYaw),cbx=cx3+camBx;camP=[cbx-chx*9.5,-chz*9.5];camL=[cbx+chx*14,chz*14];tp=camP;tl=camL;
+  cam.position.set(camP[0]+sx,4.4+pl.position.y,camP[1]);cam.lookAt(camL[0],1.4+pl.position.y,camL[1]);
   renderer.render(scene,cam);
-  setT('sc',score()+' 分');setT('mo','💰 NT$'+earn.toLocaleString());setT('nm','驚險 '+near);setT('sp',(rainOn?'🌧 ':'')+Math.round(v*3.6)+' km/h');
+  setT('sc',score()+' 分');setT('mo','💰 NT$'+earn.toLocaleString());setT('nm','驚險 '+near);setT('sp',(rainOn?'🌧 ':'')+(v<-.05?'🔙 倒車 '+Math.round(-v*3.6):Math.round(v*3.6))+' km/h');pRev.forEach(function(m){m.visible=v<-.05});
   var best=null,lt='';xings.forEach(function(x){if(x.z<5&&x.z>-90&&(!best||x.z>best.z))best=x});
   if(best&&mode==='play'&&!best.lit)lt='🚸 前方斑馬線，注意行人';else if(best&&mode==='play'){var c=(t+best.off)%14,s4=light(best),sec=Math.ceil(s4===0?5.5-c:s4===1?7-c:14-c);lt=(s4===0?'🟢 ':s4===1?'🟡 ':'🔴 ')+sec+' 秒'}
+  if(mode==='play'&&ixAppr)lt=(lt?lt+'｜':'')+ixHud(ixAppr);else if(mode==='play'&&!lt)lt='📍 '+ROADN;
   setT('lt',lt);
   var cw=cwText();
-  var ce=document.getElementById('cw');ce.style.display=(mode==='play'&&cw)?'block':'none';if(ce.textContent!==cw)ce.textContent=cw;ce.style.opacity=Math.floor(lastTs/300)%2?1:.6;msHud();
+  var ce=document.getElementById('cw');ce.style.display=(mode==='play'&&cw)?'block':'none';if(ce.textContent!==cw)ce.textContent=cw;var cnear=/前方 ([0-9]+) 公尺/.exec(cw);ce.style.opacity=(cnear&&+cnear[1]<50)?(Math.floor(lastTs/300)%2?1:.6):1;msHud();rearHud();
   hk.style.opacity=honkCd>0?.5:1;var bt=boostCd>0?Math.ceil(boostCd)+'s':'彈射';if(bt!==lastBo){lastBo=bt;boB.innerHTML='<b>🚀</b><i>'+bt+'</i>'}boB.classList.toggle('rdy',boostCd<=0);boB.style.opacity=boostCd>0?.6:1;if(!MOB||(++mmF&1))drawMap();
   requestAnimationFrame(loop)}
 var KS={l:0,r:0,g:0,b:0},TS={l:0,r:0,g:0,b:0},BI={l:'bl',r:'br',g:'gs',b:'bk'};
@@ -1138,10 +1800,14 @@ window.addEventListener('keydown',function(e){if(e.target&&e.target.tagName==='I
   if(k){e.preventDefault();KS[k]=1;sync();document.getElementById('hk').classList.remove('on')}
   else if(e.code==='Space'||e.code==='Enter'){e.preventDefault();if(e.repeat)return;if(mode==='play'){honk();hk.classList.add('on')}else{if(NICK)start();else tryStart()}}});
 window.addEventListener('keyup',function(e){var k=MAP[e.code];if(k){KS[k]=0;sync()}if(e.code==='Space')hk.classList.remove('on')});
+document.getElementById('snd').addEventListener('pointerdown',function(e){e.preventDefault();e.stopPropagation();auCycle()});
+document.getElementById('snd2').addEventListener('click',function(e){e.stopPropagation();auCycle()});
+window.addEventListener('keydown',function(e){if(e.target&&e.target.tagName==='INPUT')return;if(e.code==='KeyN'&&!e.repeat)auCycle()});
+auApply();
 var TC={};function setT(id,x){if(TC[id]!==x){TC[id]=x;document.getElementById(id).textContent=x}}
 document.addEventListener('visibilitychange',function(){if(document.hidden&&mode==='play'&&!paused)setPause(true)});
 document.addEventListener('contextmenu',function(e){if(!(e.target&&e.target.tagName==='INPUT'))e.preventDefault()});
-function unlockAudio(){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended')ac.resume()}catch(x){}}
+function unlockAudio(){if(!AUi())return;try{if(ac.state==='suspended'&&AU.mode!==2)ac.resume()}catch(x){}auBuild();if(!AU.track&&mode!=='play')playTrack('menu')}
 document.addEventListener('pointerdown',unlockAudio,true);document.addEventListener('keydown',unlockAudio,true);
 window.addEventListener('orientationchange',function(){setTimeout(function(){fit();if(mapOpen)drawBig()},300)});
 if(window.visualViewport)visualViewport.addEventListener('resize',fit);
