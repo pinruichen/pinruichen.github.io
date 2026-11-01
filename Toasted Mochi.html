@@ -1,0 +1,1950 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>巷口烤麻糬 — 療癒系夜市手作小遊戲</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #EFE5D5;
+            font-family: 'Noto Sans TC', sans-serif;
+            color: #4A2E1B;
+            overflow: hidden;
+            touch-action: none;
+        }
+        /* 溫暖奶油手繪質感陰影 */
+        .cozy-card {
+            background: #FAF3E8;
+            border: 3px solid #5C3A21;
+            box-shadow: 0 8px 0 #5C3A21, 0 12px 24px rgba(74, 46, 27, 0.18);
+        }
+        .cozy-btn {
+            border: 2.5px solid #4A2E1B;
+            box-shadow: 0 4px 0 #4A2E1B;
+            transition: all 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .cozy-btn:active:not(:disabled) {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 #4A2E1B;
+        }
+        .cozy-btn.selected {
+            ring: 3px solid #D97706;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #4A2E1B;
+        }
+        .title-stroke {
+            text-shadow: 
+                -2px -2px 0 #4A2E1B,  
+                 2px -2px 0 #4A2E1B,
+                -2px  2px 0 #4A2E1B,
+                 2px  2px 0 #4A2E1B,
+                 0px  4px 0 #4A2E1B;
+        }
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+        /* 自訂捲軸 */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F3E5D0;
+            border-radius: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C29B77;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body class="w-screen h-screen flex items-center justify-center bg-[#E6D7C3]">
+
+    <!-- 遊戲主外框 (手機直式優先、桌面端置中精緻卡片) -->
+    <div id="app-container" class="relative w-full h-full max-w-[460px] max-h-[920px] sm:h-[94vh] sm:rounded-[32px] overflow-hidden flex flex-col bg-[#FAF3E8] sm:border-4 sm:border-[#5C3A21] shadow-2xl">
+
+        <!-- 頂部招牌導覽列 -->
+        <header class="z-20 bg-[#F4E6D2] border-b-2 border-[#D5BFA3] px-3.5 py-2.5 flex items-center justify-between shrink-0">
+            <div class="flex items-center gap-2">
+                <div class="w-9 h-9 rounded-xl bg-amber-600 border-2 border-[#4A2E1B] flex items-center justify-center text-white font-black text-lg shadow-sm">
+                    麻
+                </div>
+                <div>
+                    <div class="flex items-center gap-1.5">
+                        <h1 class="font-black text-lg leading-none text-[#4A2E1B] tracking-tight">巷口烤麻糬</h1>
+                        <span class="bg-[#C84B31] text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+                            收集 18 種麻糬
+                        </span>
+                    </div>
+                    <p class="text-[11px] text-[#8C6239] font-medium mt-0.5">從揉團到炭烤壓膨，每一步都會改變結果</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-1.5">
+                <button id="btn-sound" class="cozy-btn bg-[#FFFDF9] hover:bg-amber-50 text-[#4A2E1B] w-9 h-9 rounded-xl flex items-center justify-center text-sm" title="切換音效">
+                    🔊
+                </button>
+                <button id="btn-dex" class="cozy-btn bg-[#FDE68A] hover:bg-[#FCD34D] text-[#4A2E1B] px-2.5 h-9 rounded-xl font-black text-xs flex items-center gap-1">
+                    <span>📖 圖鑑</span>
+                    <span id="dex-progress" class="bg-[#4A2E1B] text-[#FFFDF9] px-1.5 py-0.2 rounded-full text-[10px]">0/18</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- 步驟進度條與即時狀態提示 -->
+        <div class="z-20 bg-[#FAF3E8]/90 backdrop-blur-sm px-4 pt-2 pb-1.5 border-b border-[#E8D8C3] flex flex-col gap-1.5 shrink-0">
+            <div class="flex items-center justify-between text-xs font-bold">
+                <div class="flex items-center gap-1.5">
+                    <span id="stage-badge" class="bg-[#4A2E1B] text-[#FAF3E8] px-2 py-0.5 rounded-md text-[11px]">STEP 1</span>
+                    <span id="stage-title" class="text-[#4A2E1B] text-sm font-black">揉捏生麻糬團</span>
+                </div>
+                <span id="stage-hint" class="text-[#B45309] text-xs font-bold animate-pulse">👆 連點或按住麻糬揉出Q彈感</span>
+            </div>
+
+            <!-- 即時物理數值條 (揉捏Q度 / 膨脹度 / A面B面熟度) -->
+            <div id="meters-bar" class="grid grid-cols-3 gap-2 pt-0.5">
+                <div class="bg-[#EFE3D2] rounded-lg p-1.5 border border-[#D8C3A5]">
+                    <div class="flex justify-between text-[10px] font-bold text-[#6E472B]">
+                        <span id="meter1-label">筋性 Q彈度</span>
+                        <span id="meter1-val">20%</span>
+                    </div>
+                    <div class="w-full h-2 bg-[#D8C3A5] rounded-full overflow-hidden mt-0.5">
+                        <div id="meter1-fill" class="h-full bg-amber-500 transition-all duration-150" style="width: 20%"></div>
+                    </div>
+                </div>
+                <div class="bg-[#EFE3D2] rounded-lg p-1.5 border border-[#D8C3A5]">
+                    <div class="flex justify-between text-[10px] font-bold text-[#6E472B]">
+                        <span id="meter2-label">空氣膨脹度</span>
+                        <span id="meter2-val">1.0x</span>
+                    </div>
+                    <div class="w-full h-2 bg-[#D8C3A5] rounded-full overflow-hidden mt-0.5">
+                        <div id="meter2-fill" class="h-full bg-orange-500 transition-all duration-150" style="width: 10%"></div>
+                    </div>
+                </div>
+                <div class="bg-[#EFE3D2] rounded-lg p-1.5 border border-[#D8C3A5]">
+                    <div class="flex justify-between text-[10px] font-bold text-[#6E472B]">
+                        <span id="meter3-label">A/B面焦香</span>
+                        <span id="meter3-val">0% / 0%</span>
+                    </div>
+                    <div class="w-full h-2 bg-[#D8C3A5] rounded-full overflow-hidden mt-0.5 flex">
+                        <div id="meter3-fill-a" class="h-full bg-yellow-600 transition-all duration-150" style="width: 0%"></div>
+                        <div id="meter3-fill-b" class="h-full bg-amber-800 transition-all duration-150" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 核心互動 Canvas 料理台 -->
+        <div class="relative flex-1 w-full overflow-hidden">
+            <canvas id="mochiCanvas"></canvas>
+
+            <!-- 浮動小撇步標籤 -->
+            <div id="floating-tip" class="pointer-events-none absolute top-3 left-1/2 -translate-x-1/2 bg-[#4A2E1B]/85 text-[#FFFDF9] text-[11px] font-bold px-3.5 py-1 rounded-full shadow-md whitespace-nowrap transition-opacity duration-300">
+                💡 揉得越Q，等一下上炭火壓扁時膨得越大顆！
+            </div>
+        </div>
+
+        <!-- 底部操作控制面板 (依階段切換) -->
+        <footer class="z-20 bg-[#F4E6D2] border-t-2 border-[#D5BFA3] p-3 shrink-0">
+            
+            <!-- STAGE 1 控制列：揉團與下烤網 -->
+            <div id="controls-stage-1" class="flex items-center justify-between gap-2.5">
+                <button id="btn-knead" class="cozy-btn flex-1 bg-[#FFFDF9] active:bg-amber-100 text-[#4A2E1B] py-3 rounded-2xl font-black text-sm flex items-center justify-center gap-1.5">
+                    <span>👐 揉捏拍打麻糬</span>
+                    <span id="knead-count-badge" class="bg-amber-200 text-[#4A2E1B] px-2 py-0.5 rounded-full text-xs">0次</span>
+                </button>
+                <button id="btn-to-grill" class="cozy-btn flex-1 bg-[#E07A5F] hover:bg-[#D0694E] text-white py-3 rounded-2xl font-black text-sm flex items-center justify-center gap-1.5">
+                    <span>🔥 放上炭火烤網</span>
+                    <span>➔</span>
+                </button>
+            </div>
+
+            <!-- STAGE 2 控制列：炭火慢烤、壓扁膨脹、翻面 -->
+            <div id="controls-stage-2" class="hidden flex flex-col gap-2">
+                <div class="grid grid-cols-3 gap-2">
+                    <button id="btn-press" class="cozy-btn bg-[#FDE68A] active:bg-[#F59E0B] text-[#4A2E1B] py-2.5 rounded-2xl font-black text-xs sm:text-sm flex flex-col items-center justify-center leading-tight">
+                        <span class="text-base">🥢 長按壓膨</span>
+                        <span class="text-[10px] text-[#78350F] font-bold">壓放會鼓起來!</span>
+                    </button>
+                    <button id="btn-flip" class="cozy-btn bg-[#FFFDF9] active:bg-amber-100 text-[#4A2E1B] py-2.5 rounded-2xl font-black text-xs sm:text-sm flex flex-col items-center justify-center leading-tight">
+                        <span class="text-base">🔄 夾子翻面</span>
+                        <span id="current-side-label" class="text-[10px] text-[#78350F] font-bold">目前朝下: A面</span>
+                    </button>
+                    <button id="btn-fan" class="cozy-btn bg-[#FED7AA] active:bg-orange-300 text-[#4A2E1B] py-2.5 rounded-2xl font-black text-xs sm:text-sm flex flex-col items-center justify-center leading-tight">
+                        <span class="text-base">🪭 搧炭火催熟</span>
+                        <span id="fire-level-label" class="text-[10px] text-[#9A3412] font-bold">炭火: 中溫</span>
+                    </button>
+                </div>
+                <button id="btn-to-plate" class="cozy-btn w-full bg-[#E07A5F] hover:bg-[#D0694E] text-white py-2.5 rounded-xl font-black text-sm flex items-center justify-center gap-1">
+                    <span>🍢 起鍋裝進紙盒（進入淋醬撒粉）</span>
+                </button>
+            </div>
+
+            <!-- STAGE 3 控制列：自由淋醬與撒粉 -->
+            <div id="controls-stage-3" class="hidden flex flex-col gap-2">
+                <!-- 配料選擇排 -->
+                <div class="flex items-center gap-1.5 overflow-x-auto pb-1">
+                    <button data-tool="milk" class="topping-btn cozy-btn selected shrink-0 bg-[#FFFDF9] px-2.5 py-1.5 rounded-xl text-xs font-black flex items-center gap-1">
+                        <span class="w-3 h-3 rounded-full bg-[#FFFBEB] border border-amber-400 inline-block"></span> 煉乳拉花
+                    </button>
+                    <button data-tool="brownsugar" class="topping-btn cozy-btn shrink-0 bg-[#FFFDF9] px-2.5 py-1.5 rounded-xl text-xs font-black flex items-center gap-1">
+                        <span class="w-3 h-3 rounded-full bg-[#451A03] inline-block"></span> 黑糖蜜
+                    </button>
+                    <button data-tool="strawberry" class="topping-btn cozy-btn shrink-0 bg-[#FFFDF9] px-2.5 py-1.5 rounded-xl text-xs font-black flex items-center gap-1">
+                        <span class="w-3 h-3 rounded-full bg-[#F43F5E] inline-block"></span> 草莓醬
+                    </button>
+                    <button data-tool="peanut" class="topping-btn cozy-btn shrink-0 bg-[#FFFDF9] px-2.5 py-1.5 rounded-xl text-xs font-black flex items-center gap-1">
+                        <span class="w-3 h-3 rounded-full bg-[#D97706] inline-block"></span> 北港花生粉
+                    </button>
+                    <button data-tool="matcha" class="topping-btn cozy-btn shrink-0 bg-[#FFFDF9] px-2.5 py-1.5 rounded-xl text-xs font-black flex items-center gap-1">
+                        <span class="w-3 h-3 rounded-full bg-[#4D7C0F] inline-block"></span> 靜岡抹茶粉
+                    </button>
+                    <button data-tool="sesame" class="topping-btn cozy-btn shrink-0 bg-[#FFFDF9] px-2.5 py-1.5 rounded-xl text-xs font-black flex items-center gap-1">
+                        <span class="w-3 h-3 rounded-full bg-[#27272A] inline-block"></span> 黑芝麻粉
+                    </button>
+                </div>
+
+                <div class="flex gap-2">
+                    <button id="btn-clear-toppings" class="cozy-btn bg-[#EFE3D2] text-[#4A2E1B] px-3 py-2.5 rounded-xl font-bold text-xs shrink-0">
+                        🧹 清除重淋
+                    </button>
+                    <button id="btn-finish" class="cozy-btn flex-1 bg-[#2A9D8F] hover:bg-[#21867A] text-white py-2.5 rounded-xl font-black text-sm flex items-center justify-center gap-1">
+                        <span>✨ 完成出餐！鑑定麻糬品種</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- STAGE 4 控制列：再烤一顆 -->
+            <div id="controls-stage-4" class="hidden flex gap-2">
+                <button id="btn-share-result" class="cozy-btn flex-1 bg-[#FDE68A] hover:bg-[#FCD34D] text-[#4A2E1B] py-3 rounded-2xl font-black text-sm">
+                    📋 複製鑑定結果
+                </button>
+                <button id="btn-restart" class="cozy-btn flex-1 bg-[#E07A5F] hover:bg-[#D0694E] text-white py-3 rounded-2xl font-black text-sm">
+                    🔥 再烤一顆新麻糬
+                </button>
+            </div>
+        </footer>
+
+        <!-- ================= 結局鑑定彈窗卡片 (Stage 4 Overlay) ================= -->
+        <div id="result-modal" class="hidden absolute inset-x-4 top-20 z-30 cozy-card rounded-3xl p-4 flex flex-col items-center text-center animate-fade-in">
+            <div class="flex items-center gap-1.5 mb-1">
+                <span id="res-new-badge" class="hidden bg-[#C84B31] text-white text-[10px] font-black px-2 py-0.5 rounded-full">
+                    ✨ 新圖鑑解鎖！
+                </span>
+                <span id="res-rarity" class="text-amber-500 font-black text-sm tracking-widest">★★★★★</span>
+            </div>
+
+            <div class="text-xs font-bold text-[#8C6239]">第 <span id="res-id">#01</span> 號麻糬作品</div>
+            <h2 id="res-name" class="text-xl sm:text-2xl font-black text-[#4A2E1B] my-1">
+                【米其林黃金雲朵麻糬】
+            </h2>
+            <p id="res-desc" class="text-xs text-[#6E472B] leading-relaxed max-w-xs mb-3">
+                外皮烤出完美虎斑焦香，鼓得像小枕頭一樣圓潤，淋上邪惡煉乳與北港花生粉，連巷口阿嬤都排隊買！
+            </p>
+
+            <!-- 料理細節評分表 -->
+            <div class="w-full bg-[#EFE3D2] border border-[#D5BFA3] rounded-2xl p-2.5 grid grid-cols-4 gap-1 text-[11px] mb-2">
+                <div>
+                    <div class="text-[#8C6239]">筋性Q度</div>
+                    <div id="stat-q" class="font-black text-[#4A2E1B]">極Q彈</div>
+                </div>
+                <div class="border-l border-[#D5BFA3]">
+                    <div class="text-[#8C6239]">膨脹倍數</div>
+                    <div id="stat-puff" class="font-black text-[#B45309]">1.85x</div>
+                </div>
+                <div class="border-l border-[#D5BFA3]">
+                    <div class="text-[#8C6239]">雙面火候</div>
+                    <div id="stat-roast" class="font-black text-[#4A2E1B]">金黃勻稱</div>
+                </div>
+                <div class="border-l border-[#D5BFA3]">
+                    <div class="text-[#8C6239]">靈魂配料</div>
+                    <div id="stat-top" class="font-black text-[#4A2E1B]">經典花生</div>
+                </div>
+            </div>
+            <div id="copy-msg" class="hidden text-xs font-bold text-emerald-700 mt-1">
+                ✅ 已複製到剪貼簿！快分享給朋友看你烤出什麼！
+            </div>
+        </div>
+
+        <!-- ================= 18種麻糬全圖鑑 Modal ================= -->
+        <div id="dex-modal" class="hidden absolute inset-0 z-40 bg-[#4A2E1B]/75 backdrop-blur-sm flex items-center justify-center p-4">
+            <div class="cozy-card w-full max-h-[85vh] rounded-3xl flex flex-col overflow-hidden">
+                <div class="bg-[#F4E6D2] px-4 py-3 border-b-2 border-[#D5BFA3] flex items-center justify-between">
+                    <div>
+                        <h3 class="font-black text-base text-[#4A2E1B]">📖 巷口烤麻糬・全圖鑑收集冊</h3>
+                        <p class="text-[11px] text-[#8C6239]">改變揉捏次數、烤網壓膨時機、火候與配料來解鎖！</p>
+                    </div>
+                    <button id="btn-close-dex" class="cozy-btn bg-[#FFFDF9] w-8 h-8 rounded-xl font-black text-sm">✕</button>
+                </div>
+
+                <div id="dex-grid" class="p-3 overflow-y-auto grid grid-cols-2 gap-2.5">
+                    <!-- 動態生成 18 種麻糬圖鑑卡 -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // ============================================================================
+        // 1. 療癒系 ASMR 音效合成引擎 (Web Audio API，免外部音檔)
+        // ============================================================================
+        class CozyAudio {
+            constructor() {
+                this.ctx = null;
+                this.enabled = true;
+                this.sizzleNode = null;
+                this.sizzleGain = null;
+            }
+            init() {
+                if (!this.ctx) {
+                    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                    if (AudioCtx) this.ctx = new AudioCtx();
+                }
+                if (this.ctx && this.ctx.state === 'suspended') {
+                    this.ctx.resume();
+                }
+            }
+            // Q彈揉捏聲
+            playSquish(pitch = 1.0) {
+                if (!this.enabled || !this.ctx) return;
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(160 * pitch, now);
+                osc.frequency.exponentialRampToValueAtTime(340 * pitch, now + 0.09);
+                osc.frequency.exponentialRampToValueAtTime(190 * pitch, now + 0.16);
+                gain.gain.setValueAtTime(0.18, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.16);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.16);
+            }
+            // 麻糬壓放鼓起來的「啵～」療癒膨脹聲
+            playPuff(sizeRatio = 1.2) {
+                if (!this.enabled || !this.ctx) return;
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'triangle';
+                const base = Math.max(180, 320 - sizeRatio * 55);
+                osc.frequency.setValueAtTime(base, now);
+                osc.frequency.exponentialRampToValueAtTime(base * 1.65, now + 0.18);
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.19);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.19);
+            }
+            // 壓太大力破皮漏氣「噗哧！」聲
+            playPopDeflate() {
+                if (!this.enabled || !this.ctx) return;
+                const now = this.ctx.currentTime;
+                // 白噪音氣體洩漏聲 + 低頻降調
+                const bufferSize = this.ctx.sampleRate * 0.35;
+                const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (this.ctx.sampleRate * 0.12));
+                }
+                const noise = this.ctx.createBufferSource();
+                noise.buffer = buffer;
+
+                const filter = this.ctx.createBiquadFilter();
+                filter.type = 'bandpass';
+                filter.frequency.setValueAtTime(900, now);
+                filter.frequency.exponentialRampToValueAtTime(220, now + 0.35);
+
+                const gain = this.ctx.createGain();
+                gain.gain.setValueAtTime(0.35, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.35);
+
+                noise.connect(filter);
+                filter.connect(gain);
+                gain.connect(this.ctx.destination);
+                noise.start(now);
+            }
+            // 烤夾翻面清脆聲
+            playFlip() {
+                if (!this.enabled || !this.ctx) return;
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(680, now);
+                osc.frequency.exponentialRampToValueAtTime(420, now + 0.08);
+                gain.gain.setValueAtTime(0.15, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.08);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.08);
+            }
+            // 炭火滋滋作響聲 (短促高頻微粒聲)
+            playSizzleTick(intensity = 0.5) {
+                if (!this.enabled || !this.ctx || Math.random() > 0.35) return;
+                const now = this.ctx.currentTime;
+                const bufferSize = Math.floor(this.ctx.sampleRate * 0.03);
+                const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    data[i] = (Math.random() * 2 - 1);
+                }
+                const noise = this.ctx.createBufferSource();
+                noise.buffer = buffer;
+                const filter = this.ctx.createBiquadFilter();
+                filter.type = 'highpass';
+                filter.frequency.value = 3200;
+                const gain = this.ctx.createGain();
+                gain.gain.value = 0.025 * intensity;
+                noise.connect(filter);
+                filter.connect(gain);
+                gain.connect(this.ctx.destination);
+                noise.start(now);
+            }
+            // 撒粉顆粒聲
+            playSprinkle() {
+                if (!this.enabled || !this.ctx) return;
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(900 + Math.random() * 600, now);
+                gain.gain.setValueAtTime(0.04, now);
+                gain.gain.linearRampToValueAtTime(0.005, now + 0.03);
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.03);
+            }
+            // 完成料理和弦鈴聲
+            playSuccess() {
+                if (!this.enabled || !this.ctx) return;
+                const notes = [523.25, 659.25, 783.99, 1046.5];
+                notes.forEach((freq, idx) => {
+                    const now = this.ctx.currentTime + idx * 0.08;
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(freq, now);
+                    gain.gain.setValueAtTime(0.16, now);
+                    gain.gain.exponentialRampToValueAtTime(0.008, now + 0.35);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.35);
+                });
+            }
+        }
+
+        const audio = new CozyAudio();
+
+        // ============================================================================
+        // 2. 18種麻糬結局圖鑑資料庫 (每一步操作都會改變結果！)
+        // ============================================================================
+        const MOCHI_DEX = [
+            {
+                id: '01',
+                name: '米其林黃金雲朵麻糬',
+                rarity: '★★★★★',
+                desc: '雙面烤出完美金黃虎斑，壓膨成圓潤雲朵，再淋上邪惡煉乳與北港花生粉，巷口阿嬤都要排隊買！',
+                hint: '揉捏8次以上 + 雙面金黃(45%~82%) + 膨脹1.5倍以上 + 煉乳 & 花生粉'
+            },
+            {
+                id: '02',
+                name: '噗哧！漏氣扁扁麻糬',
+                rarity: '★★★☆☆',
+                desc: '原本鼓起超漂亮的大水泡，結果貪心壓太大力直接「噗哧」破皮漏氣，變成一張皺巴巴的麻糬皮！',
+                hint: '在炭火烤網上長按壓太久，把鼓起的麻糬壓到破皮漏氣'
+            },
+            {
+                id: '03',
+                name: '致癌物木炭黑麻糬',
+                rarity: '★★★☆☆',
+                desc: '火開太大又忘記顧爐，整顆麻糬烤成黑漆漆的備長炭，拿去生火可能比拿來吃更好用。',
+                hint: '任一面烤焦度超過 95% 變成全黑木炭'
+            },
+            {
+                id: '04',
+                name: '外焦內生・太極八卦麻糬',
+                rarity: '★★★★☆',
+                desc: '一面已經烤成黑炭，另一面卻還是白白生生的糯米團！老闆你是不是完全忘記要翻面？',
+                hint: '一面焦黑(>88%)，但另一面完全沒熟(<20%)'
+            },
+            {
+                id: '05',
+                name: '忘記開火・生糯米白團子',
+                rarity: '★★☆☆☆',
+                desc: '幾乎沒烤熟就急著起鍋裝盒，咬下去滿嘴生糯米漿味，客人表示牙齒要被黏掉了。',
+                hint: 'A面與B面熟度都低於 22% 就直接起鍋'
+            },
+            {
+                id: '06',
+                name: '宇治金時・日式翠玉麻糬',
+                rarity: '★★★★★',
+                desc: '烤得外酥內軟的膨脹麻糬，鋪滿濃郁靜岡抹茶粉與香甜煉乳，一秒飛到京都老舖！',
+                hint: '熟度適中不焦黑 + 膨脹1.3倍以上 + 煉乳 & 大量靜岡抹茶粉'
+            },
+            {
+                id: '07',
+                name: '黑糖琥珀爆漿麻糬',
+                rarity: '★★★★☆',
+                desc: '古早味黑糖蜜順著焦香麻糬紋路流下，再撒上滿滿黑芝麻粉，香氣濃到隔壁攤都聞得到！',
+                hint: '熟度適中 + 淋上黑糖蜜 & 黑芝麻粉'
+            },
+            {
+                id: '08',
+                name: '煉乳富翁・糖尿病快樂麻糬',
+                rarity: '★★★★☆',
+                desc: '這不是麻糬淋煉乳，這是煉乳游泳池泡麻糬！每一口都是熱量炸彈與純粹的快樂！',
+                hint: '在淋醬階段瘋狂擠煉乳（超過 120 個軌跡點）且不加其他醬'
+            },
+            {
+                id: '09',
+                name: '空氣感・極限巨無霸氣球麻糬',
+                rarity: '★★★★★',
+                desc: '經過千錘百鍊揉團與神級壓放技巧，膨脹到突破天際卻沒有破皮，根本是麻糬界熱氣球！',
+                hint: '揉捏超過15次 + 在烤網上反覆輕壓讓膨脹度達到 1.95x 以上且不破皮'
+            },
+            {
+                id: '10',
+                name: '草莓甜心・少女戀愛麻糬',
+                rarity: '★★★★☆',
+                desc: '粉嫩酸甜的草莓醬交織香濃煉乳，像極了逛夜市時酸酸甜甜的初戀滋味。',
+                hint: '烤熟不焦 + 淋上草莓醬 & 煉乳'
+            },
+            {
+                id: '11',
+                name: '北港沙塵暴・純花生麻糬',
+                rarity: '★★★☆☆',
+                desc: '一滴醬都不淋，單純靠北港花生粉把整顆麻糬埋起來，吃的時候千萬別講話會嗆到！',
+                hint: '不淋任何液體醬料，只狂撒超過 90 顆粒北港花生粉'
+            },
+            {
+                id: '12',
+                name: '硬邦邦・零揉捏石頭麻糬',
+                rarity: '★★☆☆☆',
+                desc: '第一階段完全偷懶沒揉團就直接下鍋烤，毫無筋性與空氣感，咬起來像在啃橡皮擦。',
+                hint: '第一階段揉捏 0 次直接上烤網並烤熟出餐'
+            },
+            {
+                id: '13',
+                name: '十全大補・夜市老闆私房暗黑特調',
+                rarity: '★★★★★',
+                desc: '煉乳、黑糖、草莓醬、花生、抹茶、芝麻全部加爆！「小孩子才做選擇，老闆我全都要！」',
+                hint: '同時使用全部 3 種淋醬 + 全部 3 種撒粉'
+            },
+            {
+                id: '14',
+                name: '極簡主義・原味炭香裸麻糬',
+                rarity: '★★★☆☆',
+                desc: '雙面烤得金黃酥脆，卻堅持不加任何一滴醬與粉，品嚐最純粹的糯米焦香。',
+                hint: '雙面金黃熟度(40%~85%) + 完全不加任何醬料與撒粉直接出餐'
+            },
+            {
+                id: '15',
+                name: '單面微醺・害羞腮紅麻糬',
+                rarity: '★★★☆☆',
+                desc: '白白嫩嫩的麻糬只有微微烤出淡粉色焦斑，再點綴一點草莓醬，可愛到捨不得吃。',
+                hint: '熟度介於 22%~40% 微熟狀態 + 草莓醬'
+            },
+            {
+                id: '16',
+                name: '重度烘焙・苦甜大人味黑糖麻糬',
+                rarity: '★★★★☆',
+                desc: '故意烤到深褐色微焦邊緣，搭配黑糖蜜與抹茶粉，是懂吃老饕才點的成熟風味。',
+                hint: '雙面深焙微焦(75%~92%) + 黑糖蜜 + 抹茶粉'
+            },
+            {
+                id: '17',
+                name: '黑白雙煞・芝麻花生雙拼麻糬',
+                rarity: '★★★★☆',
+                desc: '傳統北港花生粉撞上養生黑芝麻粉，香氣雙倍疊加，長輩最愛冠軍組合！',
+                hint: '烤熟不焦 + 同時撒滿花生粉與黑芝麻粉'
+            },
+            {
+                id: '18',
+                name: '巷口招牌・手作暖心烤麻糬',
+                rarity: '★★★☆☆',
+                desc: '帶著手作溫度的夜市烤麻糬，雖然火候與配料隨性自由，但自己親手烤的就是香！',
+                hint: '完成任意不符合上述特殊條件的日常烤麻糬'
+            }
+        ];
+
+        // 讀取與儲存已解鎖圖鑑
+        let unlockedDex = {};
+        try {
+            const saved = localStorage.getItem('mochi_dex_v1');
+            if (saved) unlockedDex = JSON.parse(saved);
+        } catch (e) {}
+
+        function saveDex(id) {
+            const isNew = !unlockedDex[id];
+            unlockedDex[id] = true;
+            try {
+                localStorage.setItem('mochi_dex_v1', JSON.stringify(unlockedDex));
+            } catch (e) {}
+            updateDexProgressUI();
+            return isNew;
+        }
+
+        function updateDexProgressUI() {
+            const count = Object.keys(unlockedDex).length;
+            document.getElementById('dex-progress').textContent = `${count}/${MOCHI_DEX.length}`;
+        }
+
+        // ============================================================================
+        // 3. 遊戲物理狀態與麻糬模擬模型
+        // ============================================================================
+        const canvas = document.getElementById('mochiCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let state = {
+            stage: 1, // 1: 揉團塑形, 2: 炭火慢烤壓膨, 3: 淋醬撒粉, 4: 鑑定完成
+            width: 420,
+            height: 460,
+            time: 0,
+
+            // 麻糬本體屬性
+            mochi: {
+                x: 210,
+                y: 230,
+                baseW: 138,
+                baseH: 96,
+                scaleX: 1.0,
+                scaleY: 1.0,
+                targetScaleX: 1.0,
+                targetScaleY: 1.0,
+                velX: 0,
+                velY: 0,
+                kneadCount: 0,
+                elasticity: 0.2,    // 0.2 ~ 1.0 (影響最大可膨脹倍數)
+                puffiness: 1.0,     // 1.0 ~ 2.1 (壓放膨脹倍數)
+                popped: false,      // 是否因過度擠壓而破皮漏氣
+                popHoleX: 15,
+                popHoleY: -10,
+                sideDown: 'A',      // 目前朝向炭火的面 ('A' 或 'B')
+                roastA: 0,          // A面熟度 0 ~ 110 (45~82完美金黃, >95焦黑)
+                roastB: 0,          // B面熟度 0 ~ 110
+                flipAnim: 0,        // 翻面動畫進度 0 ~ 1
+                isPressing: false,  // 是否正在用烤夾壓扁
+                pressDuration: 0,   // 本次按壓持續秒數
+                blisters: []        // 麻糬表面受熱鼓起的小氣泡水泡
+            },
+
+            // 炭火爐狀態
+            grill: {
+                heatLevel: 1.0,     // 1.0 ~ 2.4 (搧風會提升炭火溫度與火光)
+                embers: [],         // 炭火火星粒子
+                steams: []          // 熱氣白煙與焦煙
+            },
+
+            // 淋醬與撒粉狀態
+            selectedTool: 'milk',   // 'milk' | 'brownsugar' | 'strawberry' | 'peanut' | 'matcha' | 'sesame'
+            isDrawingTopping: false,
+            sauceStrokes: [],       // [{ type, points: [{x, y, w}] }]
+            currentStroke: null,
+            powderParticles: [],    // [{ type, x, y, r, color }]
+            flourParticles: [],     // 第一階段木砧板上的糯米粉粒子
+            floatingFeedbacks: []   // 畫面上的療癒浮動文字 (如「Q度UP!」「啵～膨脹!」)
+        };
+
+        // 初始化麻糬表面氣泡點
+        function initMochiBlisters() {
+            state.mochi.blisters = [
+                { ox: -32, oy: -14, r: 0, maxR: 22, side: 'A', threshold: 26 },
+                { ox: 26,  oy: -8,  r: 0, maxR: 25, side: 'A', threshold: 38 },
+                { ox: -6,  oy: 16,  r: 0, maxR: 20, side: 'A', threshold: 52 },
+                { ox: 28,  oy: 14,  r: 0, maxR: 24, side: 'B', threshold: 28 },
+                { ox: -26, oy: 8,   r: 0, maxR: 23, side: 'B', threshold: 42 },
+                { ox: 4,   oy: -16, r: 0, maxR: 21, side: 'B', threshold: 55 }
+            ];
+        }
+
+        function resetGame() {
+            state.stage = 1;
+            state.mochi = {
+                x: state.width / 2,
+                y: state.height / 2 + 10,
+                baseW: 138,
+                baseH: 96,
+                scaleX: 1.0,
+                scaleY: 1.0,
+                targetScaleX: 1.0,
+                targetScaleY: 1.0,
+                velX: 0,
+                velY: 0,
+                kneadCount: 0,
+                elasticity: 0.2,
+                puffiness: 1.0,
+                popped: false,
+                popHoleX: 18,
+                popHoleY: -8,
+                sideDown: 'A',
+                roastA: 0,
+                roastB: 0,
+                flipAnim: 0,
+                isPressing: false,
+                pressDuration: 0,
+                blisters: []
+            };
+            initMochiBlisters();
+
+            state.grill.heatLevel = 1.0;
+            state.sauceStrokes = [];
+            state.currentStroke = null;
+            state.powderParticles = [];
+            state.floatingFeedbacks = [];
+
+            // 初始化木板上的手粉
+            state.flourParticles = [];
+            for (let i = 0; i < 45; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const dist = 30 + Math.random() * 110;
+                state.flourParticles.push({
+                    x: state.width / 2 + Math.cos(angle) * dist,
+                    y: state.height / 2 + 10 + Math.sin(angle) * (dist * 0.7),
+                    r: 2 + Math.random() * 4.5,
+                    alpha: 0.35 + Math.random() * 0.45
+                });
+            }
+
+            document.getElementById('result-modal').classList.add('hidden');
+            switchStageUI(1);
+            updateTopMeters();
+        }
+
+        function resizeCanvas() {
+            const parent = canvas.parentElement;
+            state.width = parent.clientWidth || 420;
+            state.height = parent.clientHeight || 460;
+            canvas.width = state.width * window.devicePixelRatio;
+            canvas.height = state.height * window.devicePixelRatio;
+            ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
+
+            if (state.mochi) {
+                state.mochi.x = state.width / 2;
+                state.mochi.y = state.stage === 4 ? state.height * 0.68 : state.height * 0.52;
+            }
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+
+        // ============================================================================
+        // 4. 階段切換與互動邏輯
+        // ============================================================================
+        function switchStageUI(stageNum) {
+            state.stage = stageNum;
+            state.mochi.isPressing = false;
+            state.mochi.y = stageNum === 4 ? state.height * 0.70 : state.height * 0.52;
+
+            [1, 2, 3, 4].forEach(n => {
+                document.getElementById(`controls-stage-${n}`).classList.toggle('hidden', n !== stageNum);
+            });
+
+            const badge = document.getElementById('stage-badge');
+            const title = document.getElementById('stage-title');
+            const hint = document.getElementById('stage-hint');
+            const tip = document.getElementById('floating-tip');
+
+            if (stageNum === 1) {
+                badge.textContent = 'STEP 1';
+                title.textContent = '揉捏生麻糬團';
+                hint.textContent = '👆 點擊或滑動麻糬揉出Q彈筋性';
+                tip.textContent = '💡 揉得越Q，等一下上炭火壓扁時膨得越大顆！';
+                tip.style.opacity = '1';
+                document.getElementById('knead-count-badge').textContent = `${state.mochi.kneadCount}次`;
+            } else if (stageNum === 2) {
+                badge.textContent = 'STEP 2';
+                title.textContent = '炭火慢烤與壓膨';
+                hint.textContent = '🥢 長按麻糬壓扁、放開就會「啵」鼓起來！';
+                tip.textContent = '🔥 表面微黃時「按壓再放開」會膨脹！小心別壓破或烤焦！';
+                tip.style.opacity = '1';
+            } else if (stageNum === 3) {
+                badge.textContent = 'STEP 3';
+                title.textContent = '靈魂淋醬與撒粉';
+                hint.textContent = '🎨 直接在麻糬上滑動擠煉乳、撒花生粉';
+                tip.textContent = '✨ 自由在麻糬上畫出煉乳波浪，不同配料會解鎖不同圖鑑！';
+                tip.style.opacity = '1';
+            } else if (stageNum === 4) {
+                badge.textContent = 'FINISH';
+                title.textContent = '巷口烤麻糬・出爐鑑定';
+                hint.textContent = '📖 看看這次解鎖了哪種麻糬圖鑑！';
+                tip.style.opacity = '0';
+            }
+        }
+
+        function addFloatingFeedback(x, y, text, color = '#B45309') {
+            state.floatingFeedbacks.push({
+                x: x + (Math.random() - 0.5) * 24,
+                y: y,
+                text,
+                color,
+                life: 1.0
+            });
+        }
+
+        // 第一階段：揉捏拍打生麻糬
+        function kneadMochi(clickX, clickY) {
+            if (state.stage !== 1) return;
+            audio.init();
+            const m = state.mochi;
+            m.kneadCount++;
+            m.elasticity = Math.min(1.0, 0.2 + m.kneadCount * 0.055);
+
+            // Q彈果凍形變物理衝量
+            m.velX = 3.2;
+            m.velY = -2.8;
+            audio.playSquish(0.9 + m.elasticity * 0.35);
+
+            // 噴出些許手粉粒子
+            for (let i = 0; i < 4; i++) {
+                state.flourParticles.push({
+                    x: (clickX || m.x) + (Math.random() - 0.5) * 50,
+                    y: (clickY || m.y) + (Math.random() - 0.5) * 35,
+                    r: 2 + Math.random() * 3,
+                    alpha: 0.6
+                });
+            }
+
+            document.getElementById('knead-count-badge').textContent = `${m.kneadCount}次`;
+            const msgs = ['Q彈度 UP! 👐', '筋性 +1 ✨', '好軟Q～', '糯米香出來了!'];
+            addFloatingFeedback(clickX || m.x, (clickY || m.y) - 35, msgs[m.kneadCount % msgs.length], '#B45309');
+            updateTopMeters();
+        }
+
+        // 第二階段：開始長按壓扁麻糬
+        function startPressMochi() {
+            if (state.stage !== 2) return;
+            audio.init();
+            const m = state.mochi;
+            if (!m.isPressing) {
+                m.isPressing = true;
+                m.pressDuration = 0;
+                audio.playSquish(0.8);
+            }
+        }
+
+        // 第二階段：放開烤夾 -> 觸發療癒膨脹物理！
+        function releasePressMochi() {
+            if (state.stage !== 2) return;
+            const m = state.mochi;
+            if (!m.isPressing) return;
+            m.isPressing = false;
+
+            if (m.popped) {
+                addFloatingFeedback(m.x, m.y - 40, '💨 已經破皮漏氣膨不起來啦！', '#DC2626');
+                return;
+            }
+
+            // 檢查目前熟度是否足夠產生熱空氣膨脹 (像炸地瓜球/烤麻糬一樣要受熱才壓得膨)
+            const avgRoast = (m.roastA + m.roastB) * 0.5;
+            const currentDownRoast = m.sideDown === 'A' ? m.roastA : m.roastB;
+
+            if (currentDownRoast < 12 && avgRoast < 12) {
+                m.velX = -1.8;
+                m.velY = 1.8;
+                addFloatingFeedback(m.x, m.y - 40, '🌡️ 還太生囉！稍微烤熱再壓才會膨！', '#6E472B');
+                return;
+            }
+
+            // 計算膨脹增益 (受揉捏Q度與按壓時長影響)
+            const maxAllowedPuff = 1.25 + m.elasticity * 0.85; // 最高可達 2.1x
+            const gain = Math.min(0.24, Math.max(0.06, m.pressDuration * 0.22)) * (0.65 + m.elasticity * 0.55);
+
+            // 若已經非常膨還用力長壓過久 -> 噗哧破皮漏氣！
+            if ((m.puffiness > 1.72 && m.pressDuration > 0.85) || m.puffiness + gain > 2.12) {
+                triggerMochiPop();
+                return;
+            }
+
+            m.puffiness = Math.min(maxAllowedPuff, m.puffiness + gain);
+            m.velX = -2.6;
+            m.velY = 3.2;
+            audio.playPuff(m.puffiness);
+            addFloatingFeedback(m.x, m.y - 45, `啵～膨脹！(${m.puffiness.toFixed(2)}x) ☁️`, '#D97706');
+            updateTopMeters();
+        }
+
+        function triggerMochiPop() {
+            const m = state.mochi;
+            m.popped = true;
+            m.puffiness = 0.78; // 瞬間洩氣變扁
+            m.velX = 3.5;
+            m.velY = -3.5;
+            audio.playPopDeflate();
+
+            // 噴出一團白煙
+            for (let i = 0; i < 18; i++) {
+                state.grill.steams.push({
+                    x: m.x + m.popHoleX,
+                    y: m.y + m.popHoleY,
+                    vx: (Math.random() - 0.5) * 90,
+                    vy: -40 - Math.random() * 80,
+                    r: 8 + Math.random() * 14,
+                    alpha: 0.75,
+                    dark: false
+                });
+            }
+            addFloatingFeedback(m.x, m.y - 50, '💥 噗哧！壓太大力破皮漏氣了！', '#DC2626');
+            updateTopMeters();
+        }
+
+        // 第二階段：翻面
+        function flipMochi() {
+            if (state.stage !== 2) return;
+            audio.init();
+            const m = state.mochi;
+            m.sideDown = m.sideDown === 'A' ? 'B' : 'A';
+            m.flipAnim = 1.0;
+            m.velY = 2.4;
+            audio.playFlip();
+            document.getElementById('current-side-label').textContent = `目前朝下: ${m.sideDown}面`;
+            const upSide = m.sideDown === 'A' ? 'B' : 'A';
+            addFloatingFeedback(m.x, m.y - 40, `🔄 翻面！現在烤 ${m.sideDown} 面（朝上為 ${upSide} 面）`, '#4A2E1B');
+        }
+
+        // 第二階段：搧炭火
+        function fanCharcoal() {
+            if (state.stage !== 2) return;
+            audio.init();
+            state.grill.heatLevel = Math.min(2.4, state.grill.heatLevel + 0.45);
+            audio.playFlip();
+
+            // 噴發大量火星
+            for (let i = 0; i < 16; i++) {
+                state.grill.embers.push({
+                    x: state.width * 0.25 + Math.random() * state.width * 0.5,
+                    y: state.height * 0.62 + (Math.random() - 0.5) * 60,
+                    vx: (Math.random() - 0.5) * 70,
+                    vy: -60 - Math.random() * 90,
+                    r: 2 + Math.random() * 3.5,
+                    life: 0.6 + Math.random() * 0.5
+                });
+            }
+            addFloatingFeedback(state.mochi.x, state.mochi.y + 55, '🪭 炭火升溫！小心烤焦！', '#EA580C');
+        }
+
+        // 第三階段：在麻糬上淋醬或撒粉
+        function applyToppingAt(x, y, isStart = false) {
+            if (state.stage !== 3) return;
+            const m = state.mochi;
+            // 限制在麻糬與紙盒周圍區域
+            const dx = x - m.x;
+            const dy = y - m.y;
+            if (Math.hypot(dx, dy) > 135) return;
+
+            const tool = state.selectedTool;
+            const isSauce = (tool === 'milk' || tool === 'brownsugar' || tool === 'strawberry');
+
+            if (isSauce) {
+                if (isStart || !state.currentStroke || state.currentStroke.type !== tool) {
+                    state.currentStroke = {
+                        type: tool,
+                        points: [{ x: dx, y: dy }]
+                    };
+                    state.sauceStrokes.push(state.currentStroke);
+                } else {
+                    const pts = state.currentStroke.points;
+                    const last = pts[pts.length - 1];
+                    if (Math.hypot(dx - last.x, dy - last.y) > 5) {
+                        pts.push({ x: dx, y: dy });
+                        if (pts.length % 4 === 0) audio.playSprinkle();
+                    }
+                }
+            } else {
+                // 撒粉顆粒散落物理
+                audio.playSprinkle();
+                const count = isStart ? 10 : 5;
+                for (let i = 0; i < count; i++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const spread = Math.random() * 26;
+                    let color = '#D97706';
+                    if (tool === 'peanut') {
+                        const shades = ['#D97706', '#B45309', '#F59E0B', '#EAB308'];
+                        color = shades[Math.floor(Math.random() * shades.length)];
+                    } else if (tool === 'matcha') {
+                        const shades = ['#4D7C0F', '#3F6212', '#65A30D', '#365314'];
+                        color = shades[Math.floor(Math.random() * shades.length)];
+                    } else if (tool === 'sesame') {
+                        const shades = ['#18181B', '#27272A', '#3F3F46', '#52525B'];
+                        color = shades[Math.floor(Math.random() * shades.length)];
+                    }
+                    state.powderParticles.push({
+                        type: tool,
+                        x: dx + Math.cos(angle) * spread,
+                        y: dy + Math.sin(angle) * spread,
+                        r: 2.2 + Math.random() * 2.8,
+                        color
+                    });
+                }
+            }
+        }
+
+        // ============================================================================
+        // 5. 鑑定結局與解鎖 18 種麻糬圖鑑演算法
+        // ============================================================================
+        function evaluateMochiEnding() {
+            audio.init();
+            audio.playSuccess();
+            switchStageUI(4);
+
+            const m = state.mochi;
+            const rA = m.roastA;
+            const rB = m.roastB;
+            const maxR = Math.max(rA, rB);
+            const minR = Math.min(rA, rB);
+            const avgR = (rA + rB) * 0.5;
+
+            // 統計配料數量
+            let milkPts = 0, brownPts = 0, strawPts = 0;
+            state.sauceStrokes.forEach(s => {
+                if (s.type === 'milk') milkPts += s.points.length;
+                if (s.type === 'brownsugar') brownPts += s.points.length;
+                if (s.type === 'strawberry') strawPts += s.points.length;
+            });
+
+            let peanutCnt = 0, matchaCnt = 0, sesameCnt = 0;
+            state.powderParticles.forEach(p => {
+                if (p.type === 'peanut') peanutCnt++;
+                if (p.type === 'matcha') matchaCnt++;
+                if (p.type === 'sesame') sesameCnt++;
+            });
+
+            const totalSauce = milkPts + brownPts + strawPts;
+            const totalPowder = peanutCnt + matchaCnt + sesameCnt;
+
+            // 依優先順序判定 18 種獨特結局
+            let endingId = '18';
+
+            if (m.popped) {
+                endingId = '02'; // 噗哧！漏氣扁扁麻糬
+            } else if (maxR >= 95 && minR >= 20) {
+                endingId = '03'; // 致癌物木炭黑麻糬
+            } else if (maxR >= 88 && minR < 20) {
+                endingId = '04'; // 外焦內生・太極八卦麻糬
+            } else if (maxR < 22) {
+                endingId = '05'; // 忘記開火・生糯米白團子
+            } else if (milkPts > 10 && brownPts > 10 && strawPts > 10 && peanutCnt > 15 && matchaCnt > 15 && sesameCnt > 15) {
+                endingId = '13'; // 十全大補・夜市老闆私房暗黑特調
+            } else if (m.kneadCount === 0) {
+                endingId = '12'; // 硬邦邦・零揉捏石頭麻糬
+            } else if (m.puffiness >= 1.92 && m.kneadCount >= 14) {
+                endingId = '09'; // 空氣感・極限巨無霸氣球麻糬
+            } else if (milkPts >= 115 && brownPts === 0 && strawPts === 0) {
+                endingId = '08'; // 煉乳富翁・糖尿病快樂麻糬
+            } else if (totalSauce === 0 && peanutCnt >= 85 && matchaCnt === 0 && sesameCnt === 0) {
+                endingId = '11'; // 北港沙塵暴・純花生麻糬
+            } else if (totalSauce === 0 && totalPowder === 0 && minR >= 40 && maxR <= 86) {
+                endingId = '14'; // 極簡主義・原味炭香裸麻糬
+            } else if (minR >= 74 && maxR < 95 && brownPts > 10 && matchaCnt > 15) {
+                endingId = '16'; // 重度烘焙・苦甜大人味黑糖麻糬
+            } else if (avgR >= 22 && avgR < 40 && strawPts > 12) {
+                endingId = '15'; // 單面微醺・害羞腮紅麻糬
+            } else if (minR >= 42 && maxR <= 85 && m.puffiness >= 1.48 && m.kneadCount >= 8 && milkPts > 12 && peanutCnt > 20) {
+                endingId = '01'; // 米其林黃金雲朵麻糬
+            } else if (maxR < 90 && m.puffiness >= 1.25 && milkPts > 10 && matchaCnt >= 25) {
+                endingId = '06'; // 宇治金時・日式翠玉麻糬
+            } else if (maxR < 90 && brownPts > 12 && sesameCnt >= 20) {
+                endingId = '07'; // 黑糖琥珀爆漿麻糬
+            } else if (maxR < 90 && strawPts > 12 && milkPts > 10) {
+                endingId = '10'; // 草莓甜心・少女戀愛麻糬
+            } else if (maxR < 90 && peanutCnt >= 20 && sesameCnt >= 20) {
+                endingId = '17'; // 黑白雙煞・芝麻花生雙拼麻糬
+            } else {
+                endingId = '18'; // 巷口招牌・手作暖心烤麻糬
+            }
+
+            const dexItem = MOCHI_DEX.find(d => d.id === endingId) || MOCHI_DEX[17];
+            const isNew = saveDex(dexItem.id);
+
+            // 更新鑑定卡片 UI
+            document.getElementById('res-new-badge').classList.toggle('hidden', !isNew);
+            document.getElementById('res-rarity').textContent = dexItem.rarity;
+            document.getElementById('res-id').textContent = `#${dexItem.id}`;
+            document.getElementById('res-name').textContent = `【${dexItem.name}】`;
+            document.getElementById('res-desc').textContent = dexItem.desc;
+
+            // 填入四項料理指標
+            document.getElementById('stat-q').textContent = m.kneadCount >= 12 ? '神級Q彈' : (m.kneadCount >= 5 ? '軟糯適中' : '偏硬無筋');
+            document.getElementById('stat-puff').textContent = m.popped ? '破皮漏氣' : `${m.puffiness.toFixed(2)}x`;
+            
+            let roastLabel = '金黃勻稱';
+            if (maxR >= 95) roastLabel = '焦黑木炭';
+            else if (maxR < 22) roastLabel = '生糯米團';
+            else if (Math.abs(rA - rB) > 50) roastLabel = '陰陽不均';
+            else if (avgR > 75) roastLabel = '深焙焦香';
+            document.getElementById('stat-roast').textContent = roastLabel;
+
+            let topLabel = '原味純享';
+            if (totalSauce + totalPowder > 150) topLabel = '豪華爆量';
+            else if (matchaCnt > 20) topLabel = '日式抹茶';
+            else if (peanutCnt > 20) topLabel = '經典花生';
+            else if (brownPts > 12) topLabel = '古早黑糖';
+            else if (strawPts > 12) topLabel = '酸甜草莓';
+            else if (milkPts > 12) topLabel = '香濃煉乳';
+            document.getElementById('stat-top').textContent = topLabel;
+
+            document.getElementById('copy-msg').classList.add('hidden');
+            document.getElementById('result-modal').classList.remove('hidden');
+        }
+
+        // ============================================================================
+        // 6. 頂部即時狀態條更新
+        // ============================================================================
+        function updateTopMeters() {
+            const m = state.mochi;
+            const qPct = Math.round(m.elasticity * 100);
+            document.getElementById('meter1-val').textContent = `${qPct}%`;
+            document.getElementById('meter1-fill').style.width = `${qPct}%`;
+
+            document.getElementById('meter2-val').textContent = m.popped ? '破皮!' : `${m.puffiness.toFixed(2)}x`;
+            const puffPct = m.popped ? 5 : Math.min(100, ((m.puffiness - 1.0) / 1.05) * 100);
+            document.getElementById('meter2-fill').style.width = `${ Math.max(8, puffPct) }%`;
+
+            const rA = Math.min(100, Math.round(m.roastA));
+            const rB = Math.min(100, Math.round(m.roastB));
+            document.getElementById('meter3-val').textContent = `${rA}% / ${rB}%`;
+            document.getElementById('meter3-fill-a').style.width = `${rA * 0.5}%`;
+            document.getElementById('meter3-fill-b').style.width = `${rB * 0.5}%`;
+        }
+
+        // ============================================================================
+        // 7. 主更新迴圈 (物理彈性、炭火烘烤、水泡生長與粒子動畫)
+        // ============================================================================
+        let lastTime = performance.now();
+
+        function update(dt) {
+            state.time += dt;
+            const m = state.mochi;
+
+            // 炭火自然降溫回穩
+            if (state.grill.heatLevel > 1.0) {
+                state.grill.heatLevel = Math.max(1.0, state.grill.heatLevel - dt * 0.18);
+                const fireText = state.grill.heatLevel > 1.7 ? '炭火: 猛火🔥' : (state.grill.heatLevel > 1.25 ? '炭火: 中大火' : '炭火: 中溫');
+                document.getElementById('fire-level-label').textContent = fireText;
+            }
+
+            // 第二階段：炭火烘烤邏輯
+            if (state.stage === 2) {
+                const pressBoost = m.isPressing ? 1.55 : 1.0;
+                const roastRate = 7.8 * state.grill.heatLevel * pressBoost;
+
+                if (m.sideDown === 'A') {
+                    m.roastA = Math.min(115, m.roastA + roastRate * dt);
+                } else {
+                    m.roastB = Math.min(115, m.roastB + roastRate * dt);
+                }
+
+                // 長按壓扁計時
+                if (m.isPressing) {
+                    m.pressDuration += dt;
+                    // 若已經鼓得很飽還死壓不放超過 1.35 秒，直接壓爆！
+                    if (!m.popped && m.puffiness > 1.45 && m.pressDuration > 1.35) {
+                        triggerMochiPop();
+                    }
+                }
+
+                // 炭火滋滋音效
+                audio.playSizzleTick(state.grill.heatLevel * (m.isPressing ? 1.5 : 1.0));
+
+                // 麻糬表面水泡鼓包隨熟度與膨脹度動態長大
+                m.blisters.forEach(b => {
+                    const sideRoast = b.side === 'A' ? m.roastA : m.roastB;
+                    if (!m.popped && sideRoast > b.threshold) {
+                        const targetR = Math.min(b.maxR, ((sideRoast - b.threshold) / 35) * b.maxR * m.puffiness * 0.75);
+                        b.r += (targetR - b.r) * dt * 3.5;
+                    } else if (m.popped) {
+                        b.r *= 0.9;
+                    }
+                });
+
+                // 產生炭火火星與熱氣白煙/焦黑煙
+                if (Math.random() < 0.18 * state.grill.heatLevel) {
+                    state.grill.embers.push({
+                        x: state.width * 0.22 + Math.random() * state.width * 0.56,
+                        y: state.height * 0.52 + (Math.random() - 0.5) * 120,
+                        vx: (Math.random() - 0.5) * 35,
+                        vy: -35 - Math.random() * 55 * state.grill.heatLevel,
+                        r: 1.5 + Math.random() * 2.5,
+                        life: 0.5 + Math.random() * 0.5
+                    });
+                }
+
+                const maxRoast = Math.max(m.roastA, m.roastB);
+                if (maxRoast > 25 && Math.random() < (maxRoast > 85 ? 0.35 : 0.12)) {
+                    state.grill.steams.push({
+                        x: m.x + (Math.random() - 0.5) * 90,
+                        y: m.y + (Math.random() - 0.5) * 50,
+                        vx: (Math.random() - 0.5) * 20,
+                        vy: -28 - Math.random() * 30,
+                        r: 10 + Math.random() * 14,
+                        alpha: maxRoast > 85 ? 0.55 : 0.28,
+                        dark: maxRoast > 85
+                    });
+                }
+
+                updateTopMeters();
+            }
+
+            // 計算麻糬目標尺寸與果凍彈簧物理 (Spring-Damper Jelly Physics)
+            const puffScale = m.popped ? 0.92 : (1 + (m.puffiness - 1) * 0.38);
+            if (m.isPressing) {
+                m.targetScaleX = puffScale * 1.24;
+                m.targetScaleY = puffScale * 0.76;
+            } else {
+                m.targetScaleX = puffScale;
+                m.targetScaleY = puffScale;
+            }
+
+            // 翻面動畫縮放
+            if (m.flipAnim > 0) {
+                m.flipAnim = Math.max(0, m.flipAnim - dt * 4.2);
+            }
+
+            const springK = 140;
+            const damping = 10;
+            const ax = (m.targetScaleX - m.scaleX) * springK - m.velX * damping;
+            const ay = (m.targetScaleY - m.scaleY) * springK - m.velY * damping;
+            m.velX += ax * dt;
+            m.velY += ay * dt;
+            m.scaleX += m.velX * dt;
+            m.scaleY += m.velY * dt;
+
+            // 更新粒子
+            for (let i = state.grill.embers.length - 1; i >= 0; i--) {
+                const e = state.grill.embers[i];
+                e.x += e.vx * dt;
+                e.y += e.vy * dt;
+                e.life -= dt;
+                if (e.life <= 0) state.grill.embers.splice(i, 1);
+            }
+            for (let i = state.grill.steams.length - 1; i >= 0; i--) {
+                const s = state.grill.steams[i];
+                s.x += s.vx * dt;
+                s.y += s.vy * dt;
+                s.r += dt * 12;
+                s.alpha -= dt * 0.32;
+                if (s.alpha <= 0) state.grill.steams.splice(i, 1);
+            }
+            for (let i = state.floatingFeedbacks.length - 1; i >= 0; i--) {
+                const f = state.floatingFeedbacks[i];
+                f.y -= dt * 38;
+                f.life -= dt * 1.1;
+                if (f.life <= 0) state.floatingFeedbacks.splice(i, 1);
+            }
+        }
+
+        // ============================================================================
+        // 8. 高質感繪本風 Canvas 渲染引擎 (木紋砧板 / 紅外線炭火烤網 / 牛皮紙盒 / 麻糬本體)
+        // ============================================================================
+        function render() {
+            ctx.clearRect(0, 0, state.width, state.height);
+
+            if (state.stage === 1) {
+                drawWoodenBoardScene();
+            } else if (state.stage === 2) {
+                drawCharcoalGrillScene();
+            } else {
+                drawPaperTrayScene();
+            }
+
+            // 繪製主角麻糬與配料
+            drawMochiEntity();
+
+            // 若在第二階段按壓中，繪製日式金屬烤夾壓在麻糬上
+            if (state.stage === 2 && state.mochi.isPressing) {
+                drawGrillTongs();
+            }
+
+            // 繪製熱氣白煙與浮動提示字
+            drawSteamsAndFeedbacks();
+        }
+
+        // 場景 1：溫暖木紋揉麵砧板與手粉
+        function drawWoodenBoardScene() {
+            const cx = state.width / 2;
+            const cy = state.mochi.y;
+
+            // 柔和桌面底色
+            ctx.fillStyle = '#F5E9D6';
+            ctx.fillRect(0, 0, state.width, state.height);
+
+            // 圓角厚木砧板陰影與本體
+            ctx.save();
+            ctx.fillStyle = 'rgba(92, 58, 33, 0.18)';
+            drawRoundedRect(ctx, cx - 155, cy - 115 + 12, 310, 230, 36);
+            ctx.fill();
+
+            const woodGrad = ctx.createLinearGradient(cx - 155, cy - 115, cx + 155, cy + 115);
+            woodGrad.addColorStop(0, '#E6C299');
+            woodGrad.addColorStop(0.5, '#DEB587');
+            woodGrad.addColorStop(1, '#CFA16E');
+            ctx.fillStyle = woodGrad;
+            ctx.strokeStyle = '#8C5A32';
+            ctx.lineWidth = 4;
+            drawRoundedRect(ctx, cx - 155, cy - 115, 310, 230, 36);
+            ctx.fill();
+            ctx.stroke();
+
+            // 木紋線條裝飾
+            ctx.strokeStyle = 'rgba(140, 90, 50, 0.16)';
+            ctx.lineWidth = 2;
+            for (let i = -80; i <= 80; i += 32) {
+                ctx.beginPath();
+                ctx.moveTo(cx - 135, cy + i);
+                ctx.bezierCurveTo(cx - 40, cy + i - 8, cx + 40, cy + i + 8, cx + 135, cy + i);
+                ctx.stroke();
+            }
+
+            // 砧板上的白色糯米手粉
+            state.flourParticles.forEach(fp => {
+                ctx.fillStyle = `rgba(255, 253, 248, ${fp.alpha})`;
+                ctx.beginPath();
+                ctx.arc(fp.x, fp.y, fp.r, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            ctx.restore();
+        }
+
+        // 場景 2：紅通通炭火爐與金屬菱形烤網
+        function drawCharcoalGrillScene() {
+            const cx = state.width / 2;
+            const cy = state.mochi.y;
+
+            // 夜市暗暖色桌面背景
+            ctx.fillStyle = '#2B1B12';
+            ctx.fillRect(0, 0, state.width, state.height);
+
+            // 炭火盆外圈陶爐
+            ctx.save();
+            const stoveR = Math.min(168, state.width * 0.44);
+            ctx.fillStyle = '#4A2E1B';
+            ctx.strokeStyle = '#1F120B';
+            ctx.lineWidth = 5;
+            ctx.beginPath();
+            ctx.arc(cx, cy, stoveR + 18, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+
+            // 炭火盆內部紅通通呼吸光暈
+            const pulse = 0.88 + Math.sin(state.time * 4.5) * 0.12;
+            const heatBoost = state.grill.heatLevel;
+            const fireGrad = ctx.createRadialGradient(cx, cy, 15, cx, cy, stoveR);
+            fireGrad.addColorStop(0, `rgba(255, 230, 110, ${Math.min(1, 0.9 * pulse * heatBoost)})`);
+            fireGrad.addColorStop(0.45, `rgba(249, 115, 22, ${Math.min(1, 0.85 * pulse * heatBoost)})`);
+            fireGrad.addColorStop(0.8, '#9A3412');
+            fireGrad.addColorStop(1, '#27120B');
+            ctx.fillStyle = fireGrad;
+            ctx.beginPath();
+            ctx.arc(cx, cy, stoveR, 0, Math.PI * 2);
+            ctx.fill();
+
+            // 繪製塊狀燒紅木炭
+            const coalPositions = [
+                { x: -65, y: -50, w: 55, h: 32, rot: 0.3 },
+                { x: 55,  y: -45, w: 60, h: 34, rot: -0.4 },
+                { x: -70, y: 45,  w: 58, h: 30, rot: -0.2 },
+                { x: 60,  y: 50,  w: 52, h: 32, rot: 0.5 },
+                { x: 0,   y: -68, w: 48, h: 28, rot: 0.1 },
+                { x: 5,   y: 68,  w: 54, h: 28, rot: -0.1 }
+            ];
+            coalPositions.forEach(c => {
+                ctx.save();
+                ctx.translate(cx + c.x, cy + c.y);
+                ctx.rotate(c.rot);
+                ctx.fillStyle = '#3B180E';
+                ctx.strokeStyle = '#FF6B35';
+                ctx.lineWidth = 2 * pulse;
+                drawRoundedRect(ctx, -c.w/2, -c.h/2, c.w, c.h, 8);
+                ctx.fill();
+                ctx.stroke();
+                ctx.restore();
+            });
+
+            // 炭火火星粒子
+            state.grill.embers.forEach(e => {
+                ctx.fillStyle = `rgba(253, 224, 71, ${Math.max(0, e.life)})`;
+                ctx.beginPath();
+                ctx.arc(e.x, e.y, e.r, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            // 裁切圓形區域繪製金屬烤網格線
+            ctx.beginPath();
+            ctx.arc(cx, cy, stoveR + 6, 0, Math.PI * 2);
+            ctx.clip();
+
+            ctx.strokeStyle = '#D6D3D1';
+            ctx.lineWidth = 2.5;
+            const step = 28;
+            for (let i = -stoveR * 2; i <= stoveR * 2; i += step) {
+                ctx.beginPath();
+                ctx.moveTo(cx + i - stoveR, cy - stoveR);
+                ctx.lineTo(cx + i + stoveR, cy + stoveR);
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.moveTo(cx + i + stoveR, cy - stoveR);
+                ctx.lineTo(cx + i - stoveR, cy + stoveR);
+                ctx.stroke();
+            }
+            ctx.restore();
+
+            // 烤網不鏽鋼外框
+            ctx.strokeStyle = '#A8A29E';
+            ctx.lineWidth = 6;
+            ctx.beginPath();
+            ctx.arc(cx, cy, stoveR + 4, 0, Math.PI * 2);
+            ctx.stroke();
+        }
+
+        // 場景 3 & 4：夜市牛皮紙船盒與竹籤
+        function drawPaperTrayScene() {
+            const cx = state.width / 2;
+            const cy = state.mochi.y;
+
+            // 溫暖木桌背景
+            ctx.fillStyle = '#F3E5D0';
+            ctx.fillRect(0, 0, state.width, state.height);
+
+            // 紙盒下方野餐格紋餐巾墊
+            ctx.save();
+            ctx.translate(cx, cy + 12);
+            ctx.rotate(-0.04);
+            ctx.fillStyle = '#FFFDF9';
+            ctx.strokeStyle = '#D5BFA3';
+            ctx.lineWidth = 2;
+            drawRoundedRect(ctx, -165, -108, 330, 216, 20);
+            ctx.fill();
+            ctx.stroke();
+            ctx.restore();
+
+            // 牛皮紙盒陰影
+            ctx.save();
+            ctx.fillStyle = 'rgba(74, 46, 27, 0.16)';
+            drawRoundedRect(ctx, cx - 148, cy - 92 + 12, 296, 188, 28);
+            ctx.fill();
+
+            // 牛皮紙船盒外緣
+            const kraftGrad = ctx.createLinearGradient(cx - 145, cy - 90, cx + 145, cy + 90);
+            kraftGrad.addColorStop(0, '#E3C193');
+            kraftGrad.addColorStop(1, '#C89D66');
+            ctx.fillStyle = kraftGrad;
+            ctx.strokeStyle = '#5C3A21';
+            ctx.lineWidth = 3.5;
+            drawRoundedRect(ctx, cx - 148, cy - 92, 296, 188, 28);
+            ctx.fill();
+            ctx.stroke();
+
+            // 牛皮紙盒內凹底部
+            ctx.fillStyle = '#B88B54';
+            ctx.strokeStyle = '#8C5A32';
+            ctx.lineWidth = 2;
+            drawRoundedRect(ctx, cx - 122, cy - 70, 244, 144, 18);
+            ctx.fill();
+            ctx.stroke();
+
+            // 紙盒四角摺線
+            ctx.strokeStyle = '#784B27';
+            ctx.lineWidth = 2.5;
+            [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(([sx, sy]) => {
+                ctx.beginPath();
+                ctx.moveTo(cx + sx * 122, cy + sy * 70);
+                ctx.lineTo(cx + sx * 144, cy + sy * 88);
+                ctx.stroke();
+            });
+
+            // 斜插的竹叉籤
+            ctx.strokeStyle = '#5C3A21';
+            ctx.fillStyle = '#F3D299';
+            ctx.lineWidth = 3;
+            ctx.save();
+            ctx.translate(cx + 85, cy - 35);
+            ctx.rotate(-0.45);
+            drawRoundedRect(ctx, -6, -65, 12, 130, 4);
+            ctx.fill();
+            ctx.stroke();
+            ctx.restore();
+
+            ctx.restore();
+        }
+
+        // 根據熟度計算麻糬基底色澤 (生乳白 -> 暖米白 -> 金黃酥脆 -> 焦糖褐 -> 黑木炭)
+        function getMochiColorByRoast(roast) {
+            if (roast < 25) {
+                const t = roast / 25;
+                return lerpColor('#FFFDF9', '#FDF3DC', t);
+            } else if (roast < 65) {
+                const t = (roast - 25) / 40;
+                return lerpColor('#FDF3DC', '#F3B659', t);
+            } else if (roast < 92) {
+                const t = (roast - 65) / 27;
+                return lerpColor('#F3B659', '#8C4318', t);
+            } else {
+                const t = Math.min(1, (roast - 92) / 18);
+                return lerpColor('#8C4318', '#261C18', t);
+            }
+        }
+
+        function lerpColor(hex1, hex2, t) {
+            const c1 = parseInt(hex1.slice(1), 16);
+            const c2 = parseInt(hex2.slice(1), 16);
+            const r = Math.round(((c1 >> 16) & 255) * (1 - t) + ((c2 >> 16) & 255) * t);
+            const g = Math.round(((c1 >> 8) & 255) * (1 - t) + ((c2 >> 8) & 255) * t);
+            const b = Math.round((c1 & 255) * (1 - t) + (c2 & 255) * t);
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+
+        // 繪製麻糬本體、膨脹水泡、烤網焦痕與淋醬撒粉
+        function drawMochiEntity() {
+            const m = state.mochi;
+            // 在 Stage 2 中，朝上看到的是非朝下的那一面；Stage 3/4 展示烤得比較漂亮的那一面
+            let visibleSide = m.sideDown === 'A' ? 'B' : 'A';
+            if (state.stage >= 3) {
+                visibleSide = m.roastA >= m.roastB ? 'A' : 'B';
+            }
+            const visibleRoast = visibleSide === 'A' ? m.roastA : m.roastB;
+
+            ctx.save();
+            ctx.translate(m.x, m.y);
+
+            // 翻面動畫旋轉縮放
+            const flipScaleY = m.flipAnim > 0 ? Math.abs(Math.cos(m.flipAnim * Math.PI)) : 1;
+            ctx.scale(m.scaleX, m.scaleY * Math.max(0.2, flipScaleY));
+
+            const w = m.baseW;
+            const h = m.baseH;
+            const cornerR = Math.min(46, 26 + (m.puffiness - 1) * 24);
+
+            // 1. 麻糬底部立體陰影
+            ctx.fillStyle = 'rgba(60, 32, 14, 0.25)';
+            drawSquircleMochi(ctx, 0, 10, w * 0.98, h * 0.98, cornerR);
+            ctx.fill();
+
+            // 2. 麻糬3D蓬鬆漸層主體
+            const baseCol = getMochiColorByRoast(visibleRoast);
+            const edgeCol = getMochiColorByRoast(visibleRoast + 16);
+            const bodyGrad = ctx.createRadialGradient(-w * 0.15, -h * 0.2, 10, 0, 0, w * 0.7);
+            bodyGrad.addColorStop(0, baseCol);
+            bodyGrad.addColorStop(0.75, baseCol);
+            bodyGrad.addColorStop(1, edgeCol);
+
+            ctx.fillStyle = bodyGrad;
+            ctx.strokeStyle = '#4A2E1B';
+            ctx.lineWidth = 3.5;
+            drawSquircleMochi(ctx, 0, 0, w, h, cornerR);
+            ctx.fill();
+            ctx.stroke();
+
+            // 裁切在麻糬範圍內繪製焦斑、水泡、淋醬與撒粉
+            ctx.save();
+            drawSquircleMochi(ctx, 0, 0, w, h, cornerR);
+            ctx.clip();
+
+            // 3. 繪製菱形烤網焦痕與虎斑焦塊
+            if (visibleRoast > 18) {
+                const searAlpha = Math.min(0.78, (visibleRoast - 18) / 70);
+                const searColor = visibleRoast > 82 ? `rgba(24, 15, 10, ${searAlpha})` : `rgba(146, 64, 14, ${searAlpha})`;
+                ctx.strokeStyle = searColor;
+                ctx.lineWidth = 4;
+                for (let i = -w; i <= w; i += 28) {
+                    ctx.beginPath();
+                    ctx.moveTo(i - 40, -h);
+                    ctx.lineTo(i + 40, h);
+                    ctx.stroke();
+
+                    ctx.beginPath();
+                    ctx.moveTo(i + 40, -h);
+                    ctx.lineTo(i - 40, h);
+                    ctx.stroke();
+                }
+            }
+
+            // 4. 繪製受熱膨脹鼓起的軟Q水泡 (Blisters)
+            m.blisters.forEach(b => {
+                if (b.r > 2) {
+                    ctx.save();
+                    const bGrad = ctx.createRadialGradient(b.ox - b.r * 0.25, b.oy - b.r * 0.25, 2, b.ox, b.oy, b.r);
+                    bGrad.addColorStop(0, '#FFFDF9');
+                    bGrad.addColorStop(0.65, getMochiColorByRoast(Math.max(0, visibleRoast - 12)));
+                    bGrad.addColorStop(1, getMochiColorByRoast(visibleRoast + 22));
+                    ctx.fillStyle = bGrad;
+                    ctx.strokeStyle = 'rgba(92, 58, 33, 0.45)';
+                    ctx.lineWidth = 1.8;
+                    ctx.beginPath();
+                    ctx.arc(b.ox, b.oy, b.r, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.stroke();
+                    ctx.restore();
+                }
+            });
+
+            // 5. 若破皮漏氣，繪製破裂火山口與皺褶
+            if (m.popped) {
+                ctx.save();
+                ctx.translate(m.popHoleX, m.popHoleY);
+                ctx.fillStyle = '#78350F';
+                ctx.strokeStyle = '#4A2E1B';
+                ctx.lineWidth = 2.5;
+                ctx.beginPath();
+                ctx.ellipse(0, 0, 18, 11, -0.2, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                // 放射狀破皮裂紋
+                for (let a = 0; a < Math.PI * 2; a += Math.PI / 3) {
+                    ctx.beginPath();
+                    ctx.moveTo(Math.cos(a) * 14, Math.sin(a) * 9);
+                    ctx.lineTo(Math.cos(a) * 26, Math.sin(a) * 17);
+                    ctx.stroke();
+                }
+                ctx.restore();
+            }
+
+            // 6. 繪製玩家親手淋上的醬料軌跡 (煉乳 / 黑糖蜜 / 草莓醬)
+            state.sauceStrokes.forEach(stroke => {
+                if (stroke.points.length === 0) return;
+                ctx.save();
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+
+                let mainCol = '#FFFBEB';
+                let borderCol = 'rgba(217, 119, 6, 0.35)';
+                let width = 15;
+
+                if (stroke.type === 'brownsugar') {
+                    mainCol = '#3B1103';
+                    borderCol = 'rgba(180, 83, 9, 0.5)';
+                    width = 16;
+                } else if (stroke.type === 'strawberry') {
+                    mainCol = '#F43F5E';
+                    borderCol = 'rgba(159, 18, 57, 0.4)';
+                    width = 15;
+                }
+
+                // 醬料立體外緣
+                ctx.strokeStyle = borderCol;
+                ctx.lineWidth = width + 3;
+                drawStrokePath(ctx, stroke.points);
+
+                // 醬料主體
+                ctx.strokeStyle = mainCol;
+                ctx.lineWidth = width;
+                drawStrokePath(ctx, stroke.points);
+
+                // 醬料水潤反光高光線
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.55)';
+                ctx.lineWidth = 3.5;
+                ctx.translate(-2, -2);
+                drawStrokePath(ctx, stroke.points);
+
+                ctx.restore();
+            });
+
+            // 7. 繪製撒在麻糬上的花生粉 / 抹茶粉 / 芝麻粉
+            state.powderParticles.forEach(p => {
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            // 8. 麻糬左上角圓潤光澤高光
+            if (!m.popped && visibleRoast < 88) {
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.42)';
+                ctx.beginPath();
+                ctx.ellipse(-w * 0.25, -h * 0.26, 22, 9, -0.35, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            ctx.restore(); // 結束麻糬內部裁切
+            ctx.restore();
+        }
+
+        function drawStrokePath(ctx, pts) {
+            ctx.beginPath();
+            if (pts.length === 1) {
+                ctx.arc(pts[0].x, pts[0].y, 4, 0, Math.PI * 2);
+                ctx.stroke();
+                return;
+            }
+            ctx.moveTo(pts[0].x, pts[0].y);
+            for (let i = 1; i < pts.length; i++) {
+                const midX = (pts[i - 1].x + pts[i].x) * 0.5;
+                const midY = (pts[i - 1].y + pts[i].y) * 0.5;
+                ctx.quadraticCurveTo(pts[i - 1].x, pts[i - 1].y, midX, midY);
+            }
+            ctx.lineTo(pts[pts.length - 1].x, pts[pts.length - 1].y);
+            ctx.stroke();
+        }
+
+        function drawSquircleMochi(ctx, cx, cy, w, h, r) {
+            drawRoundedRect(ctx, cx - w / 2, cy - h / 2, w, h, r);
+        }
+
+        function drawRoundedRect(ctx, x, y, w, h, r) {
+            const rad = Math.min(r, w / 2, h / 2);
+            ctx.beginPath();
+            ctx.moveTo(x + rad, y);
+            ctx.arcTo(x + w, y, x + w, y + h, rad);
+            ctx.arcTo(x + w, y + h, x, y + h, rad);
+            ctx.arcTo(x, y + h, x, y, rad);
+            ctx.arcTo(x, y, x + w, y, rad);
+            ctx.closePath();
+        }
+
+        // 繪製壓在麻糬上的日式不鏽鋼烤夾
+        function drawGrillTongs() {
+            const m = state.mochi;
+            ctx.save();
+            ctx.translate(m.x, m.y);
+            ctx.strokeStyle = '#57534E';
+            ctx.fillStyle = '#E7E5E4';
+            ctx.lineWidth = 4;
+
+            // 兩支烤夾扁頭壓住麻糬
+            drawRoundedRect(ctx, -45, -18, 90, 14, 6);
+            ctx.fill();
+            ctx.stroke();
+
+            drawRoundedRect(ctx, -45, 6, 90, 14, 6);
+            ctx.fill();
+            ctx.stroke();
+
+            // 延伸向右下方的握把
+            ctx.beginPath();
+            ctx.moveTo(35, -11);
+            ctx.lineTo(155, -85);
+            ctx.moveTo(35, 13);
+            ctx.lineTo(165, -65);
+            ctx.lineWidth = 8;
+            ctx.strokeStyle = '#78716C';
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        // 繪製炊煙與浮動文字
+        function drawSteamsAndFeedbacks() {
+            state.grill.steams.forEach(s => {
+                ctx.save();
+                ctx.fillStyle = s.dark
+                    ? `rgba(45, 35, 30, ${Math.max(0, s.alpha)})`
+                    : `rgba(255, 252, 245, ${Math.max(0, s.alpha)})`;
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            });
+
+            state.floatingFeedbacks.forEach(f => {
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, f.life);
+                ctx.font = '900 15px "Noto Sans TC", sans-serif';
+                ctx.textAlign = 'center';
+                ctx.strokeStyle = '#FFFDF9';
+                ctx.lineWidth = 4;
+                ctx.strokeText(f.text, f.x, f.y);
+                ctx.fillStyle = f.color;
+                ctx.fillText(f.text, f.x, f.y);
+                ctx.restore();
+            });
+        }
+
+        // ============================================================================
+        // 9. 事件綁定 (支援滑鼠與手機觸控直覺互動)
+        // ============================================================================
+        function getCanvasCoords(e) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: e.clientX - rect.left,
+                y: e.clientY - rect.top
+            };
+        }
+
+        canvas.addEventListener('pointerdown', (e) => {
+            e.preventDefault();
+            audio.init();
+            const pos = getCanvasCoords(e);
+
+            if (state.stage === 1) {
+                kneadMochi(pos.x, pos.y);
+            } else if (state.stage === 2) {
+                // 點擊麻糬直接壓扁
+                startPressMochi();
+            } else if (state.stage === 3) {
+                state.isDrawingTopping = true;
+                applyToppingAt(pos.x, pos.y, true);
+            }
+        });
+
+        canvas.addEventListener('pointermove', (e) => {
+            if (state.stage === 3 && state.isDrawingTopping) {
+                e.preventDefault();
+                const pos = getCanvasCoords(e);
+                applyToppingAt(pos.x, pos.y, false);
+            }
+        });
+
+        window.addEventListener('pointerup', () => {
+            if (state.stage === 2 && state.mochi.isPressing) {
+                releasePressMochi();
+            }
+            if (state.stage === 3) {
+                state.isDrawingTopping = false;
+                state.currentStroke = null;
+            }
+        });
+
+        // 底部控制面板按鈕綁定
+        document.getElementById('btn-knead').addEventListener('click', () => kneadMochi());
+        document.getElementById('btn-to-grill').addEventListener('click', () => {
+            audio.init();
+            audio.playFlip();
+            switchStageUI(2);
+        });
+
+        const btnPress = document.getElementById('btn-press');
+        btnPress.addEventListener('pointerdown', (e) => {
+            e.preventDefault();
+            startPressMochi();
+        });
+        btnPress.addEventListener('pointerup', (e) => {
+            e.preventDefault();
+            releasePressMochi();
+        });
+        btnPress.addEventListener('pointerleave', () => {
+            if (state.mochi.isPressing) releasePressMochi();
+        });
+
+        document.getElementById('btn-flip').addEventListener('click', () => flipMochi());
+        document.getElementById('btn-fan').addEventListener('click', () => fanCharcoal());
+        document.getElementById('btn-to-plate').addEventListener('click', () => {
+            audio.init();
+            audio.playFlip();
+            switchStageUI(3);
+        });
+
+        // 配料切換按鈕
+        document.querySelectorAll('.topping-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.topping-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                state.selectedTool = btn.getAttribute('data-tool');
+                audio.init();
+                audio.playFlip();
+            });
+        });
+
+        document.getElementById('btn-clear-toppings').addEventListener('click', () => {
+            state.sauceStrokes = [];
+            state.powderParticles = [];
+            audio.playFlip();
+        });
+
+        document.getElementById('btn-finish').addEventListener('click', () => {
+            evaluateMochiEnding();
+        });
+
+        document.getElementById('btn-restart').addEventListener('click', () => {
+            audio.playFlip();
+            resetGame();
+        });
+
+        // 複製鑑定結果
+        document.getElementById('btn-share-result').addEventListener('click', () => {
+            const name = document.getElementById('res-name').textContent;
+            const rarity = document.getElementById('res-rarity').textContent;
+            const puff = document.getElementById('stat-puff').textContent;
+            const unlockedCnt = Object.keys(unlockedDex).length;
+            const text = `🍢 我在《巷口烤麻糬》親手烤出了：\n${name} (${rarity})\n☁️ 膨脹度：${puff}｜📖 圖鑑進度：${unlockedCnt}/18\n👉 從生麻糬開始揉團壓膨，每一步都會改變結果！`;
+
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            document.body.appendChild(ta);
+            ta.select();
+            try {
+                document.execCommand('copy');
+                document.getElementById('copy-msg').classList.remove('hidden');
+            } catch (e) {}
+            document.body.removeChild(ta);
+        });
+
+        // 音效開關
+        document.getElementById('btn-sound').addEventListener('click', (e) => {
+            audio.enabled = !audio.enabled;
+            e.currentTarget.textContent = audio.enabled ? '🔊' : '🔇';
+        });
+
+        // 圖鑑視窗開關與渲染
+        function renderDexModal() {
+            const grid = document.getElementById('dex-grid');
+            grid.innerHTML = '';
+            MOCHI_DEX.forEach(item => {
+                const isUnlocked = !!unlockedDex[item.id];
+                const card = document.createElement('div');
+                card.className = `rounded-2xl p-3 border-2 flex flex-col justify-between ${
+                    isUnlocked
+                        ? 'bg-[#FFFDF9] border-[#5C3A21] shadow-sm'
+                        : 'bg-[#E8D8C3]/60 border-[#C7B299] opacity-80'
+                }`;
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-center text-[10px] font-bold mb-1">
+                            <span class="bg-[#4A2E1B] text-white px-1.5 py-0.5 rounded">#${item.id}</span>
+                            <span class="text-amber-500">${isUnlocked ? item.rarity : '？？？'}</span>
+                        </div>
+                        <div class="font-black text-xs sm:text-sm text-[#4A2E1B] mb-1">
+                            ${isUnlocked ? item.name : '🔒 尚未解鎖的麻糬'}
+                        </div>
+                        <p class="text-[11px] text-[#6E472B] leading-snug">
+                            ${isUnlocked ? item.desc : `<span class="text-[#9A3412] font-bold">解鎖線索：</span>${item.hint}`}
+                        </p>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        document.getElementById('btn-dex').addEventListener('click', () => {
+            renderDexModal();
+            document.getElementById('dex-modal').classList.remove('hidden');
+        });
+        document.getElementById('btn-close-dex').addEventListener('click', () => {
+            document.getElementById('dex-modal').classList.add('hidden');
+        });
+
+        // 啟動遊戲迴圈
+        function loop(now) {
+            const dt = Math.min(0.05, (now - lastTime) / 1000);
+            lastTime = now;
+            update(dt);
+            render();
+            requestAnimationFrame(loop);
+        }
+
+        window.onload = () => {
+            resizeCanvas();
+            updateDexProgressUI();
+            resetGame();
+            lastTime = performance.now();
+            requestAnimationFrame(loop);
+        };
+    </script>
+</body>
+</html>
