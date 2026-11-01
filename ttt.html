@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>台味療癒小遊戲大廳 | 早餐打蛋・廟口擲筊・夜市彈珠台</title>
+<style>
+  :root {
+    --bg: #fdf6ec;
+    --green: #1e4d3b;
+    --gold: #e6a145;
+    --red: #c94a38;
+    --card: #fffdf9;
+    --text: #3a2e25;
+  }
+  * { box-sizing: border-box; user-select: none; -webkit-user-select: none; font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif; }
+  body { margin: 0; background: var(--bg); color: var(--text); display: flex; flex-direction: column; align-items: center; min-height: 100vh; overflow-x: hidden; }
+  
+  /* 頂部導航 (復刻 9453 風格) */
+  header { width: 100%; max-width: 520px; background: var(--green); color: #fff; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 50; }
+  .logo { font-size: 1.25rem; font-weight: 900; letter-spacing: 1px; display: flex; align-items: center; gap: 6px; }
+  .nav-btns { display: flex; gap: 8px; }
+  .btn-top { background: var(--gold); color: #2b1d0e; border: none; padding: 6px 12px; border-radius: 20px; font-weight: 800; cursor: pointer; font-size: 0.85rem; transition: transform 0.1s; }
+  .btn-top:active { transform: scale(0.95); }
+
+  /* 遊戲切換分頁 */
+  .tabs { width: 100%; max-width: 520px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 12px 12px 4px; }
+  .tab { background: #eadbc8; border: 2px solid transparent; padding: 10px 6px; border-radius: 12px; text-align: center; font-weight: 800; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; color: #5c4938; }
+  .tab.active { background: var(--card); border-color: var(--green); color: var(--green); box-shadow: 0 4px 10px rgba(0,0,0,0.08); transform: translateY(-2px); }
+
+  /* 遊戲畫布容器 */
+  .game-wrap { width: 100%; max-width: 520px; padding: 8px 12px 24px; display: flex; flex-direction: column; align-items: center; }
+  .canvas-box { width: 100%; aspect-ratio: 4/4.3; background: #222; border-radius: 18px; overflow: hidden; box-shadow: 0 8px 24px rgba(58,46,37,0.15); position: relative; border: 4px solid #fff; }
+  canvas { width: 100%; height: 100%; display: block; touch-action: none; }
+
+  /* 底部操作區 */
+  .controls { width: 100%; margin-top: 12px; background: var(--card); border-radius: 16px; padding: 14px; box-shadow: 0 4px 14px rgba(0,0,0,0.06); border: 1px solid #eee0ce; }
+  .hint { font-size: 0.9rem; font-weight: 700; color: #6e5a49; margin-bottom: 10px; text-align: center; min-height: 1.4em; }
+  .btn-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .act-btn { flex: 1; min-width: 110px; background: var(--green); color: #fff; border: none; padding: 12px 16px; border-radius: 12px; font-size: 1rem; font-weight: 800; cursor: pointer; box-shadow: 0 4px 0 #113025; transition: all 0.1s; }
+  .act-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #113025; }
+  .act-btn.red { background: var(--red); box-shadow: 0 4px 0 #8f2d1f; }
+  .act-btn.gold { background: var(--gold); color: #2b1d0e; box-shadow: 0 4px 0 #b57824; }
+  .act-btn:disabled { opacity: 0.45; pointer-events: none; }
+
+  /* 結算與圖鑑彈窗 */
+  .modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.65); display: none; justify-content: center; align-items: center; z-index: 100; padding: 16px; }
+  .modal-bg.show { display: flex; }
+  .modal { background: var(--card); width: 100%; max-width: 440px; border-radius: 20px; padding: 20px; max-height: 82vh; overflow-y: auto; text-align: center; box-shadow: 0 12px 32px rgba(0,0,0,0.3); border: 3px solid var(--gold); }
+  .badge-new { display: inline-block; background: var(--red); color: #fff; font-size: 0.75rem; padding: 2px 8px; border-radius: 10px; margin-bottom: 6px; font-weight: 800; }
+  .res-title { font-size: 1.4rem; font-weight: 900; color: var(--green); margin: 4px 0 8px; }
+  .res-desc { font-size: 0.95rem; color: #5c4938; line-height: 1.5; margin-bottom: 16px; }
+  .dex-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; text-align: left; margin: 12px 0; }
+  .dex-item { background: #f5ece0; padding: 10px; border-radius: 10px; font-size: 0.82rem; border: 1px solid #e2d2be; }
+  .dex-item.unlocked { background: #fff8eb; border-color: var(--gold); }
+  .dex-item b { display: block; font-size: 0.9rem; margin-bottom: 3px; color: var(--green); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">🎮 台味療癒小品集</div>
+  <div class="nav-btns">
+    <button class="btn-top" onclick="openDex()">📖 圖鑑 (<span id="dexCount">0</span>/18)</button>
+  </div>
+</header>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchGame(0)">🍳 早餐店打蛋</div>
+  <div class="tab" onclick="switchGame(1)">🌙 廟口擲筊</div>
+  <div class="tab" onclick="switchGame(2)">🎱 尺擋彈珠台</div>
+</div>
+
+<div class="game-wrap">
+  <div class="canvas-box">
+    <canvas id="cvs" width="440" height="470"></canvas>
+  </div>
+  <div class="controls" id="ctrlPanel"></div>
+</div>
+
+<!-- 結果彈窗 -->
+<div class="modal-bg" id="resModal">
+  <div class="modal">
+    <div class="badge-new" id="resBadge">✨ 解鎖新圖鑑！</div>
+    <div style="font-size:3rem;margin:6px 0;" id="resEmoji">🍳</div>
+    <div class="res-title" id="resTitle">完美太陽流心蛋</div>
+    <div class="res-desc" id="resDesc">阿姨叫你帥哥！蛋白邊緣煎得恰恰，蛋黃晃動超療癒！</div>
+    <button class="act-btn gold" style="width:100%" onclick="closeRes()">再來一局</button>
+  </div>
+</div>
+
+<!-- 圖鑑彈窗 -->
+<div class="modal-bg" id="dexModal">
+  <div class="modal">
+    <div class="res-title">📖 台灣街頭傳說圖鑑</div>
+    <div class="dex-grid" id="dexList"></div>
+    <button class="act-btn" style="width:100%;margin-top:8px;" onclick="document.getElementById('dexModal').classList.remove('show')">關閉圖鑑</button>
+  </div>
+</div>
+
+<script>
+// === 音效合成器 (Web Audio API，免外部音檔) ===
+const AudioCtx = window.AudioContext || window.webkitAudioContext;
+let actx = null;
+function playSfx(type) {
+  if (!actx) actx = new AudioCtx();
+  const now = actx.currentTime;
+  if (type === 'crack') {
+    const osc = actx.createOscillator(), g = actx.createGain();
+    osc.type = 'triangle'; osc.frequency.setValueAtTime(520, now); osc.frequency.exponentialRampToValueAtTime(110, now + 0.08);
+    g.gain.setValueAtTime(0.4, now); g.gain.linearRampToValueAtTime(0.01, now + 0.08);
+    osc.connect(g); g.connect(actx.destination); osc.start(); osc.stop(now + 0.08);
+  } else if (type === 'sizzle') {
+    const buf = actx.createBuffer(1, actx.sampleRate * 0.15, actx.sampleRate);
+    const data = buf.getChannelData(0);
+    for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * 0.15;
+    const src = actx.createBufferSource(), g = actx.createGain();
+    src.buffer = buf; g.gain.setValueAtTime(0.25, now); g.gain.linearRampToValueAtTime(0.01, now + 0.15);
+    src.connect(g); g.connect(actx.destination); src.start();
+  } else if (type === 'wood') {
+    const osc = actx.createOscillator(), g = actx.createGain();
+    osc.type = 'sine'; osc.frequency.setValueAtTime(320 + Math.random()*120, now); osc.frequency.exponentialRampToValueAtTime(140, now + 0.06);
+    g.gain.setValueAtTime(0.5, now); g.gain.linearRampToValueAtTime(0.01, now + 0.06);
+    osc.connect(g); g.connect(actx.destination); osc.start(); osc.stop(now + 0.06);
+  } else if (type === 'pin') {
+    const osc = actx.createOscillator(), g = actx.createGain();
+    osc.type = 'sine'; osc.frequency.setValueAtTime(1200 + Math.random()*600, now);
+    g.gain.setValueAtTime(0.25, now); g.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+    osc.connect(g); g.connect(actx.destination); osc.start(); osc.stop(now + 0.09);
+  } else if (type === 'win') {
+    [523, 659, 784, 1046].forEach((f, idx) => {
+      const osc = actx.createOscillator(), g = actx.createGain();
+      osc.frequency.setValueAtTime(f, now + idx*0.07);
+      g.gain.setValueAtTime(0.2, now + idx*0.07); g.gain.exponentialRampToValueAtTime(0.001, now + idx*0.07 + 0.25);
+      osc.connect(g); g.connect(actx.destination); osc.start(now + idx*0.07); osc.stop(now + idx*0.07 + 0.25);
+    });
+  }
+}
+
+// === 18 種結局圖鑑定義 ===
+const DEX = [
+  // 早餐店打蛋 (0~5)
+  { id: 'egg_perfect', game: '🍳 打蛋', icon: '🍳', name: '完美太陽流心恰恰蛋', desc: '敲殼力道完美、蛋白邊緣焦脆微翹，早餐店阿姨直接叫你帥哥！' },
+  { id: 'egg_shell', game: '🍳 打蛋', icon: '🥚', name: '補鈣專用含殼荷包蛋', desc: '敲蛋力道太猛！半顆蛋殼直接掉進鐵板裡一起煎，口感超脆。' },
+  { id: 'egg_broken', game: '🍳 打蛋', icon: '🫠', name: '散黃悲劇鐵板炒蛋', desc: '蛋黃直接破掉流滿地，只好假裝自己原本就想點散蛋。' },
+  { id: 'egg_raw', game: '🍳 打蛋', icon: '💧', name: '鼻涕流心生蛋白', desc: '太心急起鍋！蛋白還透明水水的，喝下去堪比洛基特訓。' },
+  { id: 'egg_burnt', game: '🍳 打蛋', icon: '🌚', name: '黑炭暗黑鐵板蛋', desc: '在鐵板上忘記鏟起來，整顆蛋變成台灣黑熊配色。' },
+  { id: 'egg_salty', game: '🍳 打蛋', icon: '🫗', name: '洗腎級醬油膏淹沒蛋', desc: '醬油膏狂擠超過15滴，這顆蛋需要配三碗白飯。' },
+  // 廟口擲筊 (6~11)
+  { id: 'bwei_3sheng', game: '🌙 擲筊', icon: '🏆', name: '天命三聖筊！頭籤得主', desc: '連續擲出三個聖筊，神明狂點頭，今年運勢直接衝頂！' },
+  { id: 'bwei_stand', game: '🌙 擲筊', icon: '⚡', name: '千年難得【立筊奇蹟】', desc: '木筊竟然直立在磨石子地上沒倒！廟公馬上拿紅紙圍起來拍照！' },
+  { id: 'bwei_laugh', game: '🌙 擲筊', icon: '😂', name: '神明笑而不語（笑筊）', desc: '兩平面朝上，神明覺得你心裡已經有答案，或單純覺得你很幽默。' },
+  { id: 'bwei_angry', game: '🌙 擲筊', icon: '😡', name: '神明生氣了（陰筊）', desc: '兩凸面朝上，這件事千萬別幹，快雙手合十道歉重問！' },
+  { id: 'bwei_3laugh', game: '🌙 擲筊', icon: '🤡', name: '連續三笑筊・講幹話王', desc: '連擲三次笑筊，神明在供桌上笑到肚子痛。' },
+  { id: 'bwei_out', game: '🌙 擲筊', icon: '🚀', name: '甩太猛飛進香爐底', desc: '手勁堪比職棒投手，木筊差點砸到旁邊阿伯的腳。' },
+  // 夜市彈珠台 (12~17)
+  { id: 'pin_jackpot', game: '🎱 彈珠', icon: '🍾', name: '十排全滿！扛走黑松汽水', desc: '神級塑膠尺微操！達成超高分大獎，夜市老闆臉都綠了。' },
+  { id: 'pin_zero', game: '🎱 彈珠', icon: '🍬', name: '通通槓龜・安慰獎香菸糖', desc: '5顆珠子完美避開所有高分倍數格，獲得古早味香菸糖一盒。' },
+  { id: 'pin_same', game: '🎱 彈珠', icon: '🎯', name: '強迫症奇蹟・五珠同洞', desc: '好幾顆珠子全部擠進同一個軌道，這就是尺擋的奧義！' },
+  { id: 'pin_soft', game: '🎱 彈珠', icon: '🪶', name: '軟手沒吃飯・半路滑落', desc: '彈簧拉太輕，鋼珠連最上面那排鐵釘都沒碰到就退回來。' },
+  { id: 'pin_ruler', game: '🎱 彈珠', icon: '📏', name: '瘋狂刷尺流・夜市老司機', desc: '單局移動塑膠尺超過40次，手速快到殘影都出來了。' },
+  { id: 'pin_mid', game: '🎱 彈珠', icon: '🪁', name: '竹蜻蜓與口哨糖得主', desc: '穩紮穩打拿到中賞，重溫童年夜市最純粹的快樂。' }
+];
+let unlocked = JSON.parse(localStorage.getItem('tw_mini_dex') || '{}');
+function updateDexUI() {
+  document.getElementById('dexCount').innerText = Object.keys(unlocked).length;
+}
+updateDexUI();
+
+function unlock(id, extraText = '') {
+  const item = DEX.find(d => d.id === id);
+  if (!item) return;
+  const isNew = !unlocked[id];
+  unlocked[id] = true;
+  localStorage.setItem('tw_mini_dex', JSON.stringify(unlocked));
+  updateDexUI();
+  playSfx('win');
+  document.getElementById('resBadge').style.display = isNew ? 'inline-block' : 'none';
+  document.getElementById('resEmoji').innerText = item.icon;
+  document.getElementById('resTitle').innerText = item.name;
+  document.getElementById('resDesc').innerText = extraText || item.desc;
+  document.getElementById('resModal').classList.add('show');
+}
+function closeRes() {
+  document.getElementById('resModal').classList.remove('show');
+  initCurrentGame();
+}
+function openDex() {
+  const box = document.getElementById('dexList');
+  box.innerHTML = DEX.map(d => {
+    const ok = unlocked[d.id];
+    return `<div class="dex-item ${ok?'unlocked':''}">
+      <b>${ok ? d.icon + ' ' + d.name : '🔒 ？？？ ('+d.game+')'}</b>
+      <span>${ok ? d.desc : '尚未解鎖此台灣街頭結局'}</span>
+    </div>`;
+  }).join('');
+  document.getElementById('dexModal').classList.add('show');
+}
+
+// === 畫布與主迴圈管理 ===
+const cvs = document.getElementById('cvs');
+const ctx = cvs.getContext('2d');
+const ctrlPanel = document.getElementById('ctrlPanel');
+let curGame = 0; // 0:打蛋, 1:擲筊, 2:彈珠台
+
+function switchGame(idx) {
+  curGame = idx;
+  document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('active', i === idx));
+  initCurrentGame();
+}
+
+function initCurrentGame() {
+  if (curGame === 0) initEgg();
+  else if (curGame === 1) initBwei();
+  else initPinball();
+}
+
+// ==========================================
+// 遊戲 1：《早餐店鐵板打蛋》
+// ==========================================
+let egg = {};
+function initEgg() {
+  egg = {
+    step: 0, // 0:蓄力敲蛋, 1:煎蛋中, 2:完成
+    power: 0, pDir: 1.8,
+    crackQual: 'good', // soft, good, hard
+    cook: 0, // 0~100
+    flipped: false,
+    yolkBroken: false,
+    shells: [],
+    sauces: [],
+    bubbles: []
+  };
+  for(let i=0;i<16;i++) egg.bubbles.push({x: 150+Math.random()*140, y: 170+Math.random()*130, r: 2+Math.random()*4});
+  renderEggCtrl();
+}
+function renderEggCtrl() {
+  if (egg.step === 0) {
+    ctrlPanel.innerHTML = `
+      <div class="hint">🎯 看準綠色【完美力道區】按下敲蛋！太輕敲不破、太大力蛋殼會碎進去！</div>
+      <div class="btn-row"><button class="act-btn red" onclick="strikeEgg()">🥚 往鐵板邊緣敲下去！</button></div>`;
+  } else if (egg.step === 1) {
+    ctrlPanel.innerHTML = `
+      <div class="hint">🔥 聽著滋滋聲！蛋白變白微焦時可【翻面】或【淋醬油膏】，別煎成黑炭！</div>
+      <div class="btn-row">
+        <button class="act-btn" onclick="flipEgg()">🔪 鐵鏟翻面</button>
+        <button class="act-btn gold" onclick="addSauce()">🫗 擠醬油膏</button>
+        <button class="act-btn red" onclick="serveEgg()">🍽️ 起鍋裝盤！</button>
+      </div>`;
+  }
+}
+function strikeEgg() {
+  playSfx('crack');
+  if (egg.power >= 38 && egg.power <= 68) {
+    egg.crackQual = 'good';
+  } else if (egg.power > 68) {
+    egg.crackQual = 'hard';
+    if (egg.power > 86) egg.yolkBroken = true;
+    for(let i=0;i<5;i++) egg.shells.push({x: 180+Math.random()*80, y: 190+Math.random()*70, ang: Math.random()*3});
+  } else {
+    egg.crackQual = 'soft';
+    egg.yolkBroken = true;
+  }
+  egg.step = 1;
+  renderEggCtrl();
+}
+function flipEgg() {
+  playSfx('sizzle');
+  egg.flipped = !egg.flipped;
+  // 太早翻面或太暴力機率破蛋黃
+  if (egg.cook < 28 || Math.random() < 0.2) egg.yolkBroken = true;
+}
+function addSauce() {
+  playSfx('sizzle');
+  for(let i=0;i<3;i++) {
+    egg.sauces.push({x: 175 + Math.random()*90, y: 185 + Math.random()*80, r: 6+Math.random()*6});
+  }
+}
+function serveEgg() {
+  egg.step = 2;
+  if (egg.sauces.length >= 15) return unlock('egg_salty');
+  if (egg.cook > 88) return unlock('egg_burnt');
+  if (egg.cook < 32) return unlock('egg_raw');
+  if (egg.shells.length > 0) return unlock('egg_shell');
+  if (egg.yolkBroken) return unlock('egg_broken');
+  unlock('egg_perfect');
+}
+function updateDrawEgg() {
+  // 黑色鐵板背景
+  ctx.fillStyle = '#242220';
+  ctx.fillRect(0, 0, 440, 470);
+  // 鐵板油光紋理
+  ctx.strokeStyle = '#33302c'; ctx.lineWidth = 3;
+  ctx.strokeRect(20, 20, 400, 430);
+
+  if (egg.step === 0) {
+    egg.power += egg.pDir;
+    if (egg.power >= 100 || egg.power <= 0) egg.pDir *= -1;
+    // 畫力道條
+    ctx.fillStyle = '#444'; ctx.fillRect(60, 70, 320, 28);
+    ctx.fillStyle = '#4caf50'; ctx.fillRect(60 + 320*0.38, 70, 320*0.30, 28); // 完美區
+    ctx.fillStyle = '#ff5252'; ctx.fillRect(60 + 320*0.68, 70, 320*0.32, 28); // 碎殼區
+    ctx.fillStyle = '#fff'; ctx.fillRect(60 + (egg.power/100)*314, 64, 6, 40);
+    ctx.fillStyle = '#fff'; ctx.font = 'bold 16px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('◀ 太輕流鼻涕 | 完美力道 | 碎殼爆黃 ▶', 220, 52);
+
+    // 手拿雞蛋晃動
+    const ey = 250 + Math.sin(Date.now()*0.015)*12;
+    ctx.fillStyle = '#f7dec4';
+    ctx.beginPath(); ctx.ellipse(220, ey, 46, 60, 0, 0, Math.PI*2); ctx.fill();
+    ctx.strokeStyle = '#d6b493'; ctx.lineWidth = 3; ctx.stroke();
+  } else {
+    if (egg.step === 1) {
+      egg.cook = Math.min(100, egg.cook + 0.16);
+      if (Math.random() < 0.15) playSfx('sizzle');
+    }
+    // 依據熟度計算顏色
+    let whiteCol = `rgba(255, 253, 245, ${Math.min(0.96, 0.35 + egg.cook*0.009)})`;
+    let edgeCol = '#e6c280';
+    if (egg.cook > 60) edgeCol = '#b86b28';
+    if (egg.cook > 85) { whiteCol = '#3b2f26'; edgeCol = '#1a1410'; }
+
+    // 畫蛋白不規則形狀
+    ctx.save();
+    ctx.translate(220, 235);
+    ctx.fillStyle = whiteCol;
+    ctx.strokeStyle = edgeCol;
+    ctx.lineWidth = egg.cook > 45 ? 7 : 3;
+    ctx.beginPath();
+    for (let a = 0; a < Math.PI*2; a += 0.35) {
+      const r = 95 + Math.sin(a*3)*14 + Math.cos(a*2)*10;
+      const x = Math.cos(a)*r, y = Math.sin(a)*r*0.85;
+      a === 0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+    }
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.restore();
+
+    // 滋滋氣泡
+    ctx.fillStyle = 'rgba(255,255,255,0.4)';
+    egg.bubbles.forEach(b => {
+      ctx.beginPath(); ctx.arc(b.x, b.y, b.r * Math.sin(Date.now()*0.01 + b.x)*0.5 + 2, 0, Math.PI*2); ctx.fill();
+    });
+
+    // 畫蛋黃
+    if (!egg.yolkBroken) {
+      const jiggle = Math.sin(Date.now()*0.02)*2;
+      ctx.fillStyle = egg.cook > 85 ? '#4a3520' : (egg.flipped ? '#f5c26b' : '#ff9800');
+      ctx.beginPath(); ctx.arc(220 + jiggle, 230, 34, 0, Math.PI*2); ctx.fill();
+      // 高光
+      ctx.fillStyle = 'rgba(255,255,255,0.6)';
+      ctx.beginPath(); ctx.arc(208 + jiggle, 218, 8, 0, Math.PI*2); ctx.fill();
+    } else {
+      // 破掉散黃
+      ctx.fillStyle = egg.cook > 85 ? '#4a3520' : '#ffa726';
+      ctx.beginPath(); ctx.ellipse(215, 235, 58, 25, 0.3, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(235, 220, 40, 32, -0.4, 0, Math.PI*2); ctx.fill();
+    }
+
+    // 碎蛋殼
+    ctx.fillStyle = '#f5dec4'; ctx.strokeStyle = '#baa082'; ctx.lineWidth = 1.5;
+    egg.shells.forEach(s => {
+      ctx.beginPath(); ctx.moveTo(s.x, s.y); ctx.lineTo(s.x+14, s.y+5); ctx.lineTo(s.x+6, s.y+16); ctx.closePath();
+      ctx.fill(); ctx.stroke();
+    });
+
+    // 醬油膏
+    ctx.fillStyle = 'rgba(56, 26, 8, 0.88)';
+    egg.sauces.forEach(s => {
+      ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2); ctx.fill();
+    });
+
+    // 熟度進度條
+    ctx.fillStyle = '#444'; ctx.fillRect(70, 415, 300, 16);
+    ctx.fillStyle = egg.cook > 85 ? '#ff5252' : (egg.cook > 45 ? '#ffb300' : '#29b6f6');
+    ctx.fillRect(70, 415, (egg.cook/100)*300, 16);
+    ctx.fillStyle = '#fff'; ctx.font = 'bold 14px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText(`🔥 鐵板熟度：${Math.floor(egg.cook)}% (${egg.cook<32?'太生':egg.cook>85?'焦黑！':'黃金恰恰區'})`, 220, 405);
+  }
+}
+
+// ==========================================
+// 遊戲 2：《廟口擲筊：求個聖筊那麼難》
+// ==========================================
+let bwei = {};
+function initBwei() {
+  bwei = {
+    state: 'ready', // ready, flying, settled
+    shengStreak: 0,
+    laughStreak: 0,
+    blocks: [
+      { x: 165, y: 340, vx: 0, vy: 0, z: 0, vz: 0, rot: -0.3, vrot: 0, side: 0 }, // side: 0平(陽) 1凸(陰) 2立筊
+      { x: 275, y: 340, vx: 0, vy: 0, z: 0, vz: 0, rot: 0.3, vrot: 0, side: 1 }
+    ],
+    dragStart: null
+  };
+  renderBweiCtrl();
+}
+function renderBweiCtrl() {
+  ctrlPanel.innerHTML = `
+    <div class="hint">🙏 誠心默念問題（如：今天運勢、抽卡會不會出金），直接往上滑動畫面或點擊按鈕擲筊！目前已連聖筊：<b>${bwei.shengStreak}</b> 次</div>
+    <div class="btn-row">
+      <button class="act-btn red" onclick="throwBwei(1)">🌙 誠心向上擲筊！</button>
+      <button class="act-btn gold" onclick="throwBwei(2.2)">💪 大力甩出去！</button>
+    </div>`;
+}
+function throwBwei(mult = 1) {
+  if (bwei.state === 'flying') return;
+  bwei.state = 'flying';
+  playSfx('wood');
+  bwei.blocks.forEach((b, idx) => {
+    b.x = idx === 0 ? 180 : 260;
+    b.y = 360;
+    b.z = 10;
+    b.vx = (Math.random() - 0.5) * 6 * mult;
+    b.vy = -(4.5 + Math.random()*3.5) * mult;
+    b.vz = (11 + Math.random()*4) * mult;
+    b.vrot = (Math.random() - 0.5) * 0.45;
+  });
+}
+function checkBweiResult() {
+  const b0 = bwei.blocks[0], b1 = bwei.blocks[1];
+  // 檢查是否飛出邊界
+  if (b0.y < 30 || b1.y < 30 || b0.x < 20 || b1.x > 420) {
+    return unlock('bwei_out');
+  }
+  // 4% 機率觸發立筊奇蹟
+  if (Math.random() < 0.05) {
+    b0.side = 2;
+    return unlock('bwei_stand');
+  }
+  b0.side = Math.random() < 0.5 ? 0 : 1;
+  b1.side = Math.random() < 0.5 ? 0 : 1;
+
+  if (b0.side !== b1.side) {
+    // 聖筊
+    bwei.shengStreak++;
+    bwei.laughStreak = 0;
+    renderBweiCtrl();
+    if (bwei.shengStreak >= 3) {
+      bwei.shengStreak = 0;
+      unlock('bwei_3sheng');
+    }
+  } else if (b0.side === 0 && b1.side === 0) {
+    // 笑筊
+    bwei.shengStreak = 0;
+    bwei.laughStreak++;
+    renderBweiCtrl();
+    if (bwei.laughStreak >= 3) {
+      bwei.laughStreak = 0;
+      unlock('bwei_3laugh');
+    } else {
+      unlock('bwei_laugh');
+    }
+  } else {
+    // 陰筊
+    bwei.shengStreak = 0;
+    bwei.laughStreak = 0;
+    renderBweiCtrl();
+    unlock('bwei_angry');
+  }
+}
+function updateDrawBwei() {
+  // 廟宇磨石子地板背景
+  ctx.fillStyle = '#7a766f';
+  ctx.fillRect(0, 0, 440, 470);
+  // 磨石子格線與碎石點
+  ctx.strokeStyle = '#59554f'; ctx.lineWidth = 2;
+  ctx.strokeRect(25, 25, 390, 420);
+  ctx.beginPath(); ctx.moveTo(220, 25); ctx.lineTo(220, 445); ctx.moveTo(25, 235); ctx.lineTo(415, 235); ctx.stroke();
+
+  // 頂部神明供桌紅布
+  ctx.fillStyle = '#8f1d14'; ctx.fillRect(0, 0, 440, 48);
+  ctx.fillStyle = '#f2c14e'; ctx.font = 'bold 18px serif'; ctx.textAlign = 'center';
+  ctx.fillText('⛩️ 霞海靈籤・誠心祈求 ⛩️', 220, 31);
+
+  let moving = false;
+  bwei.blocks.forEach(b => {
+    if (bwei.state === 'flying') {
+      b.x += b.vx; b.y += b.vy;
+      b.z += b.vz; b.vz -= 0.75; // 重力
+      b.rot += b.vrot;
+      if (b.z <= 0) {
+        b.z = 0;
+        if (Math.abs(b.vz) > 2.2) {
+          b.vz = -b.vz * 0.55;
+          b.vx *= 0.65; b.vy *= 0.65;
+          b.vrot *= 0.6;
+          playSfx('wood');
+        } else {
+          b.vz = 0; b.vx = 0; b.vy = 0; b.vrot = 0;
+        }
+      }
+      if (b.z > 0 || Math.abs(b.vz) > 0.1) moving = true;
+    }
+
+    // 繪製月牙木筊
+    ctx.save();
+    const scale = 1 + b.z * 0.008;
+    ctx.translate(b.x, b.y - b.z*0.5);
+    ctx.scale(scale, scale);
+    ctx.rotate(b.rot);
+
+    // 陰影
+    ctx.fillStyle = 'rgba(0,0,0,0.35)';
+    ctx.beginPath(); ctx.arc(6, 12 + b.z*0.4, 38, 0.15*Math.PI, 0.85*Math.PI, false); ctx.fill();
+
+    // 筊身 (0:平面淺木色內側, 1:凸面紅漆背側, 2:立筊)
+    ctx.fillStyle = b.side === 0 ? '#e3b778' : '#b82318';
+    ctx.strokeStyle = '#6e110a'; ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.arc(0, -15, 52, 0.18*Math.PI, 0.82*Math.PI, false);
+    ctx.quadraticCurveTo(0, 12, -44, 13);
+    ctx.closePath();
+    ctx.fill(); ctx.stroke();
+
+    // 凸面光澤或平面木紋
+    ctx.fillStyle = '#fff'; ctx.font = 'bold 13px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText(b.side === 2 ? '⚡立筊' : (b.side === 0 ? '陽(平)' : '陰(凸)'), 0, 26);
+    ctx.restore();
+  });
+
+  if (bwei.state === 'flying' && !moving) {
+    bwei.state = 'settled';
+    setTimeout(checkBweiResult, 350);
+  }
+}
+
+// ==========================================
+// 遊戲 3：《古早味尺擋彈珠台》
+// ==========================================
+let pin = {};
+function initPinball() {
+  const pegs = [];
+  for (let row = 0; row < 6; row++) {
+    const count = row % 2 === 0 ? 7 : 6;
+    const startX = row % 2 === 0 ? 65 : 90;
+    for (let col = 0; col < count; col++) {
+      pegs.push({ x: startX + col * 50, y: 95 + row * 42 });
+    }
+  }
+  pin = {
+    ballsLeft: 5,
+    activeBall: null,
+    settledBalls: [],
+    pegs,
+    rulerX: 180, // 塑膠尺可微調擋位
+    rulerMoves: 0,
+    pullPower: 0,
+    pulling: false,
+    slots: [10, 0, 30, 0, 50, 0, 20, 0], // 底部8格分數
+    slotCounts: [0,0,0,0,0,0,0,0]
+  };
+  renderPinCtrl();
+}
+function renderPinCtrl() {
+  ctrlPanel.innerHTML = `
+    <div class="hint">📏 左右滑動調整【綠色塑膠尺】位置，按住右下方發射彈珠！剩餘鋼珠：<b>${pin.ballsLeft}</b> 顆</div>
+    <div class="btn-row">
+      <button class="act-btn" onclick="moveRuler(-25)">◀ 尺往左移</button>
+      <button class="act-btn" onclick="moveRuler(25)">尺往右移 ▶</button>
+      <button class="act-btn gold" onmousedown="startPull()" onmouseup="releasePull()" ontouchstart="startPull()" ontouchend="releasePull()">🎱 長按拉桿發射</button>
+    </div>`;
+}
+function moveRuler(dx) {
+  pin.rulerX = Math.max(50, Math.min(280, pin.rulerX + dx));
+  pin.rulerMoves++;
+}
+let pullTimer = null;
+function startPull() {
+  if (pin.activeBall || pin.ballsLeft <= 0) return;
+  pin.pulling = true;
+  pin.pullPower = 15;
+  clearInterval(pullTimer);
+  pullTimer = setInterval(() => {
+    pin.pullPower = Math.min(100, pin.pullPower + 4);
+  }, 30);
+}
+function releasePull() {
+  if (!pin.pulling) return;
+  clearInterval(pullTimer);
+  pin.pulling = false;
+  if (pin.pullPower < 25) {
+    unlock('pin_soft');
+    return;
+  }
+  pin.ballsLeft--;
+  playSfx('pin');
+  pin.activeBall = {
+    x: 412, y: 410,
+    vx: -(2.5 + (pin.pullPower/100)*5.5) + (Math.random()-0.5),
+    vy: -(10 + (pin.pullPower/100)*8.5)
+  };
+  renderPinCtrl();
+}
+function updateDrawPinball() {
+  // 復古木紋底板
+  ctx.fillStyle = '#d9a76a';
+  ctx.fillRect(0, 0, 440, 470);
+  ctx.strokeStyle = '#784719'; ctx.lineWidth = 8;
+  ctx.strokeRect(10, 10, 420, 450);
+
+  // 頂部圓拱軌道
+  ctx.beginPath(); ctx.arc(220, 110, 195, Math.PI, 0); ctx.strokeStyle = '#784719'; ctx.lineWidth = 5; ctx.stroke();
+  // 右側發射道隔板
+  ctx.fillStyle = '#784719'; ctx.fillRect(392, 110, 6, 350);
+
+  // 畫鐵釘
+  ctx.fillStyle = '#eceff1'; ctx.strokeStyle = '#455a64'; ctx.lineWidth = 1.5;
+  pin.pegs.forEach(p => {
+    ctx.beginPath(); ctx.arc(p.x, p.y, 5, 0, Math.PI*2); ctx.fill(); ctx.stroke();
+  });
+
+  // 玩家控制的綠色半透明塑膠尺
+  ctx.fillStyle = 'rgba(46, 204, 113, 0.78)';
+  ctx.strokeStyle = '#1b7943'; ctx.lineWidth = 2;
+  ctx.fillRect(pin.rulerX, 326, 95, 12);
+  ctx.strokeRect(pin.rulerX, 326, 95, 12);
+  ctx.fillStyle = '#fff'; ctx.font = 'bold 10px sans-serif'; ctx.textAlign = 'center';
+  ctx.fillText('📏 夜市神尺(可拖曳)', pin.rulerX + 47, 335);
+
+  // 底部 8 個隔間
+  const slotW = 376 / 8;
+  for (let i = 0; i < 8; i++) {
+    const sx = 16 + i * slotW;
+    ctx.fillStyle = '#784719';
+    ctx.fillRect(sx, 360, 4, 96);
+    ctx.fillStyle = pin.slots[i] > 0 ? '#c93b2b' : '#555';
+    ctx.font = 'bold 13px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText(pin.slots[i] > 0 ? `+${pin.slots[i]}` : '槓龜', sx + slotW/2, 445);
+  }
+
+  // 畫已落底的鋼珠
+  ctx.fillStyle = '#cfd8dc'; ctx.strokeStyle = '#37474f'; ctx.lineWidth = 2;
+  pin.settledBalls.forEach(b => {
+    ctx.beginPath(); ctx.arc(b.x, b.y, 9, 0, Math.PI*2); ctx.fill(); ctx.stroke();
+  });
+
+  // 物理更新運動中的鋼珠
+  if (pin.activeBall) {
+    const b = pin.activeBall;
+    b.vy += 0.28; // 重力
+    b.x += b.vx; b.y += b.vy;
+
+    // 邊界反彈
+    if (b.x < 26) { b.x = 26; b.vx = Math.abs(b.vx)*0.75; }
+    if (b.x > 382 && b.y > 115) { b.x = 382; b.vx = -Math.abs(b.vx)*0.75; }
+    if (b.y < 32) { b.y = 32; b.vy = Math.abs(b.vy)*0.7; }
+
+    // 撞擊鐵釘
+    pin.pegs.forEach(p => {
+      const dx = b.x - p.x, dy = b.y - p.y;
+      const dist = Math.hypot(dx, dy);
+      if (dist < 14) {
+        playSfx('pin');
+        const nx = dx / dist, ny = dy / dist;
+        b.x = p.x + nx * 14.5; b.y = p.y + ny * 14.5;
+        const spd = Math.hypot(b.vx, b.vy) * 0.78;
+        b.vx = nx * spd + (Math.random()-0.5)*1.5;
+        b.vy = ny * spd;
+      }
+    });
+
+    // 撞擊塑膠尺！
+    if (b.y > 316 && b.y < 340 && b.x > pin.rulerX - 6 && b.x < pin.rulerX + 101 && b.vy > 0) {
+      playSfx('wood');
+      b.y = 315;
+      b.vy = -Math.abs(b.vy) * 0.65;
+      b.vx += (b.x - (pin.rulerX + 47)) * 0.12;
+    }
+
+    // 落入底部隔間
+    if (b.y >= 415) {
+      const idx = Math.max(0, Math.min(7, Math.floor((b.x - 16) / slotW)));
+      pin.slotCounts[idx]++;
+      pin.settledBalls.push({ x: 16 + idx * slotW + slotW/2, y: 420 - (pin.slotCounts[idx]-1)*16 });
+      pin.activeBall = null;
+      playSfx('pin');
+
+      // 5顆打完結算
+      if (pin.ballsLeft === 0) {
+        setTimeout(() => {
+          const totalScore = pin.slotCounts.reduce((acc, c, i) => acc + c * pin.slots[i], 0);
+          const maxSame = Math.max(...pin.slotCounts);
+          if (pin.rulerMoves >= 35) return unlock('pin_ruler');
+          if (maxSame >= 3) return unlock('pin_same');
+          if (totalScore === 0) return unlock('pin_zero');
+          if (totalScore >= 110) return unlock('pin_jackpot');
+          unlock('pin_mid', `本局總得分：${totalScore} 分！老闆笑著遞給你一支竹蜻蜓跟口哨糖。`);
+        }, 400);
+      }
+    } else {
+      ctx.beginPath(); ctx.arc(b.x, b.y, 9, 0, Math.PI*2); ctx.fill(); ctx.stroke();
+    }
+  }
+
+  // 右下彈簧拉桿視覺
+  const springH = 50 - (pin.pullPower * 0.35);
+  ctx.fillStyle = '#b71c1c';
+  ctx.fillRect(402, 460 - springH, 20, springH);
+}
+
+// 觸控/滑鼠直接拖曳塑膠尺或滑動擲筊
+cvs.addEventListener('pointermove', e => {
+  if (curGame === 2 && e.buttons > 0) {
+    const rect = cvs.getBoundingClientRect();
+    const x = (e.clientX - rect.left) * (cvs.width / rect.width);
+    pin.rulerX = Math.max(30, Math.min(290, x - 47));
+    pin.rulerMoves++;
+  }
+});
+
+function mainLoop() {
+  ctx.clearRect(0, 0, cvs.width, cvs.height);
+  if (curGame === 0) updateDrawEgg();
+  else if (curGame === 1) updateDrawBwei();
+  else updateDrawPinball();
+  requestAnimationFrame(mainLoop);
+}
+
+initCurrentGame();
+mainLoop();
+</script>
+</body>
+</html>
