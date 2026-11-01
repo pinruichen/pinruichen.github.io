@@ -238,6 +238,16 @@ button:focus-visible{outline:3px solid #f2c230;outline-offset:2px}
 /* 底部「繼續開車」：固定在畫面下方 */
 #mapx{position:sticky;bottom:0;margin-top:12px;width:100%;max-width:440px;padding:13px 12px;border-radius:14px;box-shadow:0 -8px 18px rgba(8,11,16,.9),0 4px 14px rgba(0,0,0,.4);flex:none}
 @media (min-width:760px){#maplist{max-height:min(60vh,640px);overflow-y:auto;padding-right:2px}}
+
+/* ===== 存檔管理：手機可以上下滑 ===== */
+#twsov{overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;touch-action:pan-y;justify-content:flex-start;padding:16px 14px calc(24px + env(safe-area-inset-bottom,0px))}
+#twsov *{touch-action:pan-y}
+#twsov button{touch-action:manipulation}
+#twsov>*{flex:none}
+#twsov .tws-x{margin:16px auto 48px;min-width:140px}
+.tws .tws-jump{display:flex;gap:8px;margin:2px 0 8px}
+.tws .tws-jump button{flex:1;margin:0;padding:11px 8px;font-size:13px;border-radius:10px;background:rgba(255,255,255,.14)}
+.tws .tws-jump button.go{background:#3ec97a;color:#06210f}
 </style>
 <style id="ui189">
 /* ===== v1.8.9 開始畫面重新設計（只改外觀，按鈕與功能不變） ===== */
@@ -4874,7 +4884,7 @@ function css(){var s=document.createElement('style');s.id='twscss';s.textContent
 function curBrief(){flush();return brief(snap())}
 function open(){var o=$('twsov');if(!o){o=document.createElement('div');o.id='twsov';o.className='ov hide tws';(document.getElementById('stage')||document.body).appendChild(o);o.addEventListener('keydown',function(e){e.stopPropagation()})}
  var prev=null;try{prev=J(localStorage.getItem(PRE))}catch(x){}
- o.innerHTML='<h1>💾 存檔管理</h1><div class="tws-in"><p class="tws-cur" id="tws-cur"></p>'
+ o.innerHTML='<h1>💾 存檔管理</h1><div class="tws-in"><div class="tws-jump"><button type="button" class="go" id="tws-j2">📥 貼上存檔碼</button><button type="button" id="tws-j1">📤 備份目前進度</button></div><p class="tws-cur" id="tws-cur"></p>'
   +'<h4>① 備份目前進度</h4><p class="tws-d">換瀏覽器、換手機、換網址、清除網站資料之前，先把進度存下來。進度平常存在這個瀏覽器裡，不會自動跟著你到別的地方。</p>'
   +'<div class="tws-bar"><button type="button" class="go" id="tws-copy">📋 複製存檔碼</button><button type="button" id="tws-dl">⬇️ 下載存檔檔</button></div>'
   +'<input type="text" id="tws-out" readonly placeholder="按上面的按鈕會產生存檔碼" autocomplete="off" spellcheck="false"><p class="tws-d" id="tws-last"></p>'
@@ -4885,6 +4895,8 @@ function open(){var o=$('twsov');if(!o){o=document.createElement('div');o.id='tw
   +(prev&&prev.d?'<p class="tws-d"><button type="button" id="tws-undo" style="margin:0;padding:6px 10px;font-size:12px;border-radius:8px;background:rgba(255,255,255,.12)">↩️ 還原到上次載入前的進度（'+esc(fT(prev.t))+'）</button></p>':'')
   +'<p class="tws-d" id="tws-auto"></p><p class="tws-d">⚠️ 存檔碼和存檔檔包含你的遊戲幣、等級、車庫與成就，請不要公開貼出。存檔碼包含全部進度與紀錄（等級、遊戲幣、車庫、成就與解鎖時間、圖鑑、獎勵紀錄、生涯歷史）。載入存檔會覆蓋這個瀏覽器目前的進度。</p></div><button type="button" class="tws-x">關閉</button>';
  var out=o.querySelector('#tws-out'),inp=o.querySelector('#tws-in'),pv=o.querySelector('#tws-pv'),msg=o.querySelector('#tws-msg');
+ o.querySelector('#tws-j2').onclick=function(){try{inp.focus({preventScroll:true})}catch(x){}try{inp.scrollIntoView({block:'center',behavior:'smooth'})}catch(x){}};
+ o.querySelector('#tws-j1').onclick=function(){try{out.scrollIntoView({block:'center',behavior:'smooth'})}catch(x){}};
  function err(t){msg.className='tws-w';msg.textContent=t;msg.style.display=t?'block':'none'}
  function refresh(){var b=curBrief(),lx=0;try{lx=+localStorage.getItem(LASTX)||0}catch(x){}
   o.querySelector('#tws-cur').textContent='目前進度：'+briefTxt(b);
